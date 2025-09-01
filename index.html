@@ -1,1167 +1,590 @@
-‘‘‘html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rupixo - Earn Rewards</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --dark-bg: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --accent-color: #00c6ff;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
-            color: var(--text-color);
-            min-height: 100vh;
-            padding: 0;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            background: var(--dark-bg);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        /* Header Styles */
-        .header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-            font-size: 28px;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .user-details {
-            margin-right: 15px;
-            text-align: right;
-        }
-        
-        .user-name {
-            font-weight: bold;
-            font-size: 16px;
-        }
-        
-        .user-coins {
-            font-size: 14px;
-            color: var(--accent-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .user-coins i {
-            margin-right: 5px;
-        }
-        
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* App Content */
-        .app-content {
-            padding: 20px;
-            padding-bottom: 80px;
-        }
-        
-        .section {
-            display: none;
-        }
-        
-        .active {
-            display: block;
-        }
-        
-        /* Auth Forms */
-        .auth-container {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-top: 30px;
-        }
-        
-        .form-title {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: var(--accent-color);
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: var(--text-color);
-            font-size: 16px;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-        }
-        
-        .toggle-form {
-            text-align: center;
-            margin-top: 15px;
-        }
-        
-        .toggle-form a {
-            color: var(--accent-color);
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        .toggle-form a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Banner Ads */
-        .banner-ad {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed var(--accent-color);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            margin: 20px 0;
-            color: #ccc;
-        }
-        
-        .banner-ad i {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
-        
-        /* Home Section */
-        .welcome-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .welcome-header h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
-        
-        .balance-card {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .balance-label {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        
-        .balance-amount {
-            font-size: 36px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .balance-amount i {
-            margin-right: 10px;
-        }
-        
-        .reward-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .reward-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .reward-icon {
-            font-size: 30px;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-        
-        .reward-card h3 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        
-        .reward-card p {
-            font-size: 12px;
-            color: #ccc;
-            margin-bottom: 10px;
-            min-height: 40px;
-        }
-        
-        /* Redeem Section */
-        .redeem-options {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .redeem-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .redeem-card h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-            text-align: center;
-        }
-        
-        .redeem-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .redeem-option:last-child {
-            border-bottom: none;
-        }
-        
-        .redeem-details {
-            flex: 1;
-        }
-        
-        .redeem-amount {
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-        
-        .redeem-price {
-            font-size: 14px;
-            color: #ccc;
-        }
-        
-        /* Ad Screen */
-        .ad-container {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .ad-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-        
-        .ad-placeholder {
-            width: 100%;
-            height: 250px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed var(--accent-color);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #ccc;
-            margin-bottom: 15px;
-        }
-        
-        .ad-placeholder i {
-            font-size: 40px;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
-        
-        .ad-timer {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
-        
-        .reward-notification {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid #4CAF50;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            margin: 20px 0;
-            display: none;
-        }
-        
-        .reward-notification h3 {
-            color: #4CAF50;
-            margin-bottom: 10px;
-        }
-        
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 100;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #ccc;
-            text-decoration: none;
-            font-size: 12px;
-        }
-        
-        .nav-item.active {
-            color: var(--accent-color);
-        }
-        
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .modal-title {
-            font-size: 20px;
-            color: var(--accent-color);
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 24px;
-            cursor: pointer;
-        }
-        
-        /* Message Styles */
-        .message {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: 500;
-        }
-        
-        .success {
-            background: rgba(0, 255, 0, 0.1);
-            color: #4CAF50;
-            border: 1px solid #4CAF50;
-        }
-        
-        .error {
-            background: rgba(255, 0, 0, 0.1);
-            color: #f44336;
-            border: 1px solid #f44336;
-        }
-        
-        /* Responsive */
-        @media (max-width: 500px) {
-            .container {
-                max-width: 100%;
-            }
-            
-            .reward-options {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rupixo — Login / Register</title>
+<style>
+  :root{--bg:#05060a;--card:#0b1220;--accent:#0b84ff;--muted:#9aa6bf}
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#071025);color:#e6f0ff}
+  header{padding:16px 18px;border-bottom:1px solid #0f2446}
+  h1{margin:0;color:var(--accent);font-size:20px}
+  .wrap{max-width:980px;margin:24px auto;padding:0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border:1px solid #0f2446;border-radius:14px;padding:16px;box-shadow:0 12px 28px rgba(2,6,23,.6)}
+  input{width:100%;padding:10px;border-radius:10px;border:1px solid #13325f;background:transparent;color:#e6f0ff;margin-top:8px}
+  button{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;color:#fff;margin-top:10px;cursor:pointer}
+  .small{font-size:12px;color:var(--muted)}
+  .banner{height:70px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px dashed #17386d;color:#9bb9e6;font-weight:700;margin-top:10px}
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header Section -->
-        <div class="header">
-            <div class="logo">
-                <i class="fas fa-gem"></i>
-                <span>Rupixo</span>
-            </div>
-            <div class="user-info" id="user-info" style="display: none;">
-                <div class="user-details">
-                    <div class="user-name" id="user-name">User</div>
-                    <div class="user-coins">
-                        <i class="fas fa-coins"></i>
-                        <span id="user-coins">0</span>
-                         </div>
-                </div>
-                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
-            </div>
-        </div>
-        
-        <!-- Main Content -->
-        <div class="app-content">
-            <!-- Login Form -->
-            <div class="section active" id="login-form">
-                <div class="auth-container">
-                    <h2 class="form-title">Login to Rupixo</h2>
-                    <div id="login-message"></div>
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" placeholder="Enter your password">
-                    </div>
-                    <button class="btn" onclick="login()">Login</button>
-                    <div class="toggle-form">
-                        Don't have an account? <a onclick="showRegisterForm()">Register here</a>
-                    </div>
-                    
-                    <!-- Banner Ad on Login -->
-                    <div class="banner-ad">
-                        <i class="fas fa-ad"></i>
-                        <p>Banner Ad Space - Login Page</p>
-                        <p>Ad ID will be placed here</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Register Form -->
-            <div class="section" id="register-form">
-                <div class="auth-container">
-                    <h2 class="form-title">Create Account</h2>
-                    <div id="register-message"></div>
-                    <div class="form-group">
-                        <label for="register-name">Full Name</label>
-                        <input type="text" id="register-name" placeholder="Enter your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Password</label>
-                        <input type="password" id="register-password" placeholder="Create a password (min. 6 characters)">
-                    </div>
-                    <button class="btn" onclick="register()">Register</button>
-                    <div class="toggle-form">
-                        Already have an account? <a onclick="showLoginForm()">Login here</a>
-                    </div>
-                    
-                    <!-- Banner Ad on Register -->
-                    <div class="banner-ad">
-                        <i class="fas fa-ad"></i>
-                        <p>Banner Ad Space - Register Page</p>
-                        <p>Ad ID will be placed here</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Home Section -->
-            <div class="section" id="home-section">
-                <div class="welcome-header">
-                    <h2>Welcome, <span id="welcome-user-name"></span>!</h2>
-                    <p>Earn coins by completing tasks</p>
-                </div>
-                
-                <!-- Banner Ad 1 -->
-                <div class="banner-ad">
-                    <i class="fas fa-ad"></i>
-                    <p>Banner Ad Space - Top</p>
-                    <p>Ad ID will be placed here</p>
-                </div>
-                
-                <div class="balance-card">
-                    <div class="balance-label">Your Balance</div>
-                    <div class="balance-amount">
-                        <i class="fas fa-coins"></i>
-                        <span id="user-balance">0</span>
-                    </div>
-                </div>
-                
-                <!-- Banner Ad 2 -->
-                <div class="banner-ad">
-                    <i class="fas fa-ad"></i>
-                    <p>Banner Ad Space - Middle</p>
-                    <p>Ad ID will be placed here</p>
-                </div>
-                
-                <div class="reward-options">
-                    <div class="reward-card">
-                        <div class="reward-icon">
-                            <i class="fas fa-calendar-day"></i>
-                        </div>
-                        <h3>Daily Reward</h3>
-                        <p>Claim your daily bonus of 20 coins after watching a rewarded ad</p>
-                        <button class="btn" onclick="showAd('daily')">Claim Now</button>
-                    </div>
-                    
-                    <div class="reward-card">
-                        <div class="reward-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3>Watch Ads</h3>
-                        <p>Earn 10 coins per ad. Watch rewarded ads to increase your earnings</p>
-                        <button class="btn" onclick="showAd('watch')">Watch Ad</button>
-                    </div>
-                    
-                    <!-- Banner Ad 3 -->
-                    <div class="banner-ad" style="grid-column: 1 / span 2;">
-                        <i class="fas fa-ad"></i>
-                        <p>Banner Ad Space - Between Options</p>
-                        <p>Ad ID will be placed here</p>
-                    </div>
-                    
-                    <div class="reward-card">
-                        <div class="reward-icon">
-                            <i class="fas fa-sync-alt"></i>
-                        </div>
-                        <h3>Spin & Win</h3>
-                        <p>Spin the wheel to win 1-7 coins. Watch an ad to spin</p>
-                        <button class="btn" onclick="showAd('spin')">Spin Now</button>
-                    </div>
-                    
-                    <div class="reward-card">
-                        <div class="reward-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h3>Scratch Card</h3>
-                        <p>Scratch to reveal prizes from 0-6 coins. Watch an ad to play</p>
-                        <button class="btn" onclick="showAd('scratch')">Scratch Now</button>
-                    </div>
-                </div>
-                
-                <!-- Banner Ad 4 -->
-                <div class="banner-ad">
-                    <i class="fas fa-ad"></i>
-                    <p>Banner Ad Space - Bottom</p>
-                    <p>Ad ID will be placed here</p>
-                </div>
-                
-                <div class="reward-notification" id="reward-notification">
-                    <h3>Congratulations!</h3>
-                    <p>You earned <span id="reward-amount">0</span> coins!</p>
-                </div>
-            </div>
-            
-            <!-- Redeem Section -->
-            <div class="section" id="redeem-section">
-                <div class="welcome-header">
-                    <h2>Redeem Your Coins</h2>
-                    <p>Convert your coins to real money</p>
-                </div>
-                
-                <div class="balance-card">
-                    <div class="balance-label">Your Balance</div>
-                    <div class="balance-amount">
-                        <i class="fas fa-coins"></i>
-                        <span id="redeem-balance">0</span>
-                    </div>
-                </div>
-                
-                <div class="redeem-options">
-                    <div class="redeem-card">
-                        <h3>Redeem Options</h3>
-                        
-                        <div class="redeem-option">
-                            <div class="redeem-details">
-                                <div class="redeem-amount">₹10</div>
-                                <div class="redeem-price">3000 coins</div>
-                            </div>
-                            <button class="btn" onclick="showRedeemModal(3000, 10)">Redeem</button>
-                        </div>
-                        
-                        <div class="redeem-option">
-                            <div class="redeem-details">
-                                <div class="redeem-amount">₹50</div>
-                                <div class="redeem-price">10000 coins</div>
-                            </div>
-                            <button class="btn" onclick="showRedeemModal(10000, 50)">Redeem</button>
-                        </div>
-                        
-                        <div class="redeem-option">
-                            <div class="redeem-details">
-                                <div class="redeem-amount">₹100</div>
-                                <div class="redeem-price">20000 coins</div>
-                            </div>
-                            <button class="btn" onclick="showRedeemModal(20000, 100)">Redeem</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Banner Ad -->
-                <div class="banner-ad">
-                    <i class="fas fa-ad"></i>
-                    <p>Banner Ad Space - Redeem Page</p>
-                    <p>Ad ID will be placed here</p>
-                </div>
-            </div>
-            
-            <!-- Ad Screen -->
-            <div class="section" id="ad-section">
-                <div class="ad-container">
-                    <h2 class="ad-title">Watch Ad to Earn Coins</h2>
-                    <div class="ad-timer" id="ad-timer">Ad will complete in: 30 seconds</div>
-                    <div class="ad-placeholder">
-                        <i class="fas fa-ad"></i>
-                        <p>Rewarded Ad Playing</p>
-                        <p>Ad would play here for 30 seconds</p>
-                        <p>Ad ID will be placed here</p>
-                    </div>
-                    <button class="btn" id="complete-ad-btn" style="display: none;" onclick="completeAd()">Claim Reward</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav" id="bottom-nav" style="display: none;">
-            <div class="nav-item active" onclick="showHomeScreen()">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div>
-            <div class="nav-item" onclick="showRedeemSection()">
-                <i class="fas fa-gift"></i>
-                <span>Redeem</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-coins"></i>
-                <span>Earn</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-user"></i>
-                <span>Profile</span>
-            </div>
-        </div>
-        
-        <!-- Redeem Modal -->
-        <div class="modal" id="redeem-modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="modal-title">Redeem Coins</h3>
-                    <button class="close-modal" onclick="closeModal()">&times;</button>
-                </div>
-                
-                <div id="modal-message"></div>
-                
-                <div class="form-group">
-                    <label for="redeem-method">Select Method</label>
-                    <select id="redeem-method" class="form-group input" onchange="toggleRedeemFields()">
-                        <option value="upi">UPI</option>
-                        <option value="code">Redeem Code</option>
-                    </select>
-                </div>
-                
-                <div id="upi-fields">
-                    <div class="form-group">
-                        <label for="upi-id">UPI ID</label>
-                        <input type="text" id="upi-id" placeholder="Enter your UPI ID" class="form-group input">
-                    </div>
-                </div>
-                
-                <div id="code-fields" style="display: none;">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter your email" class="form-group input">
-                    </div>
-                </div>
-                
-                <button class="btn" onclick="processRedeem()">Confirm Redeem</button>
-            </div>
-        </div>
+<header><h1>Rupixo</h1></header>
+<div class="wrap">
+  <div class="grid">
+    <!-- Login -->
+    <div class="card">
+      <h2>Login</h2>
+      <input id="loginEmail" type="email" placeholder="Email">
+      <input id="loginPass" type="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
+      <div class="banner">Banner Ad — <b>AD ID HERE</b></div>
+      <div class="small" style="margin-top:8px">Login करने पर आपका previous coins balance Firebase से लोड होगा।</div>
     </div>
+    <!-- Register -->
+    <div class="card">
+      <h2>Register</h2>
+      <input id="regName" type="text" placeholder="Full name">
+      <input id="regEmail" type="email" placeholder="Email">
+      <input id="regPass" type="password" placeholder="Password (min 6)">
+      <button id="regBtn">Create Account</button>
+      <div class="banner">Banner Ad — <b>AD ID HERE</b></div>
+      <div class="small" style="margin-top:8px">Register होते ही Telegram पर notification जाएगा।</div>
+    </div>
+  </div>
+</div>
 
-    <!-- Firebase App (core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <!-- Firebase Authentication -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <!-- Firebase Database -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<!-- Ad modal + All helpers -->
+<script type="module" src="./app.js"></script>
+<script type="module">
+import { RPX } from './app.js'; // just to ensure module loads (not used directly)
+const { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, ensureUserDoc, sendTG, notify } = window.RPX;
 
-    <script>
-        // Your Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
-            authDomain: "rupixo-adc5e.firebaseapp.com",
-            projectId: "rupixo-adc5e",
-            storageBucket: "rupixo-adc5e.firebasestorage.app",
-            messagingSenderId: "79108214868",
-            appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
-            measurementId: "G-F1D7GX94N1",
-            databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com/"
-        };
+document.getElementById('regBtn').onclick = async ()=>{
+  const name = document.getElementById('regName').value.trim();
+  const email= document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  if(!name||!email||pass.length<6){ notify('Fill all fields (pass ≥ 6)'); return}
+  try{
+    const cred = await createUserWithEmailAndPassword(auth,email,pass);
+    await updateProfile(cred.user,{displayName:name});
+    await ensureUserDoc(cred.user.uid,{name, email});
+    sendTG(`New registration:\nName: ${name}\nEmail: ${email}`);
+    localStorage.setItem('rupixo_uid', cred.user.uid);
+    location.href = './home.html';
+  }catch(e){ notify(e.message||'Register failed'); }
+};
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const database = firebase.database();
-        
-        // Current user data
-        let currentUser = null;
-        let currentRewardType = null;
-        let adTimer = null;
-        let adSeconds = 30; // 30 seconds ad
-        let currentRedeemAmount = 0;
-        let currentRedeemPrice = 0;
-        
-        // Check if user is logged in (from Firebase)
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in
-                currentUser = user;
-                loadUserData(user.uid);
-                showHomeScreen();
-            } else {
-                // User is signed out
-                showLoginForm();
-            }
-        });
-        
-        // Load user data from Firebase
-        function loadUserData(userId) {
-            database.ref('users/' + userId).once('value')
-                .then((snapshot) => {
-                    const userData = snapshot.val();
-                    if (userData) {
-                        document.getElementById('user-coins').textContent = userData.coins;
-                        document.getElementById('user-balance').textContent = userData.coins;
-                        document.getElementById('redeem-balance').textContent = userData.coins;
-                        document.getElementById('welcome-user-name').textContent = userData.name;
-                        document.getElementById('user-name').textContent = userData.name;
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error loading user data:', error);
-                });
-        }
-        
-        // Show login form
-        function showLoginForm() {
-            hideAllSections();
-            document.getElementById('login-form').classList.add('active');
-            document.getElementById('user-info').style.display = 'none';
-            document.getElementById('bottom-nav').style.display = 'none';
-        }
-        
-        // Show register form
-        function showRegisterForm() {
-            hideAllSections();
-            document.getElementById('register-form').classList.add('active');
-        }
-        
-        // Show home screen
-        function showHomeScreen() {
-            hideAllSections();
-            document.getElementById('home-section').classList.add('active');
-            document.getElementById('user-info').style.display = 'flex';
-            document.getElementById('bottom-nav').style.display = 'flex';
-            
-            if (currentUser) {
-                loadUserData(currentUser.uid);
-            }
-        }
-        
-        // Show redeem section
-        function showRedeemSection() {
-            hideAllSections();
-            document.getElementById('redeem-section').classList.add('active');
-            
-            if (currentUser) {
-                loadUserData(currentUser.uid);
-            }
-        }
-        
-        // Show ad screen
-        function showAd(rewardType) {
-            currentRewardType = rewardType;
-            hideAllSections();
-            document.getElementById('ad-section').classList.add('active');
-            
-            // Simulate ad playback with timer (30 seconds)
-            adSeconds = 30;
-            document.getElementById('ad-timer').textContent = `Ad will complete in: ${adSeconds} seconds`;
-            document.getElementById('complete-ad-btn').style.display = 'none';
-            
-            adTimer = setInterval(() => {
-                adSeconds--;
-                document.getElementById('ad-timer').textContent = `Ad will complete in: ${adSeconds} seconds`;
-                
-                if (adSeconds <= 0) {
-                    clearInterval(adTimer);
-                    document.getElementById('complete-ad-btn').style.display = 'block';
-                    document.getElementById('ad-timer').textContent = 'Ad completed! Click to claim your reward';
-                }
-            }, 1000);
-        }
-        
-        // Complete ad and give reward
-        function completeAd() {
-            clearInterval(adTimer);
-            
-            let rewardAmount = 0;
-            
-            switch(currentRewardType) {
-                case 'daily':
-                    rewardAmount = 20;
-                    break;
-                case 'watch':
-                    rewardAmount = 10;
-                    break;
-                case 'spin':
-                    rewardAmount = Math.floor(Math.random() * 7) + 1;
-                    break;
-                case 'scratch':
-                    rewardAmount = Math.floor(Math.random() * 7); // 0-6 coins
-                    break;
-            }
-            
-            // Update user coins in Firebase
-            database.ref('users/' + currentUser.uid + '/coins').transaction((currentCoins) => {
-                return (currentCoins || 0) + rewardAmount;
-            }).then(() => {
-                // Show reward notification
-                document.getElementById('reward-amount').textContent = rewardAmount;
-                document.getElementById('reward-notification').style.display = 'block';
-                
-                // Reload user data
-                loadUserData(currentUser.uid);
-                
-                // Return to home screen
-                showHomeScreen();
-                
-                // Hide notification after 5 seconds
-                setTimeout(() => {
-                    document.getElementById('reward-notification').style.display = 'none';
-                }, 5000);
-            });
-        }
-        
-        // Show redeem modal
-        function showRedeemModal(amount, price) {
-            currentRedeemAmount = amount;
-            currentRedeemPrice = price;
-            
-            // Check if user has enough coins
-            const userCoins = parseInt(document.getElementById('user-balance').textContent);
-            if (userCoins < amount) {
-                showMessage(document.getElementById('modal-message'), `You need ${amount} coins to redeem ₹${price}`, 'error');
-                return;
-            }
-            
-            document.getElementById('modal-title').textContent = `Redeem ${amount} coins for ₹${price}`;
-            document.getElementById('modal-message').innerHTML = '';
-            document.getElementById('redeem-modal').style.display = 'flex';
-        }
-        
-        // Toggle redeem fields based on selection
-        function toggleRedeemFields() {
-            const method = document.getElementById('redeem-method').value;
-            if (method === 'upi') {
-                document.getElementById('upi-fields').style.display = 'block';
-                document.getElementById('code-fields').style.display = 'none';
-            } else {
-                document.getElementById('upi-fields').style.display = 'none';
-                document.getElementById('code-fields').style.display = 'block';
-            }
-        }
-        
-        // Process redeem request
-        function processRedeem() {
-            const method = document.getElementById('redeem-method').value;
-            let identifier = '';
-            
-            if (method === 'upi') {
-                identifier = document.getElementById('upi-id').value;
-                if (!identifier) {
-                    showMessage(document.getElementById('modal-message'), 'Please enter your UPI ID', 'error');
-                    return;
-                }
-            } else {
-                identifier = document.getElementById('email').value;
-                if (!identifier) {
-                    showMessage(document.getElementById('modal-message'), 'Please enter your email', 'error');
-                    return;
-                }
-            }
-            
-            // Save redeem request to Firebase
-            const redeemData = {
-                userId: currentUser.uid,
-                userEmail: currentUser.email,
-                userName: currentUser.displayName,
-                coins: currentRedeemAmount,
-                amount: currentRedeemPrice,
-                method: method,
-                identifier: identifier,
-                status: 'pending',
-                date: new Date().toISOString()
-            };
-            
-            database.ref('redeems').push(redeemData)
-                .then(() => {
-                    // Deduct coins from user
-                    return database.ref('users/' + currentUser.uid + '/coins').transaction((currentCoins) => {
-                        return (currentCoins || 0) - currentRedeemAmount;
-                    });
-                })
-                .then(() => {
-                    showMessage(document.getElementById('modal-message'), 'Redeem request submitted! You will receive your money within 24 hours.', 'success');
-                    
-                    // Reload user data
-                    loadUserData(currentUser.uid);
-                    
-                    // Close modal after 3 seconds
-                    setTimeout(() => {
-                        closeModal();
-                        showRedeemSection();
-                    }, 3000);
-                })
-                .catch((error) => {
-                    showMessage(document.getElementById('modal-message'), 'Error processing redeem: ' + error.message, 'error');
-                });
-        }
-        
-        // Close modal
-        function closeModal() {
-            document.getElementById('redeem-modal').style.display = 'none';
-        }
-        
-        // Login function
-        function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const messageDiv = document.getElementById('login-message');
-            
-            if (!email || !password) {
-                showMessage(messageDiv, 'Please fill in all fields', 'error');
-                return;
-            }
-            
-            auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    showMessage(messageDiv, 'Login successful!', 'success');
-                    
-                    // Add login bonus (only once per day)
-                    const today = new Date().toDateString();
-                    database.ref('users/' + user.uid).once('value')
-                        .then((snapshot) => {
-                            const userData = snapshot.val();
-                            if (userData && userData.lastLogin !== today) {
-                                database.ref('users/' + user.uid).update({
-                                    coins: (userData.coins || 0) + 5,
-                                    lastLogin: today
-                                });
-                            }
-                        });
-                    
-                    setTimeout(() => {
-                        showHomeScreen();
-                    }, 1000);
-                })
-                .catch((error) => {
-                    showMessage(messageDiv, error.message, 'error');
-                });
-        }
-        
-        // Register function
-        function register() {
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const messageDiv = document.getElementById('register-message');
-            
-            if (!name || !email || !password) {
-                showMessage(messageDiv, 'Please fill in all fields', 'error');
-                return;
-            }
-            
-            if (password.length < 6) {
-                showMessage(messageDiv, 'Password should be at least 6 characters', 'error');
-                return;
-            }
-            
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Signed up
-                    const user = userCredential.user;
-                    
-                    // Update user profile with name
-                    user.updateProfile({
-                        displayName: name
-                    }).then(() => {
-                        // Save user data to Realtime Database
-                        const userData = {
-                            name: name,
-                            email: email,
-                            coins: 50, // Starting bonus
-                            joined: new Date().toISOString(),
-                            lastLogin: new Date().toDateString()
-                        };
-                        
-                        database.ref('users/' + user.uid).set(userData)
-                            .then(() => {
-                                showMessage(messageDiv, 'Registration successful! 50 bonus coins added.', 'success');
-                                
-                                setTimeout(() => {
-                                    showHomeScreen();
-                                }, 1500);
-                            })
-                            .catch((error) => {
-                                showMessage(messageDiv, 'Error saving user data: ' + error.message, 'error');
-                            });
-                    });
-                })
-                .catch((error) => {
-                    showMessage(messageDiv, error.message, 'error');
-                });
-        }
-        
-        // Logout function
-        function logout() {
-            auth.signOut().then(() => {
-                // Sign-out successful
-                showLoginForm();
-            }).catch((error) => {
-                alert('Error signing out: ' + error.message);
-            });
-        }
-        
-        // Hide all sections
-        function hideAllSections() {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-        }
-        
-        // Show message
-        function showMessage(element, message, type) {
-            element.innerHTML = `<div class="message ${type}">${message}</div>`;
-            setTimeout(() => {
-                element.innerHTML = '';
-            }, 5000);
-        }
-    </script>
+document.getElementById('loginBtn').onclick = async ()=>{
+  const email= document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  if(!email||!pass){ notify('Enter email & password'); return}
+  try{
+    const cred = await signInWithEmailAndPassword(auth,email,pass);
+    await ensureUserDoc(cred.user.uid); // make sure profile exists
+    sendTG(`Login: ${email} at ${new Date().toLocaleString()}`);
+    localStorage.setItem('rupixo_uid', cred.user.uid);
+    location.href = './home.html';
+  }catch(e){ notify(e.message||'Login failed'); }
+};
+</script>
 </body>
 </html>
-```
-                    
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rupixo — Home</title>
+<style>
+  :root{--bg:#05060a;--card:#0b1220;--accent:#0b84ff;--muted:#9aa6bf}
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#071025);color:#e6f0ff}
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #0f2446}
+  h1{margin:0;color:var(--accent);font-size:20px}
+  .coins{background:linear-gradient(90deg,#06203a,#06264a);padding:8px 12px;border-radius:10px}
+  .wrap{max-width:1200px;margin:18px auto;padding:0 14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border:1px solid #0f2446;border-radius:14px;padding:14px;box-shadow:0 12px 28px rgba(2,6,23,.6)}
+  .small{font-size:12px;color:var(--muted)}
+  button{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;color:#fff;cursor:pointer}
+  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #13325f;background:transparent;color:#e6f0ff;margin-top:8px}
+  .banner{height:68px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px dashed #17386d;color:#9bb9e6;font-weight:700}
+  .banners6{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .right{width:320px}
+  @media(max-width:980px){.layout{display:block}.right{width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Rupixo</h1>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div id="topCoins" class="coins">Coins: 0</div>
+    <button id="logoutBtn" style="background:transparent;border:1px solid #224b85">Logout</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="layout" style="display:flex;gap:14px;align-items:flex-start">
+    <div style="flex:1">
+      <!-- Profile card -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:center">
+          <div>
+            <h2 id="uName" style="margin:0 0 6px">User</h2>
+            <div class="small">Email: <span id="uEmail"></span></div>
+            <div class="small">Password: <span id="uPass">••••</span></div>
+            <div class="small">Withdrawals: <span id="wCount">0</span></div>
+          </div>
+          <div class="coins" id="mainCoins">0</div>
+        </div>
+      </div>
+
+      <!-- 6 Banners spaced out -->
+      <div class="card">
+        <h3 style="margin:0 0 8px">Sponsored</h3>
+        <div class="banners6">
+          <div class="banner">Banner 1 — <b>AD ID HERE</b></div>
+          <div class="banner">Banner 2 — <b>AD ID HERE</b></div>
+          <div class="banner">Banner 3 — <b>AD ID HERE</b></div>
+          <div class="banner">Banner 4 — <b>AD ID HERE</b></div>
+          <div class="banner">Banner 5 — <b>AD ID HERE</b></div>
+          <div class="banner">Banner 6 — <b>AD ID HERE</b></div>
+        </div>
+      </div>
+
+      <!-- Rewards -->
+      <div class="grid">
+        <div class="card">
+          <h3>Daily Reward</h3>
+          <div class="small">हर दिन 1 बार—पहले एक ad (Rewarded Ad ID HERE), फिर 20 coins मिलेंगे।</div>
+          <button id="dailyBtn">Watch ad & Claim (20)</button>
+        </div>
+
+        <div class="card">
+          <h3>Watch Ad & Earn</h3>
+          <div class="small">हर ad के बाद 10 coins। Daily limit: 25। नीचे ad code लगाओ: <b>Ad code here</b></div>
+          <button id="watchBtn">Watch ad (earn 10)</button>
+          <div class="small" id="watchRemain"></div>
+        </div>
+
+        <div class="card">
+          <h3>Spin & Earn</h3>
+          <div class="small">हर spin से पहले 1 ad। Daily limit 10. Reward 1–7 coins.</div>
+          <button id="spinBtn">Spin (1 ad)</button>
+          <div class="small" id="spinResult"></div>
+        </div>
+
+        <div class="card">
+          <h3>Scratch & Earn</h3>
+          <div class="small">Daily 10 scratch। हर scratch से पहले 1 ad। Reward 0–6 coins.</div>
+          <button id="scratchBtn">Open Scratch</button>
+        </div>
+
+        <div class="card">
+          <h3>Quiz & Earn</h3>
+          <div class="small">10 सवाल, सही पर 10 coins। हर 2 सवाल पर 1 ad. अलग page पर banner: <b>AD ID HERE</b></div>
+          <button onclick="location.href='./quiz.html'">Open Quiz</button>
+        </div>
+
+        <div class="card">
+          <h3>Refer & Earn</h3>
+          <div class="small">अपना code share करो—दूसरा user डालता है तो दोनों को 50 coins (प्रति user 1 बार)।</div>
+          <div class="small" id="myRef"></div>
+          <input id="enterRef" placeholder="Enter friend's code">
+          <button id="applyRef">Apply</button>
+        </div>
+
+        <div class="card" style="grid-column:1/-1">
+          <h3>Redeem</h3>
+          <div class="small">Thresholds: 3000→₹10, 10000→₹50, 20000→₹100 • Method: UPI / Redeem code (email)</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
+            <div>
+              <select id="redeemType">
+                <option value="upi">UPI</option>
+                <option value="code">Redeem Code (email)</option>
+              </select>
+            </div>
+            <div><input id="redeemTarget" placeholder="Enter UPI ID or Email"></div>
+            <div>
+              <select id="redeemAmt">
+                <option value="3000">3000 coins → ₹10</option>
+                <option value="10000">10000 coins → ₹50</option>
+                <option value="20000">20000 coins → ₹100</option>
+              </select>
+            </div>
+            <div><button id="redeemBtn">Submit Redeem</button></div>
+          </div>
+          <div class="small" style="margin-top:8px">Request submit होते ही आपको message दिखेगा और admin (Telegram) पर details पहुँच जाएँगी।</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="right">
+      <div class="card">
+        <h3>Profile & History</h3>
+        <div class="small">Name: <span id="pName"></span></div>
+        <div class="small">Email: <span id="pEmail"></span></div>
+        <div class="small">Coins: <span id="pCoins">0</span></div>
+        <hr style="border-color:#0f2446">
+        <div class="small">Withdrawals:</div>
+        <div id="wList" class="small" style="max-height:220px;overflow:auto"></div>
+      </div>
+
+      <div class="card">
+        <h3>About & Rules</h3>
+        <p class="small">Rupixo — demo rewards platform. One account per person. Abuse → ban. Owner on Telegram.</p>
+        <div class="small">Connect us</div>
+        <div class="small" style="font-size:11px">Contact: @Gotm</div>
+      </div>
+
+      <div class="card">
+        <h3>Side Banners</h3>
+        <div class="banner">AD ID HERE</div>
+        <div class="banner" style="margin-top:8px">AD ID HERE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
+<script type="module">
+const { auth, onAuthStateChanged, signOut, loadUserDoc, addCoins, getCounters, setCounter, genRef, showAd, notify, sendTG, ref, update, push } = window.RPX;
+
+let UID=null, USER=null;
+
+document.getElementById('logoutBtn').onclick = ()=> signOut(auth).then(()=>location.href='./index.html');
+
+onAuthStateChanged(auth, async (user)=>{
+  if(!user){ location.href='./index.html'; return; }
+  UID = user.uid;
+  USER = await loadUserDoc(UID);
+  if(!USER){ location.href='./index.html'; return; }
+  render();
+});
+
+function render(){
+  document.getElementById('uName').innerText = USER.name||'User';
+  document.getElementById('uEmail').innerText= USER.email||'';
+  document.getElementById('uPass').innerText = '••••'; // masked
+  setCoinsUI(USER.coins||0);
+  document.getElementById('wCount').innerText = (USER.withdraws?.length||0);
+  document.getElementById('pName').innerText = USER.name||'';
+  document.getElementById('pEmail').innerText = USER.email||'';
+  document.getElementById('pCoins').innerText = USER.coins||0;
+  document.getElementById('myRef').innerText = 'Your code: '+ (USER.refCode || genRef(USER.email||""));
+  const wl = USER.withdraws||[];
+  document.getElementById('wList').innerHTML = wl.map(w=>`<div style="padding:6px;border-bottom:1px solid #0f2446">${new Date(w.ts).toLocaleString()} — ${w.coins} coins — ${w.type} — ${w.target} — ${w.status}</div>`).join('');
+  updateWatchRemain();
+}
+
+function setCoinsUI(v){
+  document.getElementById('topCoins').innerText = 'Coins: '+v;
+  document.getElementById('mainCoins').innerText = v;
+  document.getElementById('pCoins').innerText = v;
+}
+
+// ===== Daily Reward (1/day, +20) =====
+document.getElementById('dailyBtn').onclick = async ()=>{
+  const ok = await showAd(); if(!ok) return notify('Watch ad to claim');
+  const c = await getCounters(UID);
+  if(c?.daily){ return notify('Already claimed today'); }
+  await setCounter(UID,'daily');
+  await addCoins(UID,20,'Daily reward');
+};
+
+// ===== Watch Ad (limit 25/day, +10 each) =====
+function updateWatchRemain(){
+  getCounters(UID).then(c=>{
+    const used = Number(c?.watch || 0);
+    document.getElementById('watchRemain').innerText = `${25 - used} remaining today`;
+  });
+}
+document.getElementById('watchBtn').onclick = async ()=>{
+  const c = await getCounters(UID);
+  const used = Number(c?.watch || 0);
+  if(used>=25) return notify('Daily watch limit reached');
+  const ok = await showAd(); if(!ok) return notify('Ad not watched');
+  await setCounter(UID,'watch', (c.watch||0)+1);
+  await addCoins(UID,10,'Ad watch');
+  // store increment value
+  await window.RPX.update(window.RPX.ref(window.RPX.db, `users/${UID}/counters/${window.RPX.todayKey()}`), {watch: used+1});
+  updateWatchRemain();
+};
+
+// ===== Spin (limit 10/day, 1..7) =====
+document.getElementById('spinBtn').onclick = async ()=>{
+  const c = await getCounters(UID);
+  const used = Number(c?.spin || 0);
+  if(used>=10) return notify('Spin limit reached');
+  const ok = await showAd(); if(!ok) return notify('Watch ad first');
+  const coins = Math.floor(Math.random()*7)+1;
+  await addCoins(UID, coins, 'Spin');
+  document.getElementById('spinResult').innerText = `You won ${coins} coins`;
+  await window.RPX.update(window.RPX.ref(window.RPX.db, `users/${UID}/counters/${window.RPX.todayKey()}`), {spin: used+1});
+};
+
+// ===== Scratch (limit 10/day, 0..6) =====
+document.getElementById('scratchBtn').onclick = async ()=>{
+  const c = await getCounters(UID);
+  const used = Number(c?.scratch || 0);
+  if(used>=10) return notify('Scratch limit reached');
+  const ok = await showAd(); if(!ok) return notify('Watch ad first');
+  const coins = Math.floor(Math.random()*7); // 0..6
+  await addCoins(UID, coins, 'Scratch');
+  notify(`Scratch: +${coins}`);
+  await window.RPX.update(window.RPX.ref(window.RPX.db, `users/${UID}/counters/${window.RPX.todayKey()}`), {scratch: used+1});
+};
+
+// ===== Refer (+50 both, once) =====
+document.getElementById('applyRef').onclick = async ()=>{
+  const code = document.getElementById('enterRef').value.trim();
+  if(!code) return notify('Enter code');
+  const all = await window.RPX.get(window.RPX.ref(window.RPX.db,'users'));
+  if(!all.exists()) return notify('Invalid code');
+  const users = all.val()||{};
+  const ownerUid = Object.keys(users).find(k=>users[k]?.refCode===code);
+  if(!ownerUid) return notify('Invalid code');
+  if(ownerUid===UID) return notify('Cannot use your own code');
+  const me = await loadUserDoc(UID);
+  if(me.usedRef) return notify('You already used a code');
+  await addCoins(UID,50,'Referral used');
+  await addCoins(ownerUid,50,'Referral reward');
+  await window.RPX.update(window.RPX.ref(window.RPX.db, `users/${UID}`), {usedRef: code});
+  notify('Referral applied (+50 each)');
+};
+
+// ===== Redeem (UPI / Code) =====
+document.getElementById('redeemBtn').onclick = async ()=>{
+  const type = (document.getElementById('redeemType').value||'upi');
+  const target = document.getElementById('redeemTarget').value.trim();
+  const amt = parseInt(document.getElementById('redeemAmt').value,10);
+  if(!target) return notify('Enter UPI ID or Email');
+  const u = await loadUserDoc(UID);
+  if((u.coins||0) < amt) return notify('Not enough coins');
+  // deduct & store withdraw
+  const w = {ts:Date.now(), type, target, coins:amt, status:'Requested'};
+  const list = u.withdraws||[]; list.unshift(w);
+  await update(window.RPX.ref(window.RPX.db, `users/${UID}`), {coins:(u.coins-amt), withdraws:list});
+  // Admin notification
+  const msg = `Redeem Request:
+User: ${u.email}
+Type: ${type}
+Target: ${target}
+Coins: ${amt}
+Time: ${new Date().toLocaleString()}`;
+  sendTG(msg);
+  notify('Redeem requested — 24 hours में payment आएगा');
+  // UI refresh
+  USER = await loadUserDoc(UID); render();
+};
+</script>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rupixo — Quiz</title>
+<style>
+  :root{--bg:#05060a;--card:#0b1220;--accent:#0b84ff;--muted:#9aa6bf}
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg),#071025);color:#e6f0ff}
+  header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #0f2446}
+  h1{margin:0;color:var(--accent);font-size:20px}
+  .wrap{max-width:800px;margin:18px auto;padding:0 14px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border:1px solid #0f2446;border-radius:14px;padding:14px}
+  .banner{height:68px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px dashed #17386d;color:#9bb9e6;font-weight:700;margin:10px 0}
+  button{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;color:#fff;cursor:pointer;margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Rupixo — Quiz</h1>
+  <button onclick="location.href='./home.html'" style="background:transparent;border:1px solid #224b85">Back</button>
+</header>
+<div class="wrap">
+  <div class="banner">Quiz Banner — <b>AD ID HERE</b></div>
+
+  <div class="card" id="qCard">
+    <div id="qText" style="font-size:18px;margin-bottom:10px">Loading…</div>
+    <div id="opts"></div>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
+<script type="module">
+const { auth, onAuthStateChanged, addCoins, showAd, notify } = window.RPX;
+
+const bank = [
+  {q:'What is 2 + 2?', a:['3','4','5'], ok:1},
+  {q:'Capital of India?', a:['Mumbai','New Delhi','Kolkata'], ok:1},
+  {q:'HTML stands for?', a:['HyperText Markup Language','Home Tool','HighText'], ok:0},
+  {q:'JS is used for?', a:['Styling','Interaction','Database'], ok:1},
+  {q:'CSS controls?', a:['Behavior','Layout & Style','Content'], ok:1},
+  {q:'Which is a fruit?', a:['Carrot','Apple','Potato'], ok:1},
+  {q:'5 × 3 = ?', a:['15','10','20'], ok:0},
+  {q:'Sun rises from?', a:['West','East','North'], ok:1},
+  {q:'Water formula?', a:['CO2','H2O','O2'], ok:1},
+  {q:'Largest planet?', a:['Earth','Jupiter','Mars'], ok:1}
+];
+
+let UID=null, idx=0, order=[];
+onAuthStateChanged(auth, (user)=>{
+  if(!user) return location.href='./index.html';
+  UID = user.uid;
+  start();
+});
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+function start(){ order = shuffle([...bank]).slice(0,10); idx=0; renderQ() }
+
+async function renderQ(){
+  if(idx>=order.length){ document.getElementById('qCard').innerHTML = `<div>Done! 🎉</div>`; return }
+  // every 2 questions ~ show ad first
+  if(idx>0 && idx%2===0){ const ok = await showAd(); if(!ok) return notify('Watch ad to continue'); }
+  const q = order[idx];
+  document.getElementById('qText').innerText = `Q${idx+1}. ${q.q}`;
+  const opts = document.getElementById('opts'); opts.innerHTML='';
+  q.a.forEach((txt,i)=>{
+    const b=document.createElement('button'); b.innerText=txt; b.style.display='block';
+    b.onclick = async ()=>{
+      if(i===q.ok){ await addCoins(UID,10,'Quiz correct'); notify('+10'); }
+      else{ notify('Wrong'); }
+      idx++; renderQ();
+    };
+    opts.appendChild(b);
+  });
+}
+</script>
+</body>
+</html>
+<!-- app.js (save this exact file as app.js) -->
+<script type="module">
+// ===== Firebase & Globals =====
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getDatabase, ref, get, set, update, child, push } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+// === YOUR TELEGRAM (given by you) ===
+const TG_CHAT_ID = "6225430212";
+const TG_BOT_TOKEN = "8253928607:AAGrVlxJftNEdnDot-f5Do0QJDKoAaTm1d0";
+
+// === Firebase config (given by you) ===
+const firebaseConfig = {
+  apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+  authDomain: "rupixo-adc5e.firebaseapp.com",
+  databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com/",
+  projectId: "rupixo-adc5e",
+  storageBucket: "rupixo-adc5e.firebasestorage.app",
+  messagingSenderId: "79108214868",
+  appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+  measurementId: "G-F1D7GX94N1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getDatabase(app);
+
+// ===== Utilities =====
+function todayKey(){
+  const d = new Date();
+  const m = (d.getMonth()+1).toString().padStart(2,'0');
+  const day = d.getDate().toString().padStart(2,'0');
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+function refUser(uid){ return ref(db, `users/${uid}`) }
+function refUserCounters(uid){ return ref(db, `users/${uid}/counters/${todayKey()}`) }
+function refUserWithdraws(uid){ return ref(db, `users/${uid}/withdraws`) }
+
+async function loadUserDoc(uid){
+  const snap = await get(refUser(uid));
+  return snap.exists() ? snap.val() : null;
+}
+
+async function ensureUserDoc(uid, data={}) {
+  const existing = await loadUserDoc(uid);
+  if(!existing){
+    const base = {name:"User", email:auth.currentUser?.email||"", coins:0, withdraws:[], usedRef:null, refCode: genRef(auth.currentUser?.email||""), createdAt: Date.now()};
+    await set(refUser(uid), {...base, ...data});
+    return {...base, ...data};
+  }
+  return existing;
+}
+
+function genRef(email){ return 'RUP' + btoa(email).slice(0,8) }
+
+async function addCoins(uid, amt, reason){
+  const u = await loadUserDoc(uid) || {};
+  const coins = (u.coins||0) + amt;
+  await update(refUser(uid), {
+    coins,
+    lastUpdate: Date.now()
+  });
+  // cache minimal to localStorage for quick header render
+  localStorage.setItem('rupixo_cache', JSON.stringify({email:u.email, coins}));
+  notify(`+${amt} coins (${reason})`);
+}
+
+async function setCounter(uid, key){
+  await update(refUserCounters(uid), {[key]: (new Date()).getTime()});
+}
+async function getCounters(uid){
+  const snap = await get(refUserCounters(uid));
+  return snap.exists() ? snap.val() : {};
+}
+
+function masked(str){ return str ? "•".repeat(Math.min(8, String(str).length)) : "••••" }
+
+// ===== Telegram =====
+function sendTG(text){
+  try{
+    fetch(`https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({chat_id: TG_CHAT_ID, text})
+    }).catch(()=>{});
+  }catch(e){}
+}
+
+// ===== Ad Modal (Rewarded Ad placeholder) =====
+function ensureAdModal(){
+  if(document.getElementById('adModal')) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `
+  <div id="adModal" style="position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:9999;align-items:center;justify-content:center">
+    <div style="width:360px;background:#0b1220;border:1px solid #0e2a50;border-radius:14px;padding:16px;color:#cfe7ff;box-shadow:0 10px 30px rgba(0,0,0,.5)">
+      <h3 style="margin:0 0 10px;color:#0b84ff">Rewarded Ad</h3>
+      <div style="font-size:13px;opacity:.85">
+        यह एक placeholder है — यहाँ अपना <b>Rewarded Ad ID HERE</b> code लगाएँ।<br>
+        (Ad देखने के बाद नीचे बटन दबाएँ)
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+        <button id="adWatchedBtn" style="background:#0b84ff;border:none;padding:8px 12px;border-radius:8px;color:#fff;cursor:pointer">I watched ad</button>
+        <button id="adCloseBtn" style="background:transparent;border:1px solid #224b85;padding:8px 12px;border-radius:8px;color:#cfe7ff;cursor:pointer">Close</button>
+      </div>
+    </div>
+  </div>`;
+  document.body.appendChild(wrap);
+  document.getElementById('adCloseBtn').onclick = ()=>{document.getElementById('adModal').style.display='none'; if(window.__ad_resolve) window.__ad_resolve(false)}
+  document.getElementById('adWatchedBtn').onclick = ()=>{document.getElementById('adModal').style.display='none'; if(window.__ad_resolve) window.__ad_resolve(true)}
+}
+function showAd(){
+  ensureAdModal();
+  document.getElementById('adModal').style.display='flex';
+  return new Promise(res=>{ window.__ad_resolve = res });
+}
+
+// ===== Tiny Notifier =====
+function ensureToast(){
+  if(document.getElementById('toast')) return;
+  const t = document.createElement('div');
+  t.id='toast';
+  t.style.cssText = 'position:fixed;right:16px;bottom:16px;background:#061226;color:#cfe7ff;padding:10px 14px;border-radius:10px;display:none;z-index:9999;border:1px solid #12305a';
+  document.body.appendChild(t);
+}
+function notify(msg){
+  ensureToast();
+  const t=document.getElementById('toast'); t.innerText=msg; t.style.display='block';
+  setTimeout(()=>t.style.display='none', 2200);
+}
+
+// ===== Expose for pages =====
+window.RPX = {
+  auth, db,
+  signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged,
+  ref, get, set, update, child, push,
+  refUser, loadUserDoc, ensureUserDoc,
+  addCoins, getCounters, setCounter,
+  genRef, masked, todayKey,
+  sendTG, showAd, notify
+};
+</script>
