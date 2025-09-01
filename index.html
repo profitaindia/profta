@@ -1,4 +1,4 @@
-html
+‘‘‘html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -281,6 +281,54 @@ html
             min-height: 40px;
         }
         
+        /* Redeem Section */
+        .redeem-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .redeem-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .redeem-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            text-align: center;
+        }
+        
+        .redeem-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .redeem-option:last-child {
+            border-bottom: none;
+        }
+        
+        .redeem-details {
+            flex: 1;
+        }
+        
+        .redeem-amount {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .redeem-price {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
         /* Ad Screen */
         .ad-container {
             background: var(--card-bg);
@@ -371,6 +419,49 @@ html
             margin-bottom: 5px;
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            color: var(--accent-color);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
         /* Message Styles */
         .message {
             padding: 10px;
@@ -418,7 +509,7 @@ html
                     <div class="user-coins">
                         <i class="fas fa-coins"></i>
                         <span id="user-coins">0</span>
-                    </div>
+                         </div>
                 </div>
                 <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
             </div>
@@ -451,7 +542,7 @@ html
                         <p>Ad ID will be placed here</p>
                     </div>
                 </div>
-            </div> 
+            </div>
             
             <!-- Register Form -->
             <div class="section" id="register-form">
@@ -569,11 +660,57 @@ html
                     <h3>Congratulations!</h3>
                     <p>You earned <span id="reward-amount">0</span> coins!</p>
                 </div>
+            </div>
+            
+            <!-- Redeem Section -->
+            <div class="section" id="redeem-section">
+                <div class="welcome-header">
+                    <h2>Redeem Your Coins</h2>
+                    <p>Convert your coins to real money</p>
+                </div>
                 
-                <!-- Banner Ad 5 -->
+                <div class="balance-card">
+                    <div class="balance-label">Your Balance</div>
+                    <div class="balance-amount">
+                        <i class="fas fa-coins"></i>
+                        <span id="redeem-balance">0</span>
+                    </div>
+                </div>
+                
+                <div class="redeem-options">
+                    <div class="redeem-card">
+                        <h3>Redeem Options</h3>
+                        
+                        <div class="redeem-option">
+                            <div class="redeem-details">
+                                <div class="redeem-amount">₹10</div>
+                                <div class="redeem-price">3000 coins</div>
+                            </div>
+                            <button class="btn" onclick="showRedeemModal(3000, 10)">Redeem</button>
+                        </div>
+                        
+                        <div class="redeem-option">
+                            <div class="redeem-details">
+                                <div class="redeem-amount">₹50</div>
+                                <div class="redeem-price">10000 coins</div>
+                            </div>
+                            <button class="btn" onclick="showRedeemModal(10000, 50)">Redeem</button>
+                        </div>
+                        
+                        <div class="redeem-option">
+                            <div class="redeem-details">
+                                <div class="redeem-amount">₹100</div>
+                                <div class="redeem-price">20000 coins</div>
+                            </div>
+                            <button class="btn" onclick="showRedeemModal(20000, 100)">Redeem</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Banner Ad -->
                 <div class="banner-ad">
                     <i class="fas fa-ad"></i>
-                    <p>Banner Ad Space - Footer</p>
+                    <p>Banner Ad Space - Redeem Page</p>
                     <p>Ad ID will be placed here</p>
                 </div>
             </div>
@@ -596,13 +733,13 @@ html
         
         <!-- Bottom Navigation -->
         <div class="bottom-nav" id="bottom-nav" style="display: none;">
-            <div class="nav-item active">
+            <div class="nav-item active" onclick="showHomeScreen()">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
             </div>
-            <div class="nav-item">
+            <div class="nav-item" onclick="showRedeemSection()">
                 <i class="fas fa-gift"></i>
-                <span>Rewards</span>
+                <span>Redeem</span>
             </div>
             <div class="nav-item">
                 <i class="fas fa-coins"></i>
@@ -613,22 +750,106 @@ html
                 <span>Profile</span>
             </div>
         </div>
+        
+        <!-- Redeem Modal -->
+        <div class="modal" id="redeem-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modal-title">Redeem Coins</h3>
+                    <button class="close-modal" onclick="closeModal()">&times;</button>
+                </div>
+                
+                <div id="modal-message"></div>
+                
+                <div class="form-group">
+                    <label for="redeem-method">Select Method</label>
+                    <select id="redeem-method" class="form-group input" onchange="toggleRedeemFields()">
+                        <option value="upi">UPI</option>
+                        <option value="code">Redeem Code</option>
+                    </select>
+                </div>
+                
+                <div id="upi-fields">
+                    <div class="form-group">
+                        <label for="upi-id">UPI ID</label>
+                        <input type="text" id="upi-id" placeholder="Enter your UPI ID" class="form-group input">
+                    </div>
+                </div>
+                
+                <div id="code-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" class="form-group input">
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="processRedeem()">Confirm Redeem</button>
+            </div>
+        </div>
     </div>
 
+    <!-- Firebase App (core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
     <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+            authDomain: "rupixo-adc5e.firebaseapp.com",
+            projectId: "rupixo-adc5e",
+            storageBucket: "rupixo-adc5e.firebasestorage.app",
+            messagingSenderId: "79108214868",
+            appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+            measurementId: "G-F1D7GX94N1",
+            databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com/"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+        
         // Current user data
         let currentUser = null;
         let currentRewardType = null;
         let adTimer = null;
         let adSeconds = 30; // 30 seconds ad
+        let currentRedeemAmount = 0;
+        let currentRedeemPrice = 0;
         
-        // Check if user is logged in (from localStorage)
-        function checkLogin() {
-            const userData = localStorage.getItem('rupixo_user');
-            if (userData) {
-                currentUser = JSON.parse(userData);
+        // Check if user is logged in (from Firebase)
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                currentUser = user;
+                loadUserData(user.uid);
                 showHomeScreen();
+            } else {
+                // User is signed out
+                showLoginForm();
             }
+        });
+        
+        // Load user data from Firebase
+        function loadUserData(userId) {
+            database.ref('users/' + userId).once('value')
+                .then((snapshot) => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        document.getElementById('user-coins').textContent = userData.coins;
+                        document.getElementById('user-balance').textContent = userData.coins;
+                        document.getElementById('redeem-balance').textContent = userData.coins;
+                        document.getElementById('welcome-user-name').textContent = userData.name;
+                        document.getElementById('user-name').textContent = userData.name;
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error loading user data:', error);
+                });
         }
         
         // Show login form
@@ -653,10 +874,17 @@ html
             document.getElementById('bottom-nav').style.display = 'flex';
             
             if (currentUser) {
-                document.getElementById('welcome-user-name').textContent = currentUser.name;
-                document.getElementById('user-name').textContent = currentUser.name;
-                document.getElementById('user-coins').textContent = currentUser.coins;
-                document.getElementById('user-balance').textContent = currentUser.coins;
+                loadUserData(currentUser.uid);
+            }
+        }
+        
+        // Show redeem section
+        function showRedeemSection() {
+            hideAllSections();
+            document.getElementById('redeem-section').classList.add('active');
+            
+            if (currentUser) {
+                loadUserData(currentUser.uid);
             }
         }
         
@@ -688,50 +916,131 @@ html
             clearInterval(adTimer);
             
             let rewardAmount = 0;
-            let rewardMessage = "";
             
             switch(currentRewardType) {
                 case 'daily':
                     rewardAmount = 20;
-                    rewardMessage = "Daily reward claimed!";
                     break;
                 case 'watch':
                     rewardAmount = 10;
-                    rewardMessage = "Ad watched successfully!";
                     break;
                 case 'spin':
                     rewardAmount = Math.floor(Math.random() * 7) + 1;
-                    rewardMessage = `Spin reward: ${rewardAmount} coins!`;
                     break;
                 case 'scratch':
                     rewardAmount = Math.floor(Math.random() * 7); // 0-6 coins
-                    rewardMessage = `Scratch card reward: ${rewardAmount} coins!`;
                     break;
             }
             
-            // Update user coins
-            currentUser.coins += rewardAmount;
-            localStorage.setItem('rupixo_user', JSON.stringify(currentUser));
+            // Update user coins in Firebase
+            database.ref('users/' + currentUser.uid + '/coins').transaction((currentCoins) => {
+                return (currentCoins || 0) + rewardAmount;
+            }).then(() => {
+                // Show reward notification
+                document.getElementById('reward-amount').textContent = rewardAmount;
+                document.getElementById('reward-notification').style.display = 'block';
+                
+                // Reload user data
+                loadUserData(currentUser.uid);
+                
+                // Return to home screen
+                showHomeScreen();
+                
+                // Hide notification after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('reward-notification').style.display = 'none';
+                }, 5000);
+            });
+        }
+        
+        // Show redeem modal
+        function showRedeemModal(amount, price) {
+            currentRedeemAmount = amount;
+            currentRedeemPrice = price;
             
-            // Update users list
-            const users = JSON.parse(localStorage.getItem('rupixo_users') || '[]');
-            const userIndex = users.findIndex(u => u.email === currentUser.email);
-            if (userIndex !== -1) {
-                users[userIndex] = currentUser;
-                localStorage.setItem('rupixo_users', JSON.stringify(users));
+            // Check if user has enough coins
+            const userCoins = parseInt(document.getElementById('user-balance').textContent);
+            if (userCoins < amount) {
+                showMessage(document.getElementById('modal-message'), `You need ${amount} coins to redeem ₹${price}`, 'error');
+                return;
             }
             
-            // Show reward notification
-            document.getElementById('reward-amount').textContent = rewardAmount;
-            document.getElementById('reward-notification').style.display = 'block';
+            document.getElementById('modal-title').textContent = `Redeem ${amount} coins for ₹${price}`;
+            document.getElementById('modal-message').innerHTML = '';
+            document.getElementById('redeem-modal').style.display = 'flex';
+        }
+        
+        // Toggle redeem fields based on selection
+        function toggleRedeemFields() {
+            const method = document.getElementById('redeem-method').value;
+            if (method === 'upi') {
+                document.getElementById('upi-fields').style.display = 'block';
+                document.getElementById('code-fields').style.display = 'none';
+            } else {
+                document.getElementById('upi-fields').style.display = 'none';
+                document.getElementById('code-fields').style.display = 'block';
+            }
+        }
+        
+        // Process redeem request
+        function processRedeem() {
+            const method = document.getElementById('redeem-method').value;
+            let identifier = '';
             
-            // Return to home screen
-            showHomeScreen();
+            if (method === 'upi') {
+                identifier = document.getElementById('upi-id').value;
+                if (!identifier) {
+                    showMessage(document.getElementById('modal-message'), 'Please enter your UPI ID', 'error');
+                    return;
+                }
+            } else {
+                identifier = document.getElementById('email').value;
+                if (!identifier) {
+                    showMessage(document.getElementById('modal-message'), 'Please enter your email', 'error');
+                    return;
+                }
+            }
             
-            // Hide notification after 5 seconds
-            setTimeout(() => {
-                document.getElementById('reward-notification').style.display = 'none';
-            }, 5000);
+            // Save redeem request to Firebase
+            const redeemData = {
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                userName: currentUser.displayName,
+                coins: currentRedeemAmount,
+                amount: currentRedeemPrice,
+                method: method,
+                identifier: identifier,
+                status: 'pending',
+                date: new Date().toISOString()
+            };
+            
+            database.ref('redeems').push(redeemData)
+                .then(() => {
+                    // Deduct coins from user
+                    return database.ref('users/' + currentUser.uid + '/coins').transaction((currentCoins) => {
+                        return (currentCoins || 0) - currentRedeemAmount;
+                    });
+                })
+                .then(() => {
+                    showMessage(document.getElementById('modal-message'), 'Redeem request submitted! You will receive your money within 24 hours.', 'success');
+                    
+                    // Reload user data
+                    loadUserData(currentUser.uid);
+                    
+                    // Close modal after 3 seconds
+                    setTimeout(() => {
+                        closeModal();
+                        showRedeemSection();
+                    }, 3000);
+                })
+                .catch((error) => {
+                    showMessage(document.getElementById('modal-message'), 'Error processing redeem: ' + error.message, 'error');
+                });
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('redeem-modal').style.display = 'none';
         }
         
         // Login function
@@ -745,30 +1054,32 @@ html
                 return;
             }
             
-            // Check if user exists in localStorage
-            const users = JSON.parse(localStorage.getItem('rupixo_users') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('rupixo_user', JSON.stringify(user));
-                showMessage(messageDiv, 'Login successful!', 'success');
-                
-                // Add login bonus (only once per day)
-                const today = new Date().toDateString();
-                if (user.lastLogin !== today) {
-                    user.coins += 5;
-                    user.lastLogin = today;
-                    localStorage.setItem('rupixo_user', JSON.stringify(user));
-                    localStorage.setItem('rupixo_users', JSON.stringify(users));
-                }
-                
-                setTimeout(() => {
-                    showHomeScreen();
-                }, 1000);
-            } else {
-                showMessage(messageDiv, 'Invalid email or password', 'error');
-            }
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    showMessage(messageDiv, 'Login successful!', 'success');
+                    
+                    // Add login bonus (only once per day)
+                    const today = new Date().toDateString();
+                    database.ref('users/' + user.uid).once('value')
+                        .then((snapshot) => {
+                            const userData = snapshot.val();
+                            if (userData && userData.lastLogin !== today) {
+                                database.ref('users/' + user.uid).update({
+                                    coins: (userData.coins || 0) + 5,
+                                    lastLogin: today
+                                });
+                            }
+                        });
+                    
+                    setTimeout(() => {
+                        showHomeScreen();
+                    }, 1000);
+                })
+                .catch((error) => {
+                    showMessage(messageDiv, error.message, 'error');
+                });
         }
         
         // Register function
@@ -788,41 +1099,50 @@ html
                 return;
             }
             
-            // Save user to localStorage
-            const users = JSON.parse(localStorage.getItem('rupixo_users') || '[]');
-            
-            // Check if email already exists
-            if (users.some(user => user.email === email)) {
-                showMessage(messageDiv, 'Email already registered', 'error');
-                return;
-            }
-            
-            const newUser = {
-                name,
-                email,
-                password,
-                coins: 50, // Starting bonus
-                joined: new Date().toISOString(),
-                lastLogin: new Date().toDateString()
-            };
-            
-            users.push(newUser);
-            localStorage.setItem('rupixo_users', JSON.stringify(users));
-            localStorage.setItem('rupixo_user', JSON.stringify(newUser));
-            currentUser = newUser;
-            
-            showMessage(messageDiv, 'Registration successful! 50 bonus coins added.', 'success');
-            
-            setTimeout(() => {
-                showHomeScreen();
-            }, 1500);
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed up
+                    const user = userCredential.user;
+                    
+                    // Update user profile with name
+                    user.updateProfile({
+                        displayName: name
+                    }).then(() => {
+                        // Save user data to Realtime Database
+                        const userData = {
+                            name: name,
+                            email: email,
+                            coins: 50, // Starting bonus
+                            joined: new Date().toISOString(),
+                            lastLogin: new Date().toDateString()
+                        };
+                        
+                        database.ref('users/' + user.uid).set(userData)
+                            .then(() => {
+                                showMessage(messageDiv, 'Registration successful! 50 bonus coins added.', 'success');
+                                
+                                setTimeout(() => {
+                                    showHomeScreen();
+                                }, 1500);
+                            })
+                            .catch((error) => {
+                                showMessage(messageDiv, 'Error saving user data: ' + error.message, 'error');
+                            });
+                    });
+                })
+                .catch((error) => {
+                    showMessage(messageDiv, error.message, 'error');
+                });
         }
         
         // Logout function
         function logout() {
-            currentUser = null;
-            localStorage.removeItem('rupixo_user');
-            showLoginForm();
+            auth.signOut().then(() => {
+                // Sign-out successful
+                showLoginForm();
+            }).catch((error) => {
+                alert('Error signing out: ' + error.message);
+            });
         }
         
         // Hide all sections
@@ -838,11 +1158,10 @@ html
             element.innerHTML = `<div class="message ${type}">${message}</div>`;
             setTimeout(() => {
                 element.innerHTML = '';
-            }, 3000);
+            }, 5000);
         }
-        
-        // Initialize the app
-        checkLogin();
     </script>
 </body>
 </html>
+```
+                    
