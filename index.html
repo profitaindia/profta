@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rupixo - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 95%;
+      padding: 10px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .link {
+      margin-top: 15px;
+      color: blue;
+      cursor: pointer;
+    }
+    .ad-banner {
+      margin-top: 20px;
+      background: #ddd;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="formTitle">Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <div class="link" onclick="toggleForm()">Don’t have an account? Register</div>
+
+    <!-- Banner Ad Placeholder -->
+    <div class="ad-banner">
+      Banner Ad Here
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    // Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+      authDomain: "rupixo-adc5e.firebaseapp.com",
+      databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com/",
+      projectId: "rupixo-adc5e",
+      storageBucket: "rupixo-adc5e.firebasestorage.app",
+      messagingSenderId: "79108214868",
+      appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+      measurementId: "G-F1D7GX94N1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    let isLogin = true;
+
+    function toggleForm() {
+      const title = document.getElementById("formTitle");
+      const button = document.querySelector("button");
+      const link = document.querySelector(".link");
+      if (isLogin) {
+        title.innerText = "Register";
+        button.innerText = "Register";
+        link.innerText = "Already have an account? Login";
+        button.setAttribute("onclick", "register()");
+      } else {
+        title.innerText = "Login";
+        button.innerText = "Login";
+        link.innerText = "Don’t have an account? Register";
+        button.setAttribute("onclick", "login()");
+      }
+      isLogin = !isLogin;
+    }
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Login Successful ✅");
+          window.location.href = "home.html"; // next page
+        })
+        .catch(err => alert(err.message));
+    };
+
+    window.register = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("Registration Successful ✅");
+          window.location.href = "home.html";
+        })
+        .catch(err => alert(err.message));
+    };
+  </script>
+</body>
+</html>
