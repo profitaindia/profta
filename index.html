@@ -1,11 +1,274 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profto - Earn Rewards</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profta Earn</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0d0d0d;
+      color: #00aaff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background: #001f33;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .container { padding: 20px; }
+    button {
+      background: #00aaff;
+      border: none;
+      padding: 12px 20px;
+      margin: 10px;
+      color: #fff;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled { background: gray; cursor: not-allowed; }
+    .card {
+      background: #001a29;
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px #003d66;
+    }
+    input, select {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #00aaff;
+    }
+    .banner {
+      margin: 15px 0;
+      padding: 10px;
+      background: #001f33;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Profta Earn</header>
+
+  <!-- Login Screen -->
+  <div id="login-screen" class="container">
+    <h2>Login / Register</h2>
+    <button onclick="googleLogin()">Login with Google</button>
+    <div class="banner">
+      <!-- Banner Ad code here -->
+      <p>[Banner Ad]</p>
+    </div>
+  </div>
+
+  <!-- Home Screen -->
+  <div id="home-screen" class="container" style="display:none;">
+    <h2>Welcome <span id="username"></span></h2>
+    <p>Coins: <span id="coinBalance">0</span></p>
+
+    <!-- Daily Bonus -->
+    <div class="card">
+      <h3>Daily Login Bonus</h3>
+      <button id="daily10Btn" onclick="claimDailyBonus(10)">Claim 10 Coins (No Ad)</button>
+      <button id="daily30Btn" onclick="claimDailyBonusAd()">Claim 30 Coins (Watch Ad)</button>
+    </div>
+
+    <div class="banner">
+      <!-- Banner Ad code here -->
+      <p>[Banner Ad]</p>
+    </div>
+
+    <!-- Watch Ad & Earn -->
+    <div class="card">
+      <h3>Watch Ad & Earn</h3>
+      <p>Daily Limit: 40 Ads</p>
+      <button onclick="watchAd()">Claim (Watch Ad)</button>
+    </div>
+
+    <div class="banner">
+      <!-- Banner Ad code here -->
+      <p>[Banner Ad]</p>
+    </div>
+
+    <!-- Redeem Section -->
+    <div class="card">
+      <h3>Redeem</h3>
+      <select id="redeemType">
+        <option value="upi">UPI</option>
+        <option value="googleplay">Google Play Code</option>
+      </select>
+      <input type="text" id="redeemInput" placeholder="Enter UPI ID or Gmail">
+      <select id="redeemAmount">
+        <option value="10">3000 Coins = ₹10</option>
+        <option value="50">10000 Coins = ₹50</option>
+      </select>
+      <button onclick="redeem()">Redeem Now</button>
+    </div>
+
+    <div class="banner">
+      <!-- Banner Ad code here -->
+      <p>[Banner Ad]</p>
+    </div>
+
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <script>
+    // Firebase Config (Tumhara wala)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+      authDomain: "rupixo-adc5e.firebaseapp.com",
+      databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com",
+      projectId: "rupixo-adc5e",
+      storageBucket: "rupixo-adc5e.firebasestorage.app",
+      messagingSenderId: "79108214868",
+      appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+      measurementId: "G-F1D7GX94N1"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    let currentUser = null;
+
+    // Google Login
+    function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).then(res => {
+        currentUser = res.user;
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("home-screen").style.display = "block";
+        document.getElementById("username").innerText = currentUser.displayName;
+        loadUserData();
+      });
+    }
+
+    // Logout
+    function logout() {
+      auth.signOut().then(() => {
+        currentUser = null;
+        document.getElementById("home-screen").style.display = "none";
+        document.getElementById("login-screen").style.display = "block";
+      });
+    }
+
+    // Load User Data
+    function loadUserData() {
+      db.collection("users").doc(currentUser.uid).get().then(doc => {
+        if (doc.exists) {
+          document.getElementById("coinBalance").innerText = doc.data().coins || 0;
+        } else {
+          db.collection("users").doc(currentUser.uid).set({
+            coins: 0,
+            lastDaily: null,
+            adsWatched: 0
+          });
+          document.getElementById("coinBalance").innerText = 0;
+        }
+      });
+    }
+
+    // Update Coins
+    function updateCoins(amount) {
+      const userRef = db.collection("users").doc(currentUser.uid);
+      userRef.get().then(doc => {
+        let coins = doc.data().coins || 0;
+        coins += amount;
+        userRef.update({ coins: coins });
+        document.getElementById("coinBalance").innerText = coins;
+      });
+    }
+
+    // Daily Bonus
+    function claimDailyBonus(amount) {
+      const today = new Date().toDateString();
+      const userRef = db.collection("users").doc(currentUser.uid);
+      userRef.get().then(doc => {
+        if (doc.data().lastDaily !== today) {
+          updateCoins(amount);
+          userRef.update({ lastDaily: today });
+          alert("Daily Bonus Claimed: " + amount + " coins");
+          document.getElementById("daily10Btn").disabled = true;
+          document.getElementById("daily30Btn").disabled = true;
+        } else {
+          alert("Daily Bonus already claimed today!");
+        }
+      });
+    }
+
+    // Daily Bonus with Ad
+    function claimDailyBonusAd() {
+      // Rewarded Ad code here
+      alert("Rewarded Ad Played (Demo)");
+      claimDailyBonus(30);
+    }
+
+    // Watch Ad & Earn
+    function watchAd() {
+      const userRef = db.collection("users").doc(currentUser.uid);
+      userRef.get().then(doc => {
+        let adsWatched = doc.data().adsWatched || 0;
+        const today = new Date().toDateString();
+        if (doc.data().lastAdDay !== today) {
+          adsWatched = 0;
+        }
+        if (adsWatched < 40) {
+          // Rewarded Ad code here
+          alert("Rewarded Ad Played (Demo)");
+          adsWatched++;
+          updateCoins(10);
+          userRef.update({ adsWatched: adsWatched, lastAdDay: today });
+        } else {
+          alert("Daily ad limit reached (40)");
+        }
+      });
+    }
+
+    // Redeem
+    function redeem() {
+      const type = document.getElementById("redeemType").value;
+      const input = document.getElementById("redeemInput").value;
+      const amount = parseInt(document.getElementById("redeemAmount").value);
+
+      if (!input) {
+        alert("Please enter UPI ID or Gmail!");
+        return;
+      }
+
+      const userRef = db.collection("users").doc(currentUser.uid);
+      userRef.get().then(doc => {
+        let coins = doc.data().coins || 0;
+        if ((amount === 10 && coins >= 3000) || (amount === 50 && coins >= 10000)) {
+          coins -= (amount === 10 ? 3000 : 10000);
+          userRef.update({ coins: coins });
+          db.collection("redeemRequests").add({
+            uid: currentUser.uid,
+            type: type,
+            input: input,
+            amount: amount,
+            date: new Date().toISOString(),
+            status: "pending"
+          });
+          alert("Redeem request submitted! Reward will be processed within 24 hours.");
+          document.getElementById("coinBalance").innerText = coins;
+        } else {
+          alert("Not enough coins!");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
