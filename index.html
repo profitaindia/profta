@@ -1,0 +1,889 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profto - Earn Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --danger: #f94144;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --background: #f0f2f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--background) 0%, #e0eafc 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--warning);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e20a6d;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #2bb4e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .btn-warning:hover {
+            background: #f7b500;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #e02d30;
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            padding: 30px 0;
+        }
+
+        .auth-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            margin: 40px auto;
+        }
+
+        .auth-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .banner-ad {
+            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner-ad h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .banner-ad p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            margin-bottom: 20px;
+        }
+
+        .coin-count {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .coin-count i {
+            margin-right: 5px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .reward-option {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .reward-option i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .reward-option h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .reward-option p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .spin-wheel {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            background: conic-gradient(
+                #4361ee 0deg 60deg, 
+                #3a0ca3 60deg 120deg, 
+                #f72585 120deg 180deg, 
+                #4cc9f0 180deg 240deg, 
+                #f9c74f 240deg 300deg, 
+                #f94144 300deg 360deg
+            );
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .spin-wheel::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--dark);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .ad-container {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .ad-container h4 {
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .ad-code {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: #495057;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <span>Profto</span>
+                </div>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="btn btn-primary" id="registerBtn">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <!-- Authentication Forms -->
+        <div class="auth-container" id="authForms">
+            <h2>Welcome to Profto</h2>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            <button class="btn btn-success btn-block" id="loginSubmit">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="btn btn-primary btn-block" id="registerSubmit">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+        </div>
+
+        <!-- Banner Ad -->
+        <div class="ad-container">
+            <h4>Banner Ad Space</h4>
+            <div class="ad-code"><!-- Ad Code Here --></div>
+        </div>
+
+        <!-- Dashboard (initially hidden) -->
+        <div id="dashboard" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-user"></i> User Profile
+                    </h2>
+                    <div class="coin-count">
+                        <i class="fas fa-coins"></i> <span id="coins">0</span> Coins
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h3 id="userEmail">user@example.com</h3>
+                            <p>Member since: June 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Ad -->
+            <div class="ad-container">
+                <h4>Banner Ad Space</h4>
+                <div class="ad-code"><!-- Ad Code Here --></div>
+            </div>
+
+            <!-- Daily Rewards -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-gift"></i> Daily Reward
+                    </h2>
+                </div>
+                <div class="card-content">
+                    <p>Claim your daily reward of 20 coins!</p>
+                    <p><small>Available once every 24 hours</small></p>
+                </div>
+                <button class="btn btn-warning btn-block" id="dailyReward">
+                    <i class="fas fa-gift"></i> Claim Reward
+                </button>
+            </div>
+
+            <!-- Banner Ad -->
+            <div class="ad-container">
+                <h4>Banner Ad Space</h4>
+                <div class="ad-code"><!-- Ad Code Here --></div>
+            </div>
+
+            <!-- Watch & Earn -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-eye"></i> Watch & Earn
+                    </h2>
+                    <div class="coin-count">
+                        <span id="watchCount">0</span>/25
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Watch an ad and earn 10 coins per view!</p>
+                    <p><small>Daily limit: 25 views</small></p>
+                </div>
+                <button class="btn btn-success btn-block" id="watchEarn">
+                    <i class="fas fa-play-circle"></i> Watch Ad (10 Coins)
+                </button>
+            </div>
+
+            <!-- Banner Ad -->
+            <div class="ad-container">
+                <h4>Banner Ad Space</h4>
+                <div class="ad-code"><!-- Ad Code Here --></div>
+            </div>
+
+            <!-- Spin & Earn -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-sync-alt"></i> Spin & Earn
+                    </h2>
+                    <div class="coin-count">
+                        <span id="spinCount">0</span>/10
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Spin the wheel and earn between 1-6 coins!</p>
+                    <p><small>Daily limit: 10 spins</small></p>
+                    <div class="spin-wheel"></div>
+                </div>
+                <button class="btn btn-primary btn-block" id="spinEarn">
+                    <i class="fas fa-sync-alt"></i> Spin & Earn
+                </button>
+            </div>
+
+            <!-- Banner Ad -->
+            <div class="ad-container">
+                <h4>Banner Ad Space</h4>
+                <div class="ad-code"><!-- Ad Code Here --></div>
+            </div>
+
+            <!-- Additional Earning Option -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-gamepad"></i> Play & Earn
+                    </h2>
+                    <div class="coin-count">
+                        <span id="playCount">0</span>/10
+                    </div>
+                </div>
+                <div class="card-content">
+                    <p>Play a mini-game and earn up to 10 coins!</p>
+                    <p><small>Daily limit: 10 plays</small></p>
+                </div>
+                <button class="btn btn-success btn-block" id="playEarn">
+                    <i class="fas fa-gamepad"></i> Play Game (Up to 10 Coins)
+                </button>
+            </div>
+
+            <!-- Banner Ad -->
+            <div class="ad-container">
+                <h4>Banner Ad Space</h4>
+                <div class="ad-code"><!-- Ad Code Here --></div>
+            </div>
+
+            <!-- Referral Program -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-users"></i> Refer & Earn
+                    </h2>
+                </div>
+                <div class="card-content">
+                    <p>Share your referral code with friends and earn 50 coins when they sign up!</p>
+                    <div class="form-group">
+                        <label for="referralCode">Your Referral Code</label>
+                        <input type="text" class="form-control" id="referralCode" value="PROFTO123" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="friendCode">Friend's Referral Code</label>
+                        <input type="text" class="form-control" id="friendCode" placeholder="Enter friend's code">
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-block">
+                    <i class="fas fa-share-alt"></i> Share Referral Code
+                </button>
+                <button class="btn btn-success btn-block">
+                    <i class="fas fa-check-circle"></i> Apply Friend's Code
+                </button>
+            </div>
+
+            <!-- Banner Ad -->
+            <div class="ad-container">
+                <h4>Banner Ad Space</h4>
+                <div class="ad-code"><!-- Ad Code Here --></div>
+            </div>
+
+            <!-- Redeem Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fas fa-money-bill-wave"></i> Redeem Coins
+                    </h2>
+                </div>
+                <div class="card-content">
+                    <div class="form-group">
+                        <label>Select Redeem Method</label>
+                        <select class="form-control">
+                            <option>UPI Transfer</option>
+                            <option>Redeem Code</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="upiId">UPI ID or Email</label>
+                        <input type="text" class="form-control" id="upiId" placeholder="Enter UPI ID or Email">
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-block">
+                    <i class="fas fa-gift"></i> Redeem Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Profto - Earn Rewards. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Operation completed successfully!</span>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+            authDomain: "rupixo-adc5e.firebaseapp.com",
+            databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com/",
+            projectId: "rupixo-adc5e",
+            storageBucket: "rupixo-adc5e.firebasestorage.app",
+            messagingSenderId: "79108214868",
+            appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+            measurementId: "G-F1D7GX94N1"
+        };
+
+        // Initialize Firebase (commented out for demo)
+        // firebase.initializeApp(firebaseConfig);
+        
+        // Demo user data
+        let userData = {
+            email: "user@profto.com",
+            coins: 125,
+            watchCount: 5,
+            spinCount: 3,
+            playCount: 2,
+            dailyRewardClaimed: false
+        };
+
+        // DOM elements
+        const authForms = document.getElementById('authForms');
+        const dashboard = document.getElementById('dashboard');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginSubmit = document.getElementById('loginSubmit');
+        const registerSubmit = document.getElementById('registerSubmit');
+        const dailyReward = document.getElementById('dailyReward');
+        const watchEarn = document.getElementById('watchEarn');
+        const spinEarn = document.getElementById('spinEarn');
+        const playEarn = document.getElementById('playEarn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        const coinsElement = document.getElementById('coins');
+        const watchCountElement = document.getElementById('watchCount');
+        const spinCountElement = document.getElementById('spinCount');
+        const playCountElement = document.getElementById('playCount');
+        const userEmailElement = document.getElementById('userEmail');
+
+        // Initialize UI with user data
+        function initUI() {
+            coinsElement.textContent = userData.coins;
+            watchCountElement.textContent = userData.watchCount;
+            spinCountElement.textContent = userData.spinCount;
+            playCountElement.textContent = userData.playCount;
+            userEmailElement.textContent = userData.email;
+            
+            if (userData.dailyRewardClaimed) {
+                dailyReward.disabled = true;
+                dailyReward.innerHTML = '<i class="fas fa-check-circle"></i> Already Claimed';
+            }
+            
+            if (userData.watchCount >= 25) {
+                watchEarn.disabled = true;
+                watchEarn.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+            }
+            
+            if (userData.spinCount >= 10) {
+                spinEarn.disabled = true;
+                spinEarn.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+            }
+            
+            if (userData.playCount >= 10) {
+                playEarn.disabled = true;
+                playEarn.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Show ad function (placeholder for your ad code)
+        function showAd() {
+            // This is where you would integrate your ad code
+            // For demonstration, we'll use a simple timeout
+            return new Promise(resolve => {
+                // Show a mock ad for demonstration
+                const adOverlay = document.createElement('div');
+                adOverlay.style.position = 'fixed';
+                adOverlay.style.top = '0';
+                adOverlay.style.left = '0';
+                adOverlay.style.width = '100%';
+                adOverlay.style.height = '100%';
+                adOverlay.style.background = 'rgba(0, 0, 0, 0.8)';
+                adOverlay.style.display = 'flex';
+                adOverlay.style.flexDirection = 'column';
+                adOverlay.style.alignItems = 'center';
+                adOverlay.style.justifyContent = 'center';
+                adOverlay.style.zIndex = '2000';
+                adOverlay.style.color = 'white';
+                
+                adOverlay.innerHTML = `
+                    <h2>Advertisement</h2>
+                    <p>This is where your ad would appear</p>
+                    <p>Ad will complete in <span id="adCountdown">5</span> seconds</p>
+                    <button class="btn btn-danger" id="skipAd" style="margin-top: 20px;">Skip Ad</button>
+                `;
+                
+                document.body.appendChild(adOverlay);
+                
+                let countdown = 5;
+                const countdownEl = document.getElementById('adCountdown');
+                const countdownInterval = setInterval(() => {
+                    countdown--;
+                    countdownEl.textContent = countdown;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        document.body.removeChild(adOverlay);
+                        resolve();
+                    }
+                }, 1000);
+                
+                // Skip ad button
+                document.getElementById('skipAd').addEventListener('click', () => {
+                    clearInterval(countdownInterval);
+                    document.body.removeChild(adOverlay);
+                    resolve();
+                });
+            });
+        }
+
+        // Event listeners
+        loginSubmit.addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                authForms.style.display = 'none';
+                dashboard.style.display = 'block';
+                userData.email = email;
+                initUI();
+                showNotification('Login successful!');
+            } else {
+                showNotification('Please enter email and password');
+            }
+        });
+
+        registerSubmit.addEventListener('click', () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (email && password) {
+                authForms.style.display = 'none';
+                dashboard.style.display = 'block';
+                userData.email = email;
+                initUI();
+                showNotification('Account created successfully!');
+            } else {
+                showNotification('Please enter email and password');
+            }
+        });
+
+        dailyReward.addEventListener('click', async () => {
+            if (!userData.dailyRewardClaimed) {
+                // Show ad before rewarding
+                await showAd();
+                
+                userData.coins += 20;
+                userData.dailyRewardClaimed = true;
+                coinsElement.textContent = userData.coins;
+                dailyReward.disabled = true;
+                dailyReward.innerHTML = '<i class="fas fa-check-circle"></i> Already Claimed';
+                showNotification('Daily reward claimed! 20 coins added.');
+            }
+        });
+
+        watchEarn.addEventListener('click', async () => {
+            if (userData.watchCount < 25) {
+                // Show ad before rewarding
+                await showAd();
+                
+                userData.coins += 10;
+                userData.watchCount++;
+                coinsElement.textContent = userData.coins;
+                watchCountElement.textContent = userData.watchCount;
+                
+                if (userData.watchCount >= 25) {
+                    watchEarn.disabled = true;
+                    watchEarn.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+                }
+                
+                showNotification('You earned 10 coins!');
+            }
+        });
+
+        spinEarn.addEventListener('click', async () => {
+            if (userData.spinCount < 10) {
+                // Show ad before rewarding
+                await showAd();
+                
+                const earnedCoins = Math.floor(Math.random() * 6) + 1;
+                userData.coins += earnedCoins;
+                userData.spinCount++;
+                coinsElement.textContent = userData.coins;
+                spinCountElement.textContent = userData.spinCount;
+                
+                if (userData.spinCount >= 10) {
+                    spinEarn.disabled = true;
+                    spinEarn.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+                }
+                
+                showNotification(`You earned ${earnedCoins} coins from spinning!`);
+            }
+        });
+
+        playEarn.addEventListener('click', async () => {
+            if (userData.playCount < 10) {
+                // Show ad before rewarding
+                await showAd();
+                
+                const earnedCoins = Math.floor(Math.random() * 10) + 1;
+                userData.coins += earnedCoins;
+                userData.playCount++;
+                coinsElement.textContent = userData.coins;
+                playCountElement.textContent = userData.playCount;
+                
+                if (userData.playCount >= 10) {
+                    playEarn.disabled = true;
+                    playEarn.innerHTML = '<i class="fas fa-ban"></i> Limit Reached';
+                }
+                
+                showNotification(`You earned ${earnedCoins} coins from playing!`);
+            }
+        });
+
+        // Initialize the UI
+        initUI();
+    </script>
+</body>
+</html>
