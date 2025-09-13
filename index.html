@@ -1,133 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profta Earn</title>
+  <title>Profta - Earn Rewards</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0d0d0d;
-      color: #00aaff;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    header {
-      background: #001f33;
-      padding: 15px;
-      font-size: 22px;
-      font-weight: bold;
-    }
+    body { font-family: Arial, sans-serif; background: #0d1117; color: #fff; margin: 0; }
+    header { background: #161b22; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { color: #58a6ff; font-size: 20px; margin: 0; }
+    header .coins { font-size: 16px; }
     .container { padding: 20px; }
-    button {
-      background: #00aaff;
-      border: none;
-      padding: 12px 20px;
-      margin: 10px;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    button:disabled { background: gray; cursor: not-allowed; }
-    .card {
-      background: #001a29;
-      margin: 15px auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 10px #003d66;
-    }
-    input, select {
-      width: 90%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: 1px solid #00aaff;
-    }
-    .banner {
-      margin: 15px 0;
-      padding: 10px;
-      background: #001f33;
-      border-radius: 8px;
-    }
+    .card { background: #161b22; margin: 15px 0; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+    .card h2 { color: #58a6ff; margin-top: 0; }
+    button { background: #238636; border: none; padding: 10px 15px; border-radius: 8px; color: #fff; font-size: 15px; cursor: pointer; }
+    button:disabled { background: #555; }
+    input { width: 100%; padding: 10px; margin: 8px 0; border-radius: 6px; border: 1px solid #444; background: #0d1117; color: #fff; }
+    nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #161b22; display: flex; justify-content: space-around; padding: 10px 0; }
+    nav button { background: none; color: #58a6ff; border: none; font-size: 16px; }
+    .hidden { display: none; }
   </style>
-</head>
-<body>
-
-  <header>Profta Earn</header>
-
-  <!-- Login Screen -->
-  <div id="login-screen" class="container">
-    <h2>Login / Register</h2>
-    <button onclick="googleLogin()">Login with Google</button>
-    <div class="banner">
-      <!-- Banner Ad code here -->
-      <p>[Banner Ad]</p>
-    </div>
-  </div>
-
-  <!-- Home Screen -->
-  <div id="home-screen" class="container" style="display:none;">
-    <h2>Welcome <span id="username"></span></h2>
-    <p>Coins: <span id="coinBalance">0</span></p>
-
-    <!-- Daily Bonus -->
-    <div class="card">
-      <h3>Daily Login Bonus</h3>
-      <button id="daily10Btn" onclick="claimDailyBonus(10)">Claim 10 Coins (No Ad)</button>
-      <button id="daily30Btn" onclick="claimDailyBonusAd()">Claim 30 Coins (Watch Ad)</button>
-    </div>
-
-    <div class="banner">
-      <!-- Banner Ad code here -->
-      <p>[Banner Ad]</p>
-    </div>
-
-    <!-- Watch Ad & Earn -->
-    <div class="card">
-      <h3>Watch Ad & Earn</h3>
-      <p>Daily Limit: 40 Ads</p>
-      <button onclick="watchAd()">Claim (Watch Ad)</button>
-    </div>
-
-    <div class="banner">
-      <!-- Banner Ad code here -->
-      <p>[Banner Ad]</p>
-    </div>
-
-    <!-- Redeem Section -->
-    <div class="card">
-      <h3>Redeem</h3>
-      <select id="redeemType">
-        <option value="upi">UPI</option>
-        <option value="googleplay">Google Play Code</option>
-      </select>
-      <input type="text" id="redeemInput" placeholder="Enter UPI ID or Gmail">
-      <select id="redeemAmount">
-        <option value="10">3000 Coins = ₹10</option>
-        <option value="50">10000 Coins = ₹50</option>
-      </select>
-      <button onclick="redeem()">Redeem Now</button>
-    </div>
-
-    <div class="banner">
-      <!-- Banner Ad code here -->
-      <p>[Banner Ad]</p>
-    </div>
-
-    <button onclick="logout()">Logout</button>
-  </div>
-
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Profta</h1>
+    <div class="coins">Coins: <span id="coinCount">0</span></div>
+  </header>  <div class="container">
+    <!-- Login/Register Screen -->
+    <div id="authSection">
+      <div class="card">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPassword" placeholder="Password">
+        <button onclick="login()">Login</button>
+      </div>
+      <div class="card">
+        <h2>Register</h2>
+        <input type="text" id="regName" placeholder="Name">
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="password" id="regPassword" placeholder="Password">
+        <button onclick="register()">Register</button>
+      </div>
+      <!-- Banner Ad -->
+      <div class="card"> <!-- Ad code here --> </div>
+    </div><!-- Home Screen -->
+<div id="homeSection" class="hidden">
+  <div class="card">
+    <h2>Daily Bonus</h2>
+    <button id="daily10" onclick="claimDaily(10)">Claim 10 Coins (No Ad)</button>
+    <button id="daily30" onclick="claimDaily(30,true)">Claim 30 Coins (Watch Ad)</button>
+  </div>
+  <!-- Banner Ad -->
+  <div class="card"> <!-- Ad code here --> </div>
 
-  <script>
-    // Firebase Config (Tumhara wala)
+  <div class="card">
+    <h2>Watch Ad & Earn</h2>
+    <p>Watch ads and earn 10 coins each. Daily limit: 40 ads</p>
+    <button onclick="watchAd()">Claim (Watch Ad)</button>
+  </div>
+  <!-- Banner Ad -->
+  <div class="card"> <!-- Ad code here --> </div>
+</div>
+
+<!-- Redeem Screen -->
+<div id="redeemSection" class="hidden">
+  <div class="card">
+    <h2>Redeem</h2>
+    <p>3000 coins = ₹10 | 10000 coins = ₹50</p>
+    <h3>UPI Redeem</h3>
+    <input type="text" id="upiId" placeholder="Enter UPI ID">
+    <button onclick="redeem('upi')">Redeem via UPI</button>
+
+    <h3>Google Play Code</h3>
+    <input type="text" id="gmailId" placeholder="Enter Gmail ID">
+    <button onclick="redeem('gmail')">Redeem Google Play</button>
+  </div>
+  <!-- Banner Ad -->
+  <div class="card"> <!-- Ad code here --> </div>
+</div>
+
+<!-- Profile Screen -->
+<div id="profileSection" class="hidden">
+  <div class="card">
+    <h2>Your Profile</h2>
+    <p>Name: <span id="profileName"></span></p>
+    <p>Email: <span id="profileEmail"></span></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+  </div>  <nav class="hidden" id="bottomNav">
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('redeem')">Redeem</button>
+    <button onclick="showSection('profile')">Profile</button>
+  </nav>  <script>
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
       authDomain: "rupixo-adc5e.firebaseapp.com",
@@ -143,132 +111,99 @@
     const db = firebase.firestore();
 
     let currentUser = null;
+    let today = new Date().toLocaleDateString();
 
-    // Google Login
-    function googleLogin() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider).then(res => {
-        currentUser = res.user;
-        document.getElementById("login-screen").style.display = "none";
-        document.getElementById("home-screen").style.display = "block";
-        document.getElementById("username").innerText = currentUser.displayName;
-        loadUserData();
-      });
+    function register(){
+      const name=document.getElementById('regName').value;
+      const email=document.getElementById('regEmail').value;
+      const pass=document.getElementById('regPassword').value;
+      auth.createUserWithEmailAndPassword(email,pass).then(res=>{
+        db.collection("users").doc(res.user.uid).set({
+          name:name,email:email,coins:0,lastDaily:"",adsWatched:0
+        });
+        alert("Registered! Now login.");
+      }).catch(e=>alert(e.message));
     }
 
-    // Logout
-    function logout() {
-      auth.signOut().then(() => {
-        currentUser = null;
-        document.getElementById("home-screen").style.display = "none";
-        document.getElementById("login-screen").style.display = "block";
-      });
+    function login(){
+      const email=document.getElementById('loginEmail').value;
+      const pass=document.getElementById('loginPassword').value;
+      auth.signInWithEmailAndPassword(email,pass).then(()=>{
+        document.getElementById('authSection').classList.add('hidden');
+        document.getElementById('homeSection').classList.remove('hidden');
+        document.getElementById('bottomNav').classList.remove('hidden');
+        loadUser();
+      }).catch(e=>alert(e.message));
     }
 
-    // Load User Data
-    function loadUserData() {
-      db.collection("users").doc(currentUser.uid).get().then(doc => {
-        if (doc.exists) {
-          document.getElementById("coinBalance").innerText = doc.data().coins || 0;
-        } else {
-          db.collection("users").doc(currentUser.uid).set({
-            coins: 0,
-            lastDaily: null,
-            adsWatched: 0
+    function loadUser(){
+      auth.onAuthStateChanged(user=>{
+        if(user){
+          currentUser=user;
+          db.collection("users").doc(user.uid).onSnapshot(doc=>{
+            const data=doc.data();
+            document.getElementById('coinCount').innerText=data.coins;
+            document.getElementById('profileName').innerText=data.name;
+            document.getElementById('profileEmail').innerText=data.email;
           });
-          document.getElementById("coinBalance").innerText = 0;
         }
       });
     }
 
-    // Update Coins
-    function updateCoins(amount) {
-      const userRef = db.collection("users").doc(currentUser.uid);
-      userRef.get().then(doc => {
-        let coins = doc.data().coins || 0;
-        coins += amount;
-        userRef.update({ coins: coins });
-        document.getElementById("coinBalance").innerText = coins;
+    function claimDaily(coins,isAd){
+      db.collection("users").doc(currentUser.uid).get().then(doc=>{
+        let data=doc.data();
+        if(data.lastDaily===today){alert("Already claimed today!");return;}
+        if(isAd){
+          // Show rewarded ad here
+          alert("Rewarded Ad Playing... (placeholder)"); // replace with ad code
+        }
+        db.collection("users").doc(currentUser.uid).update({
+          coins:data.coins+coins,lastDaily:today
+        });
+        alert("Daily Bonus Claimed!");
       });
     }
 
-    // Daily Bonus
-    function claimDailyBonus(amount) {
-      const today = new Date().toDateString();
-      const userRef = db.collection("users").doc(currentUser.uid);
-      userRef.get().then(doc => {
-        if (doc.data().lastDaily !== today) {
-          updateCoins(amount);
-          userRef.update({ lastDaily: today });
-          alert("Daily Bonus Claimed: " + amount + " coins");
-          document.getElementById("daily10Btn").disabled = true;
-          document.getElementById("daily30Btn").disabled = true;
-        } else {
-          alert("Daily Bonus already claimed today!");
-        }
+    function watchAd(){
+      db.collection("users").doc(currentUser.uid).get().then(doc=>{
+        let d=doc.data();
+        if(d.adsWatched>=40){alert("Daily limit reached");return;}
+        // Show rewarded ad here
+        alert("Rewarded Ad Playing... (placeholder)"); // replace with ad code
+        db.collection("users").doc(currentUser.uid).update({
+          coins:d.coins+10, adsWatched:d.adsWatched+1
+        });
+        alert("+10 coins earned");
       });
     }
 
-    // Daily Bonus with Ad
-    function claimDailyBonusAd() {
-      // Rewarded Ad code here
-      alert("Rewarded Ad Played (Demo)");
-      claimDailyBonus(30);
-    }
-
-    // Watch Ad & Earn
-    function watchAd() {
-      const userRef = db.collection("users").doc(currentUser.uid);
-      userRef.get().then(doc => {
-        let adsWatched = doc.data().adsWatched || 0;
-        const today = new Date().toDateString();
-        if (doc.data().lastAdDay !== today) {
-          adsWatched = 0;
-        }
-        if (adsWatched < 40) {
-          // Rewarded Ad code here
-          alert("Rewarded Ad Played (Demo)");
-          adsWatched++;
-          updateCoins(10);
-          userRef.update({ adsWatched: adsWatched, lastAdDay: today });
-        } else {
-          alert("Daily ad limit reached (40)");
-        }
+    function redeem(type){
+      db.collection("users").doc(currentUser.uid).get().then(doc=>{
+        let d=doc.data();
+        let amount=0;
+        if(d.coins>=10000) amount=50;
+        else if(d.coins>=3000) amount=10;
+        else {alert("Not enough coins");return;}
+        let info = (type==='upi') ? document.getElementById('upiId').value : document.getElementById('gmailId').value;
+        if(!info){alert("Enter details");return;}
+        db.collection("redeems").add({
+          uid:currentUser.uid,type:type,info:info,amount:amount,date:new Date().toLocaleString()
+        });
+        alert("Redeem request submitted! Reward in 24h.");
       });
     }
 
-    // Redeem
-    function redeem() {
-      const type = document.getElementById("redeemType").value;
-      const input = document.getElementById("redeemInput").value;
-      const amount = parseInt(document.getElementById("redeemAmount").value);
-
-      if (!input) {
-        alert("Please enter UPI ID or Gmail!");
-        return;
-      }
-
-      const userRef = db.collection("users").doc(currentUser.uid);
-      userRef.get().then(doc => {
-        let coins = doc.data().coins || 0;
-        if ((amount === 10 && coins >= 3000) || (amount === 50 && coins >= 10000)) {
-          coins -= (amount === 10 ? 3000 : 10000);
-          userRef.update({ coins: coins });
-          db.collection("redeemRequests").add({
-            uid: currentUser.uid,
-            type: type,
-            input: input,
-            amount: amount,
-            date: new Date().toISOString(),
-            status: "pending"
-          });
-          alert("Redeem request submitted! Reward will be processed within 24 hours.");
-          document.getElementById("coinBalance").innerText = coins;
-        } else {
-          alert("Not enough coins!");
-        }
-      });
+    function showSection(sec){
+      document.getElementById('homeSection').classList.add('hidden');
+      document.getElementById('redeemSection').classList.add('hidden');
+      document.getElementById('profileSection').classList.add('hidden');
+      document.getElementById(sec+'Section').classList.remove('hidden');
     }
-  </script>
-</body>
+
+    function logout(){
+      auth.signOut();
+      location.reload();
+    }
+  </script></body>
 </html>
