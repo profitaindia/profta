@@ -1,1 +1,399 @@
-').style.display = 'b
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profta - Earn Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            font-size: 42px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo span {
+            color: #fdbb2d;
+        }
+        
+        .logo p {
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        .auth-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 5px;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            background: #fdbb2d;
+            color: #1a2a6c;
+            font-weight: bold;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+        }
+        
+        .btn {
+            background: #fdbb2d;
+            color: #1a2a6c;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #ffcc44;
+            transform: translateY(-2px);
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .dashboard {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .home-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .welcome-message h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #fdbb2d;
+        }
+        
+        .welcome-message p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login/Register Section -->
+        <div class="auth-container" id="auth-container">
+            <div class="logo">
+                <h1>PROF<span>TA</span></h1>
+                <p>Earn rewards by watching ads</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="showAuthForm('login')">Login</div>
+                <div class="auth-tab" onclick="showAuthForm('register')">Register</div>
+            </div>
+            
+            <div class="auth-form active" id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <button class="btn" onclick="login()">Login</button>
+                <div class="error-message" id="login-error"></div>
+            </div>
+            
+            <div class="auth-form" id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password (min. 6 characters)">
+                </div>
+                <button class="btn" onclick="register()">Register</button>
+                <div class="error-message" id="register-error"></div>
+            </div>
+        </div>
+        
+        <!-- Home Dashboard (Shown after login) -->
+        <div class="dashboard" id="dashboard">
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            
+            <div class="home-content">
+                <div class="welcome-message">
+                    <h2>Welcome to Profta!</h2>
+                    <p>You have successfully logged in</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+            authDomain: "rupixo-adc5e.firebaseapp.com",
+            databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com",
+            projectId: "rupixo-adc5e",
+            storageBucket: "rupixo-adc5e.firebasestorage.app",
+            messagingSenderId: "79108214868",
+            appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+            measurementId: "G-F1D7GX94N1"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Authentication state observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                showDashboard();
+            } else {
+                // User is signed out
+                showAuth();
+            }
+        });
+
+        // Show authentication screen
+        function showAuth() {
+            document.getElementById('auth-container').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        // Show dashboard after login
+        function showDashboard() {
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        // Switch between login and register forms
+        function showAuthForm(formType) {
+            // Update tabs
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Update forms
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            if (formType === 'login') {
+                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
+                document.getElementById('login-form').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
+                document.getElementById('register-form').classList.add('active');
+            }
+            
+            // Clear error messages
+            document.getElementById('login-error').style.display = 'none';
+            document.getElementById('register-error').style.display = 'none';
+        }
+
+        // Login function
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorElement = document.getElementById('login-error');
+            
+            // Basic validation
+            if (!email || !password) {
+                errorElement.textContent = 'Please fill in all fields';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            // Clear previous errors
+            errorElement.style.display = 'none';
+            
+            // Sign in with Firebase
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Login successful - handled by auth state observer
+                })
+                .catch((error) => {
+                    // Handle errors
+                    let errorMessage = 'An error occurred during login';
+                    
+                    if (error.code === 'auth/user-not-found') {
+                        errorMessage = 'No account found with this email';
+                    } else if (error.code === 'auth/wrong-password') {
+                        errorMessage = 'Incorrect password';
+                    } else if (error.code === 'auth/invalid-email') {
+                        errorMessage = 'Invalid email address';
+                    }
+                    
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                });
+        }
+
+        // Register function
+        function register() {
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const errorElement = document.getElementById('register-error');
+            
+            // Basic validation
+            if (!name || !email || !password) {
+                errorElement.textContent = 'Please fill in all fields';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            if (password.length < 6) {
+                errorElement.textContent = 'Password must be at least 6 characters';
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            // Clear previous errors
+            errorElement.style.display = 'none';
+            
+            // Create user with Firebase
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Registration successful - handled by auth state observer
+                })
+                .catch((error) => {
+                    // Handle errors
+                    let errorMessage = 'An error occurred during registration';
+                    
+                    if (error.code === 'auth/email-already-in-use') {
+                        errorMessage = 'An account with this email already exists';
+                    } else if (error.code === 'auth/invalid-email') {
+                        errorMessage = 'Invalid email address';
+                    } else if (error.code === 'auth/weak-password') {
+                        errorMessage = 'Password is too weak';
+                    }
+                    
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                });
+        }
+
+        // Logout function
+        function logout() {
+            auth.signOut();
+        }
+    </script>
+</body>
+</html>
