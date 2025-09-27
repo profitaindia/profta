@@ -21,13 +21,14 @@ html
             background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
             color: white;
             min-height: 100vh;
-            padding-bottom: 80px;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 500px;
             margin: 0 auto;
             padding: 15px;
+            transition: transform 0.4s ease;
         }
         
         header {
@@ -59,9 +60,9 @@ html
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .coin-display img {
-            width: 20px;
+        .coin-display i {
             margin-right: 8px;
+            color: #fdbb2d;
         }
         
         .auth-container {
@@ -140,55 +141,44 @@ html
             display: none;
         }
         
-        .nav-tabs {
-            display: flex;
-            justify-content: space-around;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 10px;
-            margin-bottom: 20px;
-            position: fixed;
-            bottom: 15px;
-            left: 15px;
-            right: 15px;
-            z-index: 100;
-        }
-        
-        .nav-tab {
-            padding: 10px 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            flex: 1;
-            margin: 0 5px;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .nav-tab.active {
-            background: rgba(253, 187, 45, 0.3);
-            font-weight: bold;
-        }
-        
-        .nav-tab i {
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-        
-        .tab-content {
+        .page {
             display: none;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
-            min-height: 400px;
-            margin-bottom: 80px;
+            margin-bottom: 20px;
+            min-height: calc(100vh - 100px);
         }
         
-        .tab-content.active {
+        .page.active {
             display: block;
+        }
+        
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: bold;
         }
         
         /* Home Page Styles */
@@ -516,6 +506,15 @@ html
             margin-right: 10px;
         }
         
+        /* Slide animation */
+        .slide-left {
+            transform: translateX(-100%);
+        }
+        
+        .slide-right {
+            transform: translateX(100%);
+        }
+        
         @media (max-width: 500px) {
             .container {
                 padding: 10px;
@@ -529,17 +528,11 @@ html
                 flex-direction: column;
                 gap: 10px;
             }
-            
-            .nav-tabs {
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="main-container">
         <header>
             <div class="logo">PROF<span>TA</span></div>
             <div class="coin-display">
@@ -568,7 +561,7 @@ html
                 <p id="login-error" style="color: #ff6b6b; margin-top: 10px; display: none;"></p>
             </div>
             
-            <div class="auth-form" id="register-form">
+           <div class="auth-form" id="register-form">
                 <div class="form-group">
                     <label for="register-name">Full Name</label>
                     <input type="text" id="register-name" placeholder="Enter your full name">
@@ -588,8 +581,8 @@ html
         
         <!-- Dashboard Section -->
         <div class="dashboard" id="dashboard">
-            <!-- Home Tab -->
-            <div class="tab-content active" id="home-tab">
+            <!-- Home Page -->
+            <div class="page active" id="home-page">
                 <div class="home-header">
                     <h1>Welcome to Profta!</h1>
                     <p>Earn coins and redeem amazing rewards</p>
@@ -621,19 +614,19 @@ html
                 </div>
                 
                 <div class="quick-actions">
-                    <div class="action-card" onclick="showTab('profile')">
+                    <div class="action-card" onclick="navigateTo('profile')">
                         <i class="fas fa-user"></i>
                         <h3>My Profile</h3>
                         <p>View your details & history</p>
                     </div>
                     
-                    <div class="action-card" onclick="showTab('bonus')">
+                    <div class="action-card" onclick="navigateTo('bonus')">
                         <i class="fas fa-gift"></i>
                         <h3>Daily Bonus</h3>
                         <p>Claim your rewards</p>
                     </div>
                     
-                    <div class="action-card" onclick="showTab('redeem')">
+                    <div class="action-card" onclick="navigateTo('redeem')">
                         <i class="fas fa-wallet"></i>
                         <h3>Redeem</h3>
                         <p>Convert coins to cash</p>
@@ -661,9 +654,15 @@ html
                 </div>
             </div>
             
-            <!-- Profile Tab -->
-            <div class="tab-content" id="profile-tab">
-                <h2>Profile Information</h2>
+            <!-- Profile Page -->
+            <div class="page" id="profile-page">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="page-title">Profile</div>
+                    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+                </div>
                 
                 <div class="profile-info">
                     <div class="info-item">
@@ -698,8 +697,16 @@ html
                 </button>
             </div>
             
-            <!-- Bonus Tab -->
-            <div class="tab-content" id="bonus-tab">
+            <!-- Bonus Page -->
+            <div class="page" id="bonus-page">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="page-title">Daily Bonus</div>
+                    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+                </div>
+                
                 <div class="bonus-card">
                     <h3>Daily Bonus</h3>
                     <p>Claim your daily bonus of 20 coins by watching a rewarded ad</p>
@@ -714,8 +721,16 @@ html
                 </div>
             </div>
             
-            <!-- Redeem Tab -->
-            <div class="tab-content" id="redeem-tab">
+            <!-- Redeem Page -->
+            <div class="page" id="redeem-page">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="page-title">Redeem</div>
+                    <div style="width: 40px;"></div> <!-- Spacer for alignment -->
+                </div>
+                
                 <div class="balance-card">
                     <h3>Your Balance</h3>
                     <div class="balance-amount" id="redeem-balance">100</div>
@@ -780,26 +795,6 @@ html
                 </div>
             </div>
         </div>
-        
-        <!-- Bottom Navigation -->
-        <div class="nav-tabs">
-            <div class="nav-tab active" onclick="showTab('home')">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </div>
-            <div class="nav-tab" onclick="showTab('profile')">
-                <i class="fas fa-user"></i>
-                <span>Profile</span>
-            </div>
-            <div class="nav-tab" onclick="showTab('bonus')">
-                <i class="fas fa-gift"></i>
-                <span>Bonus</span>
-            </div>
-            <div class="nav-tab" onclick="showTab('redeem')">
-                <i class="fas fa-wallet"></i>
-                <span>Redeem</span>
-            </div>
-        </div>
     </div>
     
     <div class="notification" id="notification">
@@ -829,6 +824,7 @@ html
         let userData = null;
         let adsWatchedToday = 0;
         let loginStreak = 0;
+        let currentPage = 'home';
 
         // Authentication state observer
         auth.onAuthStateChanged((user) => {
@@ -887,11 +883,11 @@ html
                 .then((userCredential) => {
                     const user = userCredential.user;
                     
-                    // Create user data in database
+                    // Create user data in database with 100 coins
                     return database.ref('users/' + user.uid).set({
                         name: name,
                         email: email,
-                        coins: 100,
+                        coins: 100, // Starting with 100 coins
                         joinDate: new Date().toISOString(),
                         lastBonusClaim: null,
                         lastDailyReward: null,
@@ -912,6 +908,35 @@ html
 
         function logout() {
             auth.signOut();
+        }
+
+        // Navigation function with slide animation
+        function navigateTo(page) {
+            const container = document.getElementById('main-container');
+            const currentPageElement = document.getElementById(currentPage + '-page');
+            const nextPageElement = document.getElementById(page + '-page');
+            
+            // Add slide animation
+            container.classList.add('slide-left');
+            
+            setTimeout(() => {
+                // Hide current page
+                currentPageElement.classList.remove('active');
+                
+                // Show next page
+                nextPageElement.classList.add('active');
+                
+                // Reset animation
+                container.classList.remove('slide-left');
+                container.classList.add('slide-right');
+                
+                setTimeout(() => {
+                    container.classList.remove('slide-right');
+                }, 50);
+                
+                // Update current page
+                currentPage = page;
+            }, 400);
         }
 
         // Load user data from database
@@ -1054,32 +1079,6 @@ html
             });
             
             historyContainer.innerHTML = historyHTML;
-        }
-
-        // Tab navigation
-        function showTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Deactivate all nav tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Activate selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-            
-            // Activate corresponding nav tab
-            const tabIndex = {
-                'home': 0,
-                'profile': 1,
-                'bonus': 2,
-                'redeem': 3
-            };
-            
-            document.querySelectorAll('.nav-tab')[tabIndex[tabName]].classList.add('active');
         }
 
         // Redeem option selection
