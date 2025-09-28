@@ -397,3 +397,151 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profta - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background:#6200ea; color:#fff; }
+    .coins { font-size:18px; font-weight:bold; }
+    button { padding:10px 15px; margin:10px; border:none; border-radius:8px; background:#6200ea; color:#fff; cursor:pointer; }
+    button:disabled { background:#999; }
+    .container { padding:20px; }
+    .card { background:#fff; padding:20px; border-radius:12px; margin-bottom:20px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+    .redeem-options { display:flex; gap:10px; margin-bottom:10px; }
+    input, select { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc; }
+    #notif { background:#e3ffe3; color:#0a0; padding:10px; margin-top:10px; border-radius:8px; display:none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="coins">Coins: <span id="userCoins">0</span></div>
+  <button onclick="showProfile()">👤 Profile</button>
+</header>
+
+<div class="container">
+  <!-- Daily Reward -->
+  <div class="card">
+    <h3>🎁 Daily Reward</h3>
+    <button id="dailyBtn" onclick="claimDaily()">Watch Ad & Get 20 Coins</button>
+  </div>
+
+  <!-- Redeem Section -->
+  <div class="card">
+    <h3>💳 Redeem</h3>
+    <div class="redeem-options">
+      <label><input type="radio" name="redeemType" value="upi" checked> UPI</label>
+      <label><input type="radio" name="redeemType" value="code"> Redeem Code</label>
+    </div>
+    <input type="text" id="redeemInput" placeholder="Enter UPI ID or Gmail">
+    <select id="redeemAmount">
+      <option value="2000">2000 Coins = ₹10</option>
+      <option value="5000">5000 Coins = ₹30</option>
+    </select>
+    <button onclick="redeem()">Redeem Now</button>
+    <div id="notif"></div>
+  </div>
+
+  <!-- Banner Ad Placeholder -->
+  <div class="card">
+    <h3>📢 Advertisement</h3>
+    <div style="width:100%; height:90px; background:#ddd; text-align:center; line-height:90px;">
+      <!-- Yaha apna ad code paste karna -->
+      <span>Ad Code Here</span>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Modal (Simple Alert for Now) -->
+<script>
+  function showProfile(){
+    alert("Profile Info:\nEmail: " + (localStorage.getItem('email')||"Unknown") + 
+          "\nCoins: " + (localStorage.getItem('coins')||0));
+  }
+</script>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+  // ✅ Aapka Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCdLSGdmzccLLVnCFTUYsU9vTa3z_2T9DY",
+    authDomain: "rupixo-adc5e.firebaseapp.com",
+    databaseURL: "https://rupixo-adc5e-default-rtdb.firebaseio.com",
+    projectId: "rupixo-adc5e",
+    storageBucket: "rupixo-adc5e.firebasestorage.app",
+    messagingSenderId: "79108214868",
+    appId: "1:79108214868:web:507a557fdeb5de20d65dc1",
+    measurementId: "G-F1D7GX94N1"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // ✅ Simple User System (filhaal local UID use hoga)
+  let userId = localStorage.getItem("uid") || "testUser"; 
+  let coins = 0;
+  let lastReward = 0;
+
+  async function loadUser(){
+    const snap = await get(ref(db, "users/"+userId));
+    if(snap.exists()){
+      const data = snap.val();
+      coins = data.coins || 0;
+      lastReward = data.lastReward || 0;
+    } else {
+      await set(ref(db,"users/"+userId), { coins:0, lastReward:0 });
+    }
+    document.getElementById("userCoins").innerText = coins;
+    localStorage.setItem("coins", coins);
+  }
+
+  loadUser();
+
+  async function claimDaily(){
+    let now = Date.now();
+    if(now - lastReward < 24*60*60*1000){
+      alert("You already claimed reward today!");
+      return;
+    }
+    // ✅ Yaha Rewarded Ad ka code lagega
+    alert("Ad Code Here (Rewarded)");
+    
+    coins += 20;
+    lastReward = now;
+    await update(ref(db,"users/"+userId), { coins, lastReward });
+    document.getElementById("userCoins").innerText = coins;
+    localStorage.setItem("coins", coins);
+    alert("20 Coins added!");
+  }
+
+  async function redeem(){
+    let type = document.querySelector('input[name="redeemType"]:checked').value;
+    let input = document.getElementById("redeemInput").value;
+    let amount = parseInt(document.getElementById("redeemAmount").value);
+
+    if(coins < amount){ alert("Not enough coins!"); return; }
+    if(!input){ alert("Enter UPI or Gmail!"); return; }
+
+    coins -= amount;
+    await update(ref(db,"users/"+userId), { coins });
+    await set(ref(db,"redeemRequests/"+userId+"_"+Date.now()), {
+      userId, type, input, amount, status:"pending"
+    });
+    document.getElementById("userCoins").innerText = coins;
+    localStorage.setItem("coins", coins);
+
+    let notif = document.getElementById("notif");
+    notif.style.display = "block";
+    notif.innerText = "✅ Redeem Request Sent! Reward will be processed in 24 hours.";
+  }
+</script>
+
+</body>
+</html>
