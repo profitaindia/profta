@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -545,7 +544,7 @@ html
         <div class="ad-timer" id="ad-timer">Ad will play for 5 seconds...</div>
         <div class="ad-placeholder">
             Full Screen Ad Will Appear Here
-            <div class="ad-id">ad code hear</div>
+            <div class="ad-id">gotm ad code hear</div>
         </div>
         <button class="close-ad" id="close-ad" style="display: none;">Close Ad</button>
     </div>
@@ -561,7 +560,7 @@ html
             <div class="banner-ad">
                 <div class="ad-placeholder">
                     Banner Ad
-                    <div class="ad-id">ad code hear</div>
+                    <div class="ad-id">gotm ad code hear</div>
                 </div>
             </div>
             
@@ -625,7 +624,7 @@ html
                 <div class="banner-ad">
                     <div class="ad-placeholder">
                         Banner Ad 1
-                        <div class="ad-id">ad code hear</div>
+                        <div class="ad-id">gotm ad code hear</div>
                     </div>
                 </div>
                 
@@ -639,14 +638,8 @@ html
                 <div class="banner-ad">
                     <div class="ad-placeholder">
                         Banner Ad 2
-                        <div class="ad-id">ad code hear</div>
+                        <div class="ad-id">gotm ad code hear</div>
                     </div>
-                </div>
-                
-                <div class="watch-ad-section">
-                    <h3>Watch Ads to Earn More</h3>
-                    <p>Watch short video ads to earn additional coins</p>
-                    <button class="btn" onclick="showComingSoon()">Watch Ad & Earn Coins</button>
                 </div>
                 
                 <div class="quick-actions">
@@ -661,6 +654,12 @@ html
                         <h3>More Offers</h3>
                         <p>Coming soon</p>
                     </div>
+                </div>
+                
+                <div class="watch-ad-section">
+                    <h3>Watch Ads to Earn More</h3>
+                    <p>Watch short video ads to earn additional coins</p>
+                    <button class="btn" onclick="showComingSoon()">Watch Ad & Earn Coins</button>
                 </div>
             </div>
             
@@ -717,7 +716,7 @@ html
                 <div class="banner-ad">
                     <div class="ad-placeholder">
                         Banner Ad
-                        <div class="ad-id">ad code hear</div>
+                        <div class="ad-id">gotm ad code hear</div>
                     </div>
                 </div>
                 
@@ -937,6 +936,7 @@ html
                 .then((userCredential) => {
                     const user = userCredential.user;
                     
+                    // Set initial coins to 100
                     return database.ref('users/' + user.uid).set({
                         name: name,
                         email: email,
@@ -974,10 +974,12 @@ html
             database.ref('users/' + currentUser.uid).on('value', (snapshot) => {
                 userData = snapshot.val();
                 if (userData) {
+                    // Update all coin displays simultaneously
                     document.getElementById('coin-count').textContent = userData.coins;
-                    document.getElementById('profile-email').textContent = userData.email;
                     document.getElementById('profile-balance').textContent = userData.coins + ' coins';
                     document.getElementById('redeem-balance').textContent = userData.coins;
+                    
+                    document.getElementById('profile-email').textContent = userData.email;
                     
                     const joinDate = new Date(userData.joinDate);
                     document.getElementById('join-date').textContent = joinDate.toLocaleString('en-US', {
@@ -1186,5 +1188,10 @@ html
             }, 3000);
         }
     </script>
+
+    <!-- =============================== -->
+    <!-- AD CODE AREA 2: Footer Ads -->
+    <!-- =============================== -->
+    <!-- gotm ad code hear -->
 </body>
 </html>
