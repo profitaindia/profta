@@ -5,808 +5,700 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profta - Earn Rewards</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #ff6b6b;
+            --accent: #4cd964;
+            --dark: #333;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: white;
+            background-color: #f5f7ff;
+            color: var(--dark);
             min-height: 100vh;
+            padding-bottom: 60px;
         }
-        
+
         .container {
             max-width: 500px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 0 15px;
         }
-        
+
+        /* Header Styles */
         header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
-            margin-bottom: 20px;
         }
-        
+
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo span {
-            color: #fdbb2d;
-        }
-        
-        .coin-display {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px 15px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .coin-display i {
-            margin-right: 8px;
-            color: #fdbb2d;
-        }
-        
-        .profile-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-        }
-        
-        .auth-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 5px;
-        }
-        
-        .auth-tab {
-            flex: 1;
-            text-align: center;
-            padding: 12px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .auth-tab.active {
-            background: #fdbb2d;
-            color: #1a2a6c;
-            font-weight: bold;
-        }
-        
-        .auth-form {
-            display: none;
-        }
-        
-        .auth-form.active {
-            display: block;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 16px;
-        }
-        
-        .btn {
-            background: #fdbb2d;
-            color: #1a2a6c;
-            border: none;
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-        
-        .btn:hover {
-            background: #ffcc44;
-            transform: translateY(-2px);
-        }
-        
-        .error-message {
-            color: #ff6b6b;
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-            font-size: 14px;
-        }
-        
-        .dashboard {
-            display: none;
-        }
-        
-        .page {
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            min-height: calc(100vh - 100px);
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        .nav-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .back-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-        }
-        
-        .page-title {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 700;
+            color: var(--primary);
         }
-        
-        /* Home Page Styles */
-        .home-header {
-            text-align: center;
-            margin-bottom: 25px;
+
+        .coin-counter {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        
-        .home-header h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: #fdbb2d;
+
+        .profile-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
         }
-        
-        .quick-actions {
+
+        /* Card Styles */
+        .card-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-bottom: 25px;
+            margin: 20px 0;
         }
-        
-        .action-card {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
             padding: 20px;
+            box-shadow: var(--shadow);
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        
-        .action-card:hover {
+
+        .card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .action-card i {
-            font-size: 30px;
+
+        .card-icon {
+            font-size: 40px;
             margin-bottom: 10px;
-            color: #fdbb2d;
         }
-        
-        .action-card h3 {
-            margin-bottom: 5px;
-            font-size: 16px;
-        }
-        
-        .action-card p {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-        
-        .daily-bonus-card {
-            background: linear-gradient(135deg, #fdbb2d, #ffcc44);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #1a2a6c;
-            box-shadow: 0 5px 15px rgba(253, 187, 45, 0.3);
-            cursor: pointer;
-        }
-        
-        .daily-bonus-card h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        
-        .daily-bonus-card p {
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-        
-        .watch-ad-section {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-        .watch-ad-section h3 {
-            margin-bottom: 10px;
-            color: #fdbb2d;
-        }
-        
-        .ad-container {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .ad-placeholder {
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0;
-            font-style: italic;
-            font-size: 14px;
-            flex-direction: column;
-        }
-        
-        .ad-id {
-            font-weight: bold;
-            color: #fdbb2d;
-            margin-top: 5px;
-        }
-        
-        /* Profile Page Styles */
-        .profile-info {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .info-item:last-child {
-            border-bottom: none;
-        }
-        
-        .balance-card {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .balance-amount {
-            font-size: 36px;
-            font-weight: bold;
-            color: #fdbb2d;
-            margin: 10px 0;
-        }
-        
-        .redeem-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .redeem-option {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .redeem-option:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .redeem-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(253, 187, 45, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 24px;
-        }
-        
-        .redeem-details {
-            flex: 1;
-        }
-        
-        .redeem-title {
-            font-weight: bold;
+
+        .card-title {
+            font-weight: 600;
             margin-bottom: 5px;
         }
-        
-        .redeem-amount {
-            color: #fdbb2d;
-            font-weight: bold;
-        }
-        
-        .redeem-requirements {
+
+        .card-subtitle {
+            color: var(--gray);
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
         }
-        
-        .bonus-card {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .bonus-card h3 {
-            margin-bottom: 15px;
-            color: #fdbb2d;
-        }
-        
-        .bonus-card p {
-            margin-bottom: 20px;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+        /* Page Styles */
+        .page {
             display: none;
-            z-index: 1000;
+            padding: 20px 0;
         }
-        
-        .history-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
+
+        .page.active {
+            display: block;
         }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .empty-state i {
-            font-size: 50px;
-            margin-bottom: 15px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
+
+        .page-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-            width: 100%;
-            transition: all 0.3s;
+            margin-bottom: 20px;
         }
-        
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            margin-right: 15px;
+            cursor: pointer;
         }
-        
-        .logout-btn i {
-            margin-right: 10px;
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 600;
         }
-        
-        /* Banner Ads */
-        .banner-ad {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 10px;
-            margin: 15px 0;
+
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
             text-align: center;
         }
-        
-        .banner-ad .ad-placeholder {
-            height: 60px;
-            margin: 5px 0;
+
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
         }
-        
-        /* Full Screen Ad */
-        .fullscreen-ad {
+
+        .action-btn:hover {
+            background-color: #3a5bef;
+        }
+
+        .action-btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        /* Ad Overlay */
+        .ad-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
-            flex-direction: column;
-        }
-        
-        .fullscreen-ad .ad-placeholder {
-            height: 80%;
-            width: 90%;
-            margin: 20px;
-        }
-        
-        .ad-timer {
+            z-index: 1000;
             color: white;
-            font-size: 18px;
-            margin-bottom: 20px;
+            display: none;
         }
-        
-        .close-ad {
-            background: #fdbb2d;
-            color: #1a2a6c;
+
+        .ad-content {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .ad-timer {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .ad-close-btn {
+            background-color: var(--secondary);
+            color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
+            border-radius: 30px;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
         }
-        
+
+        /* Banner Ad */
+        .banner-ad {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--gray);
+            font-weight: 600;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Auth Styles */
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .auth-switch {
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .auth-link {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Redeem Options */
+        .redeem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .redeem-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .redeem-card.active {
+            border-color: var(--accent);
+        }
+
+        .redeem-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .redeem-cost {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .redeem-info {
+            font-size: 12px;
+            color: var(--secondary);
+            margin-top: 5px;
+        }
+
+        /* Profile Styles */
+        .profile-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .info-label {
+            color: var(--gray);
+        }
+
+        .logout-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+            z-index: 1001;
+            display: none;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Ad Code Container */
+        .ad-code-container {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        /* Responsive */
         @media (max-width: 500px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .quick-actions {
+            .card-grid, .redeem-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Full Screen Ad Overlay -->
-    <div class="fullscreen-ad" id="fullscreen-ad">
-        <div class="ad-timer" id="ad-timer">Ad will play for 5 seconds...</div>
-        <div class="ad-placeholder">
-            Full Screen Ad Will Appear Here
-            <div class="ad-id">gotm ad code hear</div>
+    <!-- Authentication Screen -->
+    <div id="auth-screen" class="auth-container">
+        <h2 class="auth-title" id="auth-title">Login to Profta</h2>
+        <div class="form-group">
+            <input type="email" id="email" class="form-control" placeholder="Email">
         </div>
-        <button class="close-ad" id="close-ad" style="display: none;">Close Ad</button>
+        <div class="form-group">
+            <input type="password" id="password" class="form-control" placeholder="Password">
+        </div>
+        <button id="auth-btn" class="auth-btn">Login</button>
+        <p class="auth-switch">Don't have an account? <span id="auth-switch" class="auth-link">Register</span></p>
     </div>
 
-    <div class="container">
-        <!-- Authentication Section -->
-        <div class="auth-container" id="auth-container">
-            <div class="logo" style="justify-content: center; margin-bottom: 20px;">
-                <h1>PROF<span>TA</span></h1>
-            </div>
-            
-            <!-- Banner Ad in Login -->
-            <div class="banner-ad">
-                <div class="ad-placeholder">
-                    Banner Ad
-                    <div class="ad-id">gotm ad code hear</div>
+    <!-- Main App (hidden initially) -->
+    <div id="app" style="display: none;">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">PROFTA</div>
+                    <div class="coin-counter">
+                        <i class="fas fa-coins"></i>
+                        <span id="coin-balance">100</span>
+                    </div>
+                    <button class="profile-btn" id="profile-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
                 </div>
             </div>
-            
-            <div class="auth-tabs">
-                <div class="auth-tab active" onclick="showAuthForm('login')">Login</div>
-                <div class="auth-tab" onclick="showAuthForm('register')">Register</div>
-            </div>
-            
-            <div class="auth-form active" id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" placeholder="Enter your email">
+        </header>
+
+        <!-- Home Screen -->
+        <div id="home-page" class="page active">
+            <div class="container">
+                <div class="card-grid">
+                    <div class="card" id="daily-bonus-card">
+                        <div class="card-icon">🎁</div>
+                        <div class="card-title">Daily Bonus</div>
+                        <div class="card-subtitle">20 Coins</div>
+                    </div>
+                    <div class="card" id="watch-ads-card">
+                        <div class="card-icon">📺</div>
+                        <div class="card-title">Watch Ads</div>
+                        <div class="card-subtitle">10 Coins/Ad</div>
+                    </div>
+                    <div class="card" id="scratch-card">
+                        <div class="card-icon">🎴</div>
+                        <div class="card-title">Scratch & Earn</div>
+                        <div class="card-subtitle">10 Coins</div>
+                    </div>
+                    <div class="card" id="redeem-card">
+                        <div class="card-icon">💰</div>
+                        <div class="card-title">Redeem</div>
+                        <div class="card-subtitle">Cash Out</div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="Enter your password">
+
+                <div class="banner-ad">
+                    <!-- gotm ad code hear -->
+                    Advertisement Banner
                 </div>
-                <button class="btn" onclick="login()">Login</button>
-                <div class="error-message" id="login-error"></div>
-            </div>
-            
-            <div class="auth-form" id="register-form">
-                <div class="form-group">
-                    <label for="register-name">Full Name</label>
-                    <input type="text" id="register-name" placeholder="Enter your full name">
-                </div>
-                <div class="form-group">
-                    <label for="register-email">Email</label>
-                    <input type="email" id="register-email" placeholder="Enter your email">
-                </div>
-                <div class="form-group">
-                    <label for="register-password">Password</label>
-                    <input type="password" id="register-password" placeholder="Create a password (min. 6 characters)">
-                </div>
-                <button class="btn" onclick="register()">Register</button>
-                <div class="error-message" id="register-error"></div>
             </div>
         </div>
-        
-        <!-- Dashboard Section -->
-        <div class="dashboard" id="dashboard">
-            <header>
-                <div class="logo">PROF<span>TA</span></div>
-                <div class="coin-display">
-                    <i class="fas fa-coins"></i>
-                    <span id="coin-count">0</span> Coins
+
+        <!-- Daily Bonus Page -->
+        <div id="daily-bonus-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" data-target="home-page">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1 class="page-title">Daily Bonus</h1>
                 </div>
-                <button class="profile-btn" onclick="showPage('profile')">
-                    <i class="fas fa-user"></i>
-                </button>
-            </header>
-            
-            <!-- Home Page -->
-            <div class="page active" id="home-page">
-                <div class="home-header">
-                    <h2>Welcome to Profta!</h2>
-                    <p>Earn coins and redeem amazing rewards</p>
-                </div>
-                
-                <!-- Banner Ad in Home -->
+
                 <div class="banner-ad">
-                    <div class="ad-placeholder">
-                        Banner Ad 1
-                        <div class="ad-id">gotm ad code hear</div>
-                    </div>
+                    <!-- gotm ad code hear -->
+                    Advertisement Banner
                 </div>
-                
-                <div class="daily-bonus-card" onclick="showPage('bonus')">
-                    <h3>Daily Bonus</h3>
-                    <p>Click to claim your daily bonus by watching an ad</p>
-                    <p><i class="fas fa-gift"></i> Get 20 Coins</p>
-                </div>
-                
-                <!-- Banner Ad in Home -->
-                <div class="banner-ad">
-                    <div class="ad-placeholder">
-                        Banner Ad 2
-                        <div class="ad-id">gotm ad code hear</div>
-                    </div>
-                </div>
-                
-                <div class="quick-actions">
-                    <div class="action-card" onclick="showPage('redeem')">
-                        <i class="fas fa-wallet"></i>
-                        <h3>Redeem</h3>
-                        <p>Convert coins to cash</p>
+
+                <div class="content-card">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🎁</div>
+                    <h2 style="margin-bottom: 10px;">Daily Bonus Available!</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">Get 20 coins by watching an ad</p>
+                    
+                    <!-- Ad Code Before Daily Bonus Reward -->
+                    <div class="ad-code-container">
+                        <!-- gotm ad code hear -->
+                        Ad will play here before reward
                     </div>
                     
-                    <div class="action-card" onclick="showComingSoon()">
-                        <i class="fas fa-play-circle"></i>
-                        <h3>More Offers</h3>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
-                
-                <div class="watch-ad-section">
-                    <h3>Watch Ads to Earn More</h3>
-                    <p>Watch short video ads to earn additional coins</p>
-                    <button class="btn" onclick="showComingSoon()">Watch Ad & Earn Coins</button>
+                    <button class="action-btn" id="claim-bonus-btn">Claim 20 Coins</button>
+                    <p id="daily-bonus-status" style="margin-top: 15px; color: var(--gray); font-size: 14px;">
+                        Bonus available today!
+                    </p>
                 </div>
             </div>
-            
-            <!-- Profile Page -->
-            <div class="page" id="profile-page">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="showPage('home')">
+        </div>
+
+        <!-- Watch Ads Page -->
+        <div id="watch-ads-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" data-target="home-page">
                         <i class="fas fa-arrow-left"></i>
                     </button>
-                    <div class="page-title">Profile</div>
-                    <div style="width: 40px;"></div>
+                    <h1 class="page-title">Watch Ads</h1>
                 </div>
-                
-                <div class="profile-info">
-                    <div class="info-item">
-                        <span>Email</span>
-                        <span id="profile-email">user@example.com</span>
-                    </div>
-                    <div class="info-item">
-                        <span>Current Balance</span>
-                        <span id="profile-balance">100 coins</span>
-                    </div>
-                    <div class="info-item">
-                        <span>Member Since</span>
-                        <span id="join-date">Sep 26, 2025, 03:16 PM</span>
-                    </div>
-                </div>
-                
-                <h3>Withdrawal History</h3>
-                <div id="withdrawal-history">
-                    <div class="empty-state">
-                        <i class="fas fa-history"></i>
-                        <p>No withdrawals yet</p>
-                        <p>Start earning coins to make your first withdrawal!</p>
-                    </div>
-                </div>
-                
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
-            
-            <!-- Bonus Page -->
-            <div class="page" id="bonus-page">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="showPage('home')">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="page-title">Daily Bonus</div>
-                    <div style="width: 40px;"></div>
-                </div>
-                
-                <!-- Banner Ad in Bonus Page -->
+
                 <div class="banner-ad">
-                    <div class="ad-placeholder">
-                        Banner Ad
-                        <div class="ad-id">gotm ad code hear</div>
-                    </div>
+                    <!-- gotm ad code hear -->
+                    Advertisement Banner
                 </div>
-                
-                <div class="bonus-card">
-                    <h3>Daily Bonus</h3>
-                    <p>Claim your daily bonus of 20 coins by watching a rewarded ad</p>
-                    <button class="btn" id="bonus-claim-btn" onclick="playAdForBonus()">Watch Ad & Claim 20 Coins</button>
-                    <p id="bonus-timer" style="margin-top: 10px;"></p>
+
+                <div class="content-card">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📺</div>
+                    <h2 style="margin-bottom: 10px;">Watch Ads to Earn Coins</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">Earn 10 coins per ad</p>
+                    <p id="ads-counter" style="margin-bottom: 20px;">Ads Watched Today: 0/20</p>
+                    
+                    <!-- Ad Code Before Watch Ads Reward -->
+                    <div class="ad-code-container">
+                        <!-- gotm ad code hear -->
+                        Ad will play here before reward
+                    </div>
+                    
+                    <button class="action-btn" id="watch-ad-btn">Watch Ad (+10¢)</button>
                 </div>
             </div>
-            
-            <!-- Redeem Page -->
-            <div class="page" id="redeem-page">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="showPage('home')">
+        </div>
+
+        <!-- Scratch Card Page -->
+        <div id="scratch-card-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" data-target="home-page">
                         <i class="fas fa-arrow-left"></i>
                     </button>
-                    <div class="page-title">Redeem</div>
-                    <div style="width: 40px;"></div>
+                    <h1 class="page-title">Scratch Card</h1>
                 </div>
-                
-                <div class="balance-card">
-                    <h3>Your Balance</h3>
-                    <div class="balance-amount" id="redeem-balance">100</div>
-                    <p>Available Coins</p>
+
+                <div class="banner-ad">
+                    <!-- gotm ad code hear -->
+                    Advertisement Banner
                 </div>
-                
-                <h3>Redeem Options</h3>
-                <p>Choose how you want to redeem your coins</p>
-                
-                <div class="redeem-options">
-                    <div class="redeem-option" onclick="selectRedeemOption('upi-10')">
-                        <div class="redeem-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="redeem-details">
+
+                <div class="content-card">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🎴</div>
+                    <h2 style="margin-bottom: 10px;">Scratch & Win!</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">Reveal your prize</p>
+                    <p id="scratch-counter" style="margin-bottom: 20px;">Scratches Today: 0/10</p>
+                    
+                    <!-- Ad Code Before Scratch Card Reward -->
+                    <div class="ad-code-container">
+                        <!-- gotm ad code hear -->
+                        Ad will play here before reward
+                    </div>
+                    
+                    <button class="action-btn" id="scratch-card-btn">Scratch Card</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redeem Page -->
+        <div id="redeem-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" data-target="home-page">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1 class="page-title">Redeem</h1>
+                </div>
+
+                <div class="banner-ad">
+                    <!-- gotm ad code hear -->
+                    Advertisement Banner
+                </div>
+
+                <div class="content-card">
+                    <h2 style="margin-bottom: 15px;">Your Balance: <span id="redeem-balance">100</span> coins</h2>
+                    
+                    <div class="redeem-grid">
+                        <div class="redeem-card" id="redeem-option-1">
                             <div class="redeem-title">UPI Withdrawal ₹10</div>
-                            <div class="redeem-amount">2000 coins</div>
-                            <div class="redeem-requirements">Need 1900 more</div>
+                            <div class="redeem-cost">2000 coins</div>
+                            
+                            <!-- Ad Code Before Redeem Option 1 -->
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
+                                <!-- gotm ad code hear -->
+                                Ad before redemption
+                            </div>
+                            
+                            <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
+                            <div class="redeem-info" id="redeem-info-1">Need 1900 more</div>
                         </div>
-                    </div>
-                    
-                    <div class="redeem-option" onclick="selectRedeemOption('upi-30')">
-                        <div class="redeem-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="redeem-details">
+                        
+                        <div class="redeem-card" id="redeem-option-2">
                             <div class="redeem-title">UPI Withdrawal ₹30</div>
-                            <div class="redeem-amount">5000 coins</div>
-                            <div class="redeem-requirements">Need 4900 more</div>
+                            <div class="redeem-cost">5000 coins</div>
+                            
+                            <!-- Ad Code Before Redeem Option 2 -->
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
+                                <!-- gotm ad code hear -->
+                                Ad before redemption
+                            </div>
+                            
+                            <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
+                            <div class="redeem-info" id="redeem-info-2">Need 4900 more</div>
                         </div>
-                    </div>
-                    
-                    <div class="redeem-option" onclick="selectRedeemOption('code-10')">
-                        <div class="redeem-icon">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <div class="redeem-details">
+                        
+                        <div class="redeem-card" id="redeem-option-3">
                             <div class="redeem-title">Redeem Code ₹10</div>
-                            <div class="redeem-amount">2000 coins</div>
-                            <div class="redeem-requirements">Need 1900 more</div>
+                            <div class="redeem-cost">2000 coins</div>
+                            
+                            <!-- Ad Code Before Redeem Option 3 -->
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
+                                <!-- gotm ad code hear -->
+                                Ad before redemption
+                            </div>
+                            
+                            <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
+                            <div class="redeem-info" id="redeem-info-3">Need 1900 more</div>
                         </div>
-                    </div>
-                    
-                    <div class="redeem-option" onclick="selectRedeemOption('code-30')">
-                        <div class="redeem-icon">
-                            <i class="fas fa-gift"></i>
-                        </div>
-                        <div class="redeem-details">
+                        
+                        <div class="redeem-card" id="redeem-option-4">
                             <div class="redeem-title">Redeem Code ₹30</div>
-                            <div class="redeem-amount">5000 coins</div>
-                            <div class="redeem-requirements">Need 4900 more</div>
+                            <div class="redeem-cost">5000 coins</div>
+                            
+                            <!-- Ad Code Before Redeem Option 4 -->
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
+                                <!-- gotm ad code hear -->
+                                Ad before redemption
+                            </div>
+                            
+                            <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
+                            <div class="redeem-info" id="redeem-info-4">Need 4900 more</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bonus-card">
-                    <h3>Important Information</h3>
-                    <p>1. Processing Time: All withdrawals are processed manually within 24 hours</p>
-                    <p>2. UPI Payments: Ensure your UPI ID is correct and active</p>
-                    <p>3. Redeem Codes: Valid codes will be sent to your registered Gmail</p>
-                    <p>4. Minimum Balance: 2000 coins required for ₹10, 5000 coins for ₹30</p>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" data-target="home-page">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1 class="page-title">Profile</h1>
+                </div>
+
+                <div class="content-card">
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span id="profile-email">user@example.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Coins:</span>
+                            <span id="profile-coins">100</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Member Since:</span>
+                            <span id="member-since">2023</span>
+                        </div>
+                    </div>
+
+                    <h3 style="text-align: left; margin-bottom: 15px;">Withdrawal History</h3>
+                    <div id="withdrawal-history" style="text-align: left; color: var(--gray);">
+                        No withdrawals yet.
+                    </div>
+
+                    <button class="logout-btn" id="logout-btn">Logout</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="notification" id="notification">
-        Reward will be sent within 24 hours!
+
+    <!-- Ad Overlay -->
+    <div class="ad-overlay" id="ad-overlay">
+        <div class="ad-content">
+            <h2>Advertisement</h2>
+            <p>Please watch this ad to continue</p>
+            
+            <!-- Ad Code in Overlay -->
+            <div class="ad-code-container" style="background: rgba(255,255,255,0.1); margin: 15px 0;">
+                <!-- gotm ad code hear -->
+                Fullscreen Ad Will Play Here
+            </div>
+            
+            <div class="ad-timer" id="ad-timer">5</div>
+            <p>Your reward will be added after the ad</p>
+            <button class="ad-close-btn" id="ad-close-btn" style="display: none;">Close Ad</button>
+        </div>
     </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
 
     <script>
         // Firebase configuration
@@ -828,370 +720,476 @@
 
         // Global variables
         let currentUser = null;
-        let userData = null;
-        let currentPage = 'home';
-        let adTimer = null;
+        let userData = {
+            coins: 100,
+            lastBonusClaim: null,
+            adsWatchedToday: 0,
+            scratchesToday: 0,
+            withdrawalHistory: [],
+            joinDate: null
+        };
+
+        // DOM Elements
+        const authScreen = document.getElementById('auth-screen');
+        const app = document.getElementById('app');
+        const authTitle = document.getElementById('auth-title');
+        const authBtn = document.getElementById('auth-btn');
+        const authSwitch = document.getElementById('auth-switch');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const coinBalance = document.getElementById('coin-balance');
+        const profileBtn = document.getElementById('profile-btn');
+        const pages = document.querySelectorAll('.page');
+        const backBtns = document.querySelectorAll('.back-btn');
+        const dailyBonusCard = document.getElementById('daily-bonus-card');
+        const watchAdsCard = document.getElementById('watch-ads-card');
+        const scratchCard = document.getElementById('scratch-card');
+        const redeemCard = document.getElementById('redeem-card');
+        const claimBonusBtn = document.getElementById('claim-bonus-btn');
+        const dailyBonusStatus = document.getElementById('daily-bonus-status');
+        const watchAdBtn = document.getElementById('watch-ad-btn');
+        const adsCounter = document.getElementById('ads-counter');
+        const scratchCardBtn = document.getElementById('scratch-card-btn');
+        const scratchCounter = document.getElementById('scratch-counter');
+        const redeemBalance = document.getElementById('redeem-balance');
+        const profileEmail = document.getElementById('profile-email');
+        const profileCoins = document.getElementById('profile-coins');
+        const memberSince = document.getElementById('member-since');
+        const withdrawalHistory = document.getElementById('withdrawal-history');
+        const logoutBtn = document.getElementById('logout-btn');
+        const adOverlay = document.getElementById('ad-overlay');
+        const adTimer = document.getElementById('ad-timer');
+        const adCloseBtn = document.getElementById('ad-close-btn');
+        const toast = document.getElementById('toast');
 
         // Authentication state observer
         auth.onAuthStateChanged((user) => {
             if (user) {
+                // User is signed in
                 currentUser = user;
+                authScreen.style.display = 'none';
+                app.style.display = 'block';
                 loadUserData();
-                showDashboard();
             } else {
+                // User is signed out
                 currentUser = null;
-                showAuth();
+                authScreen.style.display = 'block';
+                app.style.display = 'none';
             }
         });
 
-        // Show authentication screen
-        function showAuth() {
-            document.getElementById('auth-container').style.display = 'block';
-            document.getElementById('dashboard').style.display = 'none';
-        }
-
-        // Show dashboard after login
-        function showDashboard() {
-            document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-        }
-
-        // Switch between login and register forms
-        function showAuthForm(formType) {
-            document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-            
-            if (formType === 'login') {
-                document.querySelector('.auth-tab:nth-child(1)').classList.add('active');
-                document.getElementById('login-form').classList.add('active');
+        // Authentication functions
+        function toggleAuthMode() {
+            if (authTitle.textContent === 'Login to Profta') {
+                authTitle.textContent = 'Register for Profta';
+                authBtn.textContent = 'Register';
+                authSwitch.textContent = 'Login';
             } else {
-                document.querySelector('.auth-tab:nth-child(2)').classList.add('active');
-                document.getElementById('register-form').classList.add('active');
+                authTitle.textContent = 'Login to Profta';
+                authBtn.textContent = 'Login';
+                authSwitch.textContent = 'Register';
             }
-            
-            document.getElementById('login-error').style.display = 'none';
-            document.getElementById('register-error').style.display = 'none';
         }
 
-        // Show different pages
-        function showPage(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(page + '-page').classList.add('active');
-            currentPage = page;
-        }
-
-        // Login function
-        function login() {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const errorElement = document.getElementById('login-error');
+        function handleAuth() {
+            const email = emailInput.value;
+            const password = passwordInput.value;
             
             if (!email || !password) {
-                errorElement.textContent = 'Please fill in all fields';
-                errorElement.style.display = 'block';
+                showToast('Please enter email and password');
                 return;
             }
             
-            errorElement.style.display = 'none';
-            
-            auth.signInWithEmailAndPassword(email, password)
-                .catch((error) => {
-                    let errorMessage = 'An error occurred during login';
-                    
-                    if (error.code === 'auth/user-not-found') {
-                        errorMessage = 'No account found with this email';
-                    } else if (error.code === 'auth/wrong-password') {
-                        errorMessage = 'Incorrect password';
-                    } else if (error.code === 'auth/invalid-email') {
-                        errorMessage = 'Invalid email address';
-                    }
-                    
-                    errorElement.textContent = errorMessage;
-                    errorElement.style.display = 'block';
-                });
-        }
-
-        // Register function
-        function register() {
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const errorElement = document.getElementById('register-error');
-            
-            if (!name || !email || !password) {
-                errorElement.textContent = 'Please fill in all fields';
-                errorElement.style.display = 'block';
-                return;
-            }
-            
-            if (password.length < 6) {
-                errorElement.textContent = 'Password must be at least 6 characters';
-                errorElement.style.display = 'block';
-                return;
-            }
-            
-            errorElement.style.display = 'none';
-            
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    
-                    // Set initial coins to 100
-                    return database.ref('users/' + user.uid).set({
-                        name: name,
-                        email: email,
-                        coins: 100,
-                        joinDate: new Date().toISOString(),
-                        lastBonusClaim: null,
-                        withdrawalHistory: []
+            if (authBtn.textContent === 'Login') {
+                // Login
+                auth.signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        showToast('Login successful!');
+                    })
+                    .catch((error) => {
+                        showToast('Login failed: ' + error.message);
                     });
-                })
-                .catch((error) => {
-                    let errorMessage = 'An error occurred during registration';
-                    
-                    if (error.code === 'auth/email-already-in-use') {
-                        errorMessage = 'An account with this email already exists';
-                    } else if (error.code === 'auth/invalid-email') {
-                        errorMessage = 'Invalid email address';
-                    } else if (error.code === 'auth/weak-password') {
-                        errorMessage = 'Password is too weak';
-                    }
-                    
-                    errorElement.textContent = errorMessage;
-                    errorElement.style.display = 'block';
-                });
+            } else {
+                // Register
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        // Initialize user data with 100 coins
+                        const user = userCredential.user;
+                        const userRef = database.ref('users/' + user.uid);
+                        
+                        return userRef.set({
+                            name: user.email.split('@')[0],
+                            email: user.email,
+                            coins: 100,
+                            joinDate: new Date().toISOString(),
+                            lastBonusClaim: null,
+                            adsWatchedToday: 0,
+                            scratchesToday: 0,
+                            withdrawalHistory: []
+                        });
+                    })
+                    .then(() => {
+                        showToast('Registration successful! You received 100 coins.');
+                    })
+                    .catch((error) => {
+                        showToast('Registration failed: ' + error.message);
+                    });
+            }
         }
 
-        // Logout function
-        function logout() {
-            auth.signOut();
-        }
-
-        // Load user data from database
+        // Load user data from Firebase Realtime Database
         function loadUserData() {
             if (!currentUser) return;
             
-            database.ref('users/' + currentUser.uid).on('value', (snapshot) => {
-                userData = snapshot.val();
-                if (userData) {
-                    // Update all coin displays simultaneously
-                    document.getElementById('coin-count').textContent = userData.coins;
-                    document.getElementById('profile-balance').textContent = userData.coins + ' coins';
-                    document.getElementById('redeem-balance').textContent = userData.coins;
-                    
-                    document.getElementById('profile-email').textContent = userData.email;
-                    
-                    const joinDate = new Date(userData.joinDate);
-                    document.getElementById('join-date').textContent = joinDate.toLocaleString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            userRef.on('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    userData = snapshot.val();
+                    checkDailyReset();
+                    updateUI();
+                } else {
+                    // Create user data if it doesn't exist
+                    userRef.set({
+                        name: currentUser.email.split('@')[0],
+                        email: currentUser.email,
+                        coins: 100,
+                        joinDate: new Date().toISOString(),
+                        lastBonusClaim: null,
+                        adsWatchedToday: 0,
+                        scratchesToday: 0,
+                        withdrawalHistory: []
                     });
-                    
-                    updateWithdrawalHistory();
-                    updateRedeemRequirements();
-                    updateBonusTimer();
                 }
             });
         }
 
-        // Update redeem requirements
-        function updateRedeemRequirements() {
-            if (!userData) return;
+        // Check if daily limits need to be reset
+        function checkDailyReset() {
+            if (!userData.lastBonusClaim) return;
             
-            const coins = userData.coins;
+            const today = new Date().toDateString();
+            const lastClaimDate = new Date(userData.lastBonusClaim).toDateString();
             
-            const upi10Need = Math.max(0, 2000 - coins);
-            document.querySelector('.redeem-option:nth-child(1) .redeem-requirements').textContent = 
-                `Need ${upi10Need} more`;
-                
-            const upi30Need = Math.max(0, 5000 - coins);
-            document.querySelector('.redeem-option:nth-child(2) .redeem-requirements').textContent = 
-                `Need ${upi30Need} more`;
-                
-            const code10Need = Math.max(0, 2000 - coins);
-            document.querySelector('.redeem-option:nth-child(3) .redeem-requirements').textContent = 
-                `Need ${code10Need} more`;
-                
-            const code30Need = Math.max(0, 5000 - coins);
-            document.querySelector('.redeem-option:nth-child(4) .redeem-requirements').textContent = 
-                `Need ${code30Need} more`;
+            if (lastClaimDate !== today) {
+                // Reset daily limits
+                const userRef = database.ref('users/' + currentUser.uid);
+                userRef.update({
+                    adsWatchedToday: 0,
+                    scratchesToday: 0
+                });
+            }
         }
 
-        // Update bonus timer
-        function updateBonusTimer() {
-            if (!userData) return;
+        // Update UI with current user data
+        function updateUI() {
+            // Update coin balance
+            coinBalance.textContent = userData.coins;
+            redeemBalance.textContent = userData.coins;
+            profileCoins.textContent = userData.coins;
             
-            const lastClaim = userData.lastBonusClaim ? new Date(userData.lastBonusClaim) : null;
-            const now = new Date();
+            // Update profile info
+            profileEmail.textContent = currentUser.email;
+            if (userData.joinDate) {
+                const date = new Date(userData.joinDate);
+                memberSince.textContent = date.toLocaleDateString();
+            }
             
-            if (lastClaim && isSameDay(now, lastClaim)) {
-                document.getElementById('bonus-timer').textContent = 'Bonus already claimed today';
-                document.getElementById('bonus-claim-btn').disabled = true;
+            // Update withdrawal history
+            if (userData.withdrawalHistory && userData.withdrawalHistory.length > 0) {
+                withdrawalHistory.innerHTML = userData.withdrawalHistory
+                    .map(withdrawal => `<div>${withdrawal.date}: ${withdrawal.amount} (${withdrawal.coins} coins)</div>`)
+                    .join('');
             } else {
-                document.getElementById('bonus-timer').textContent = 'Bonus available now!';
-                document.getElementById('bonus-claim-btn').disabled = false;
-            }
-        }
-
-        // Update withdrawal history
-        function updateWithdrawalHistory() {
-            const historyContainer = document.getElementById('withdrawal-history');
-            
-            if (!userData.withdrawalHistory || userData.withdrawalHistory.length === 0) {
-                historyContainer.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-history"></i>
-                        <p>No withdrawals yet</p>
-                        <p>Start earning coins to make your first withdrawal!</p>
-                    </div>
-                `;
-                return;
+                withdrawalHistory.textContent = 'No withdrawals yet.';
             }
             
-            let historyHTML = '';
-            userData.withdrawalHistory.forEach(transaction => {
-                historyHTML += `
-                    <div class="history-item">
-                        <div>
-                            <div>${transaction.type} - ₹${transaction.amount}</div>
-                            <div style="font-size: 12px; color: rgba(255,255,255,0.7)">${transaction.date}</div>
-                        </div>
-                        <div>${transaction.status}</div>
-                    </div>
-                `;
-            });
-            
-            historyContainer.innerHTML = historyHTML;
-        }
-
-        // Play full screen ad for bonus
-        function playAdForBonus() {
-            if (!userData) return;
-            
-            const now = new Date();
-            const lastClaim = userData.lastBonusClaim ? new Date(userData.lastBonusClaim) : null;
-            
-            if (lastClaim && isSameDay(now, lastClaim)) {
-                alert('You have already claimed your daily bonus today');
-                return;
-            }
-            
-            // Show full screen ad
-            const fullscreenAd = document.getElementById('fullscreen-ad');
-            const adTimerElement = document.getElementById('ad-timer');
-            const closeAdBtn = document.getElementById('close-ad');
-            
-            fullscreenAd.style.display = 'flex';
-            closeAdBtn.style.display = 'none';
-            
-            let secondsLeft = 5;
-            adTimerElement.textContent = `Ad will play for ${secondsLeft} seconds...`;
-            
-            adTimer = setInterval(() => {
-                secondsLeft--;
-                adTimerElement.textContent = `Ad will play for ${secondsLeft} seconds...`;
+            // Update daily bonus status
+            if (userData.lastBonusClaim) {
+                const today = new Date().toDateString();
+                const lastClaimDate = new Date(userData.lastBonusClaim).toDateString();
                 
-                if (secondsLeft <= 0) {
-                    clearInterval(adTimer);
-                    adTimerElement.textContent = 'Ad completed! Adding 20 coins to your account';
-                    closeAdBtn.style.display = 'block';
-                    
-                    // Add coins to user account
-                    const newCoins = userData.coins + 20;
-                    
-                    database.ref('users/' + currentUser.uid).update({
-                        coins: newCoins,
-                        lastBonusClaim: now.toISOString()
-                    });
+                if (lastClaimDate === today) {
+                    claimBonusBtn.disabled = true;
+                    claimBonusBtn.textContent = 'Already Claimed Today';
+                    dailyBonusStatus.textContent = 'Come back tomorrow for your next bonus!';
+                } else {
+                    claimBonusBtn.disabled = false;
+                    claimBonusBtn.textContent = 'Claim 20 Coins';
+                    dailyBonusStatus.textContent = 'Bonus available today!';
                 }
-            }, 1000);
-        }
-
-        // Close full screen ad
-        document.getElementById('close-ad').addEventListener('click', function() {
-            document.getElementById('fullscreen-ad').style.display = 'none';
-            clearInterval(adTimer);
-            showPage('home');
-        });
-
-        // Show coming soon notification
-        function showComingSoon() {
-            showNotification('This feature is coming soon!');
-        }
-
-        // Redeem option selection
-        function selectRedeemOption(option) {
-            showNotification('Please complete the redemption process in the next screen');
-            
-            setTimeout(() => {
-                if (option === 'upi-10') {
-                    redeemCoins(2000, 'UPI', 10);
-                } else if (option === 'upi-30') {
-                    redeemCoins(5000, 'UPI', 30);
-                } else if (option === 'code-10') {
-                    redeemCoins(2000, 'Redeem Code', 10);
-                } else if (option === 'code-30') {
-                    redeemCoins(5000, 'Redeem Code', 30);
-                }
-            }, 1000);
-        }
-
-        // Redeem coins function
-        function redeemCoins(coinCost, type, cashValue) {
-            if (!userData || userData.coins < coinCost) {
-                showNotification('Insufficient coins for this redemption');
-                return;
+            } else {
+                claimBonusBtn.disabled = false;
+                claimBonusBtn.textContent = 'Claim 20 Coins';
+                dailyBonusStatus.textContent = 'Bonus available today!';
             }
             
-            const newCoinBalance = userData.coins - coinCost;
+            // Update ads counter
+            adsCounter.textContent = `Ads Watched Today: ${userData.adsWatchedToday}/20`;
+            if (userData.adsWatchedToday >= 20) {
+                watchAdBtn.disabled = true;
+                watchAdBtn.textContent = 'Daily Limit Reached';
+            } else {
+                watchAdBtn.disabled = false;
+                watchAdBtn.textContent = 'Watch Ad (+10¢)';
+            }
             
-            const withdrawalRecord = {
-                type: type,
-                amount: cashValue,
-                coins: coinCost,
-                date: new Date().toLocaleString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                }),
-                status: 'Pending'
-            };
+            // Update scratch counter
+            scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday}/10`;
+            if (userData.scratchesToday >= 10) {
+                scratchCardBtn.disabled = true;
+                scratchCardBtn.textContent = 'Daily Limit Reached';
+            } else {
+                scratchCardBtn.disabled = false;
+                scratchCardBtn.textContent = 'Scratch Card';
+            }
             
-            database.ref('users/' + currentUser.uid).update({
-                coins: newCoinBalance,
-                withdrawalHistory: [...(userData.withdrawalHistory || []), withdrawalRecord]
-            }).then(() => {
-                showNotification('Redemption successful! Reward will be sent within 24 hours.');
+            // Update redeem options
+            updateRedeemOptions();
+        }
+
+        // Update redeem options based on current balance
+        function updateRedeemOptions() {
+            const redeemOptions = [
+                { id: 1, cost: 2000 },
+                { id: 2, cost: 5000 },
+                { id: 3, cost: 2000 },
+                { id: 4, cost: 5000 }
+            ];
+            
+            redeemOptions.forEach(option => {
+                const infoElement = document.getElementById(`redeem-info-${option.id}`);
+                const cardElement = document.getElementById(`redeem-option-${option.id}`);
+                const buttonElement = cardElement.querySelector('.action-btn');
+                
+                if (userData.coins >= option.cost) {
+                    infoElement.textContent = 'Available';
+                    infoElement.style.color = 'var(--accent)';
+                    buttonElement.disabled = false;
+                    cardElement.classList.add('active');
+                } else {
+                    const needed = option.cost - userData.coins;
+                    infoElement.textContent = `Need ${needed} more`;
+                    infoElement.style.color = 'var(--secondary)';
+                    buttonElement.disabled = true;
+                    cardElement.classList.remove('active');
+                }
             });
         }
 
-        // Utility function to check if two dates are the same day
-        function isSameDay(date1, date2) {
-            return date1.getFullYear() === date2.getFullYear() &&
-                   date1.getMonth() === date2.getMonth() &&
-                   date1.getDate() === date2.getDate();
+        // Show ad overlay with countdown
+        function showAdOverlay(rewardType) {
+            adOverlay.style.display = 'flex';
+            let countdown = 5;
+            adTimer.textContent = countdown;
+            
+            const timerInterval = setInterval(() => {
+                countdown--;
+                adTimer.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    adCloseBtn.style.display = 'block';
+                    
+                    // Process reward based on type
+                    processReward(rewardType);
+                }
+            }, 1000);
         }
 
-        // Show notification
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
+        // Process reward after ad
+        function processReward(rewardType) {
+            const userRef = database.ref('users/' + currentUser.uid);
+            let rewardAmount = 0;
+            let message = '';
+            let updates = {};
+            
+            switch(rewardType) {
+                case 'dailyBonus':
+                    rewardAmount = 20;
+                    message = 'Daily bonus claimed! +20 coins';
+                    updates = {
+                        coins: userData.coins + rewardAmount,
+                        lastBonusClaim: new Date().toISOString()
+                    };
+                    break;
+                case 'watchAd':
+                    rewardAmount = 10;
+                    message = 'Ad watched! +10 coins';
+                    updates = {
+                        coins: userData.coins + rewardAmount,
+                        adsWatchedToday: userData.adsWatchedToday + 1
+                    };
+                    break;
+                case 'scratchCard':
+                    rewardAmount = 10;
+                    message = 'Scratch card won! +10 coins';
+                    updates = {
+                        coins: userData.coins + rewardAmount,
+                        scratchesToday: userData.scratchesToday + 1
+                    };
+                    break;
+            }
+            
+            userRef.update(updates)
+                .then(() => {
+                    showToast(message);
+                })
+                .catch((error) => {
+                    showToast('Error processing reward: ' + error.message);
+                });
+        }
+
+        // Handle redeem option selection
+        function handleRedeem(optionId) {
+            let cost, amount, type;
+            
+            switch(optionId) {
+                case 1:
+                    cost = 2000;
+                    amount = '₹10';
+                    type = 'UPI Withdrawal';
+                    break;
+                case 2:
+                    cost = 5000;
+                    amount = '₹30';
+                    type = 'UPI Withdrawal';
+                    break;
+                case 3:
+                    cost = 2000;
+                    amount = '₹10';
+                    type = 'Redeem Code';
+                    break;
+                case 4:
+                    cost = 5000;
+                    amount = '₹30';
+                    type = 'Redeem Code';
+                    break;
+            }
+            
+            if (userData.coins >= cost) {
+                const userRef = database.ref('users/' + currentUser.uid);
+                
+                // Add to withdrawal history
+                const withdrawal = {
+                    date: new Date().toLocaleDateString(),
+                    type: type,
+                    amount: amount,
+                    coins: cost
+                };
+                
+                const updatedWithdrawals = userData.withdrawalHistory ? 
+                    [...userData.withdrawalHistory, withdrawal] : 
+                    [withdrawal];
+                
+                userRef.update({
+                    coins: userData.coins - cost,
+                    withdrawalHistory: updatedWithdrawals
+                })
+                .then(() => {
+                    showToast(`Successfully redeemed ${amount}!`);
+                })
+                .catch((error) => {
+                    showToast('Error processing redemption: ' + error.message);
+                });
+            } else {
+                showToast('Insufficient coins for this redemption');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            toast.textContent = message;
+            toast.style.display = 'block';
             
             setTimeout(() => {
-                notification.style.display = 'none';
+                toast.style.display = 'none';
             }, 3000);
         }
-    </script>
 
-    <!-- =============================== -->
-    <!-- AD CODE AREA 2: Footer Ads -->
-    <!-- =============================== -->
-    <!-- gotm ad code hear -->
+        // Navigate to page
+        function navigateToPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Event Listeners
+        authBtn.addEventListener('click', handleAuth);
+        authSwitch.addEventListener('click', toggleAuthMode);
+        
+        profileBtn.addEventListener('click', () => {
+            navigateToPage('profile-page');
+        });
+        
+        backBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetPage = btn.getAttribute('data-target');
+                navigateToPage(targetPage);
+            });
+        });
+        
+        dailyBonusCard.addEventListener('click', () => {
+            navigateToPage('daily-bonus-page');
+        });
+        
+        watchAdsCard.addEventListener('click', () => {
+            navigateToPage('watch-ads-page');
+        });
+        
+        scratchCard.addEventListener('click', () => {
+            navigateToPage('scratch-card-page');
+        });
+        
+        redeemCard.addEventListener('click', () => {
+            navigateToPage('redeem-page');
+        });
+        
+        claimBonusBtn.addEventListener('click', () => {
+            if (!userData.lastBonusClaim || 
+                new Date(userData.lastBonusClaim).toDateString() !== new Date().toDateString()) {
+                showAdOverlay('dailyBonus');
+            }
+        });
+        
+        watchAdBtn.addEventListener('click', () => {
+            if (userData.adsWatchedToday < 20) {
+                showAdOverlay('watchAd');
+            }
+        });
+        
+        scratchCardBtn.addEventListener('click', () => {
+            if (userData.scratchesToday < 10) {
+                showAdOverlay('scratchCard');
+            }
+        });
+        
+        adCloseBtn.addEventListener('click', () => {
+            adOverlay.style.display = 'none';
+            adCloseBtn.style.display = 'none';
+            navigateToPage('home-page');
+        });
+        
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut()
+                .then(() => {
+                    showToast('Logged out successfully');
+                })
+                .catch((error) => {
+                    showToast('Logout failed: ' + error.message);
+                });
+        });
+        
+        // Add event listeners for redeem options
+        for (let i = 1; i <= 4; i++) {
+            document.getElementById(`redeem-option-${i}`).addEventListener('click', () => {
+                handleRedeem(i);
+            });
+        }
+
+        // Initialize the app
+        updateRedeemOptions();
+    </script>
 </body>
 </html>
