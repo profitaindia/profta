@@ -366,6 +366,10 @@
             display: none;
         }
 
+        .toast.error {
+            background-color: var(--secondary);
+        }
+
         /* Loading Spinner */
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
@@ -867,7 +871,7 @@
                         showToast('Login successful!');
                     })
                     .catch((error) => {
-                        showToast('Login failed: ' + error.message);
+                        showToast('Login failed: ' + error.message, true);
                     });
             } else {
                 // Register
@@ -892,7 +896,7 @@
                         showToast('Registration successful! You received 100 coins.');
                     })
                     .catch((error) => {
-                        showToast('Registration failed: ' + error.message);
+                        showToast('Registration failed: ' + error.message, true);
                     });
             }
         }
@@ -919,8 +923,12 @@
                         adsWatchedToday: 0,
                         scratchesToday: 0,
                         withdrawalHistory: []
+                    }).catch((error) => {
+                        showToast('Error creating user data: ' + error.message, true);
                     });
                 }
+            }, (error) => {
+                showToast('Error loading data: ' + error.message, true);
             });
         }
 
@@ -937,6 +945,8 @@
                 userRef.update({
                     adsWatchedToday: 0,
                     scratchesToday: 0
+                }).catch((error) => {
+                    showToast('Error resetting daily limits: ' + error.message, true);
                 });
             }
         }
@@ -1103,7 +1113,7 @@
                     showToast(message);
                 })
                 .catch((error) => {
-                    showToast('Error processing reward: ' + error.message);
+                    showToast('Error processing reward: ' + error.message, true);
                 });
         }
 
@@ -1183,13 +1193,14 @@
                 redeemInput.value = '';
             })
             .catch((error) => {
-                showToast('Error processing redemption: ' + error.message);
+                showToast('Error processing redemption: ' + error.message, true);
             });
         }
 
         // Show toast notification
-        function showToast(message) {
+        function showToast(message, isError = false) {
             toast.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
             toast.style.display = 'block';
             
             setTimeout(() => {
@@ -1267,7 +1278,7 @@
                     showToast('Logged out successfully');
                 })
                 .catch((error) => {
-                    showToast('Logout failed: ' + error.message);
+                    showToast('Logout failed: ' + error.message, true);
                 });
         });
         
