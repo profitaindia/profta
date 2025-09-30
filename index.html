@@ -392,6 +392,22 @@
             color: var(--gray);
         }
 
+        /* Redeem Form */
+        .redeem-form {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
         /* Responsive */
         @media (max-width: 500px) {
             .card-grid, .redeem-grid {
@@ -642,6 +658,40 @@
             </div>
         </div>
 
+        <!-- Redeem Form Page -->
+        <div id="redeem-form-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <button class="back-btn" data-target="redeem-page">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1 class="page-title" id="redeem-form-title">Redeem</h1>
+                </div>
+
+                <div class="banner-ad">
+                    <!-- gotm ad code hear -->
+                    Advertisement Banner
+                </div>
+
+                <div class="redeem-form">
+                    <h2 class="form-title" id="form-title">UPI Withdrawal</h2>
+                    <div class="form-group">
+                        <label id="input-label">Enter your UPI ID:</label>
+                        <input type="text" id="redeem-input" class="form-control" placeholder="yourname@upi">
+                    </div>
+                    <div class="form-group">
+                        <label>Amount:</label>
+                        <input type="text" id="redeem-amount" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Coins to deduct:</label>
+                        <input type="text" id="redeem-coins" class="form-control" readonly>
+                    </div>
+                    <button class="action-btn" id="submit-redeem-btn" style="width: 100%;">Submit Request</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Profile Page -->
         <div id="profile-page" class="page">
             <div class="container">
@@ -729,6 +779,8 @@
             joinDate: null
         };
 
+        let currentRedeemOption = null;
+
         // DOM Elements
         const authScreen = document.getElementById('auth-screen');
         const app = document.getElementById('app');
@@ -761,6 +813,14 @@
         const adTimer = document.getElementById('ad-timer');
         const adCloseBtn = document.getElementById('ad-close-btn');
         const toast = document.getElementById('toast');
+        const redeemFormPage = document.getElementById('redeem-form-page');
+        const redeemFormTitle = document.getElementById('redeem-form-title');
+        const formTitle = document.getElementById('form-title');
+        const inputLabel = document.getElementById('input-label');
+        const redeemInput = document.getElementById('redeem-input');
+        const redeemAmount = document.getElementById('redeem-amount');
+        const redeemCoins = document.getElementById('redeem-coins');
+        const submitRedeemBtn = document.getElementById('submit-redeem-btn');
 
         // Authentication state observer
         auth.onAuthStateChanged((user) => {
@@ -898,7 +958,14 @@
             // Update withdrawal history
             if (userData.withdrawalHistory && userData.withdrawalHistory.length > 0) {
                 withdrawalHistory.innerHTML = userData.withdrawalHistory
-                    .map(withdrawal => `<div>${withdrawal.date}: ${withdrawal.amount} (${withdrawal.coins} coins)</div>`)
+                    .map(withdrawal => `
+                        <div style="border-bottom: 1px solid #eee; padding: 8px 0;">
+                            <div><strong>${withdrawal.type}</strong> - ${withdrawal.amount}</div>
+                            <div style="font-size: 12px; color: ${withdrawal.status === 'Pending' ? '#ffa500' : '#4cd964'}">
+                                ${withdrawal.date} - ${withdrawal.status}
+                            </div>
+                        </div>
+                    `)
                     .join('');
             } else {
                 withdrawalHistory.textContent = 'No withdrawals yet.';
@@ -951,10 +1018,10 @@
         // Update redeem options based on current balance
         function updateRedeemOptions() {
             const redeemOptions = [
-                { id: 1, cost: 2000 },
-                { id: 2, cost: 5000 },
-                { id: 3, cost: 2000 },
-                { id: 4, cost: 5000 }
+                { id: 1, cost: 2000, amount: '₹10', type: 'UPI Withdrawal' },
+                { id: 2, cost: 5000, amount: '₹30', type: 'UPI Withdrawal' },
+                { id: 3, cost: 2000, amount: '₹10', type: 'Redeem Code' },
+                { id: 4, cost: 5000, amount: '₹30', type: 'Redeem Code' }
             ];
             
             redeemOptions.forEach(option => {
@@ -1042,59 +1109,82 @@
 
         // Handle redeem option selection
         function handleRedeem(optionId) {
-            let cost, amount, type;
+            const redeemOptions = {
+                1: { cost: 2000, amount: '₹10', type: 'UPI Withdrawal' },
+                2: { cost: 5000, amount: '₹30', type: 'UPI Withdrawal' },
+                3: { cost: 2000, amount: '₹10', type: 'Redeem Code' },
+                4: { cost: 5000, amount: '₹30', type: 'Redeem Code' }
+            };
             
-            switch(optionId) {
-                case 1:
-                    cost = 2000;
-                    amount = '₹10';
-                    type = 'UPI Withdrawal';
-                    break;
-                case 2:
-                    cost = 5000;
-                    amount = '₹30';
-                    type = 'UPI Withdrawal';
-                    break;
-                case 3:
-                    cost = 2000;
-                    amount = '₹10';
-                    type = 'Redeem Code';
-                    break;
-                case 4:
-                    cost = 5000;
-                    amount = '₹30';
-                    type = 'Redeem Code';
-                    break;
-            }
+            const option = redeemOptions[optionId];
             
-            if (userData.coins >= cost) {
-                const userRef = database.ref('users/' + currentUser.uid);
+            if (userData.coins >= option.cost) {
+                currentRedeemOption = option;
                 
-                // Add to withdrawal history
-                const withdrawal = {
-                    date: new Date().toLocaleDateString(),
-                    type: type,
-                    amount: amount,
-                    coins: cost
-                };
+                // Setup redeem form
+                redeemFormTitle.textContent = option.type;
+                formTitle.textContent = option.type;
+                inputLabel.textContent = option.type.includes('UPI') ? 
+                    'Enter your UPI ID:' : 'Enter your Gmail ID:';
+                redeemInput.placeholder = option.type.includes('UPI') ? 
+                    'yourname@upi' : 'yourname@gmail.com';
+                redeemAmount.value = option.amount;
+                redeemCoins.value = option.cost + ' coins';
                 
-                const updatedWithdrawals = userData.withdrawalHistory ? 
-                    [...userData.withdrawalHistory, withdrawal] : 
-                    [withdrawal];
-                
-                userRef.update({
-                    coins: userData.coins - cost,
-                    withdrawalHistory: updatedWithdrawals
-                })
-                .then(() => {
-                    showToast(`Successfully redeemed ${amount}!`);
-                })
-                .catch((error) => {
-                    showToast('Error processing redemption: ' + error.message);
-                });
+                navigateToPage('redeem-form-page');
             } else {
                 showToast('Insufficient coins for this redemption');
             }
+        }
+
+        // Handle redeem form submission
+        function handleRedeemSubmit() {
+            const inputValue = redeemInput.value.trim();
+            
+            if (!inputValue) {
+                showToast('Please enter required information');
+                return;
+            }
+            
+            if (currentRedeemOption.type.includes('UPI') && !inputValue.includes('@')) {
+                showToast('Please enter a valid UPI ID');
+                return;
+            }
+            
+            if (currentRedeemOption.type.includes('Code') && !inputValue.includes('@gmail.com')) {
+                showToast('Please enter a valid Gmail ID');
+                return;
+            }
+            
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            // Add to withdrawal history
+            const withdrawal = {
+                type: currentRedeemOption.type,
+                amount: currentRedeemOption.amount,
+                coins: currentRedeemOption.cost,
+                date: new Date().toLocaleDateString(),
+                status: 'Pending',
+                upi: currentRedeemOption.type.includes('UPI') ? inputValue : null,
+                gmail: currentRedeemOption.type.includes('Code') ? inputValue : null
+            };
+            
+            const updatedWithdrawals = userData.withdrawalHistory ? 
+                [...userData.withdrawalHistory, withdrawal] : 
+                [withdrawal];
+            
+            userRef.update({
+                coins: userData.coins - currentRedeemOption.cost,
+                withdrawalHistory: updatedWithdrawals
+            })
+            .then(() => {
+                showToast('Reward will be sent within 24 hours!');
+                navigateToPage('home-page');
+                redeemInput.value = '';
+            })
+            .catch((error) => {
+                showToast('Error processing redemption: ' + error.message);
+            });
         }
 
         // Show toast notification
@@ -1187,6 +1277,8 @@
                 handleRedeem(i);
             });
         }
+        
+        submitRedeemBtn.addEventListener('click', handleRedeemSubmit);
 
         // Initialize the app
         updateRedeemOptions();
