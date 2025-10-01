@@ -30,7 +30,6 @@
             background-color: #f5f7ff;
             color: var(--dark);
             min-height: 100vh;
-            padding-bottom: 60px;
         }
 
         .container {
@@ -167,6 +166,7 @@
             cursor: pointer;
             margin-top: 15px;
             transition: background-color 0.3s;
+            width: 100%;
         }
 
         .action-btn:hover {
@@ -250,6 +250,14 @@
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
         }
 
         .form-control {
@@ -258,6 +266,12 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
         }
 
         .auth-btn {
@@ -271,17 +285,40 @@
             font-weight: 600;
             cursor: pointer;
             margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: #3a5bef;
         }
 
         .auth-switch {
             text-align: center;
             color: var(--gray);
+            margin-bottom: 10px;
         }
 
         .auth-link {
             color: var(--primary);
             cursor: pointer;
             font-weight: 600;
+            text-decoration: none;
+        }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .error-message {
+            color: var(--secondary);
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
         }
 
         /* Redeem Options */
@@ -332,6 +369,8 @@
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .info-label {
@@ -378,7 +417,7 @@
             width: 30px;
             height: 30px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            margin: 10px auto;
         }
 
         @keyframes spin {
@@ -412,9 +451,97 @@
             color: var(--primary);
         }
 
+        /* Contact & Security Sections */
+        .footer-sections {
+            margin-top: 30px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .contact-info h4 {
+            margin: 0;
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        .contact-info p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .security-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 3px solid var(--accent);
+        }
+
+        .security-item i {
+            color: var(--accent);
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .security-item span {
+            font-size: 12px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
         /* Responsive */
         @media (max-width: 500px) {
             .card-grid, .redeem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .security-features {
                 grid-template-columns: 1fr;
             }
         }
@@ -422,16 +549,59 @@
 </head>
 <body>
     <!-- Authentication Screen -->
-    <div id="auth-screen" class="auth-container">
-        <h2 class="auth-title" id="auth-title">Login to Profta</h2>
-        <div class="form-group">
-            <input type="email" id="email" class="form-control" placeholder="Email">
+    <div id="auth-screen">
+        <div class="auth-container">
+            <!-- Login Form -->
+            <div id="login-form">
+                <h2 class="auth-title">Login to Profta</h2>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+                </div>
+                <button id="login-btn" class="auth-btn">Login</button>
+                <div class="forgot-password">
+                    <a href="#" id="forgot-password-link" class="auth-link">Forgot Password?</a>
+                </div>
+                <p class="auth-switch">Don't have an account? <span id="show-register" class="auth-link">Register</span></p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" style="display: none;">
+                <h2 class="auth-title">Join Profta</h2>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Create password">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" class="form-control" placeholder="Confirm password">
+                    <div id="password-error" class="error-message" style="display: none;">Passwords do not match</div>
+                </div>
+                <button id="register-btn" class="auth-btn">Create Account</button>
+                <p class="auth-switch">Already have an account? <span id="show-login" class="auth-link">Login</span></p>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div id="forgot-password-form" style="display: none;">
+                <h2 class="auth-title">Reset Password</h2>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="reset-email" class="form-control" placeholder="Enter your email">
+                </div>
+                <button id="reset-password-btn" class="auth-btn">Send Reset Link</button>
+                <p class="auth-switch">Remember your password? <span id="show-login-from-forgot" class="auth-link">Login</span></p>
+            </div>
+
+            <div id="auth-loading" class="spinner" style="display: none;"></div>
         </div>
-        <div class="form-group">
-            <input type="password" id="password" class="form-control" placeholder="Password">
-        </div>
-        <button id="auth-btn" class="auth-btn">Login</button>
-        <p class="auth-switch">Don't have an account? <span id="auth-switch" class="auth-link">Register</span></p>
     </div>
 
     <!-- Main App (hidden initially) -->
@@ -482,9 +652,88 @@
                     <!-- gotm ad code hear -->
                     Advertisement Banner
                 </div>
+
+                <!-- Contact Us & Security Sections -->
+                <div class="footer-sections">
+                    <!-- Contact Us Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-headset"></i>
+                            Contact Us
+                        </h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Email Support</h4>
+                                <p>profta.support@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Response Time</h4>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Help & Support</h4>
+                                <p>We're here to help you</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security & Privacy Section -->
+                    <div class="section-card">
+                        <h3 class="section-title">
+                            <i class="fas fa-shield-alt"></i>
+                            Security & Privacy
+                        </h3>
+                        <div class="security-features">
+                            <div class="security-item">
+                                <i class="fas fa-lock"></i>
+                                <div>
+                                    <span>Secure Data</span>
+                                </div>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-user-shield"></i>
+                                <div>
+                                    <span>Privacy Protected</span>
+                                </div>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-fire"></i>
+                                <div>
+                                    <span>Firebase Security</span>
+                                </div>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <span>Verified Payments</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background: #e7f3ff; border-radius: 8px; text-align: center;">
+                            <p style="margin: 0; font-size: 12px; color: var(--primary);">
+                                <i class="fas fa-info-circle"></i>
+                                Your data is protected with enterprise-grade security
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Other pages remain the same as previous code -->
         <!-- Daily Bonus Page -->
         <div id="daily-bonus-page" class="page">
             <div class="container">
@@ -659,6 +908,62 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Redeem Rules Section -->
+                <div class="content-card" style="margin-top: 20px; text-align: left;">
+                    <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary);">
+                        <i class="fas fa-info-circle"></i> Redeem Rules
+                    </h2>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; border-left: 4px solid var(--primary);">
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 8px; background: white; border-radius: 8px;">
+                            <div style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 12px; flex-shrink: 0;">
+                                1
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Processing Time:</strong>
+                                <p style="margin: 5px 0 0 0; color: var(--dark);">All withdrawals are processed manually within 24 hours</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 8px; background: white; border-radius: 8px;">
+                            <div style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 12px; flex-shrink: 0;">
+                                2
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">UPI Payments:</strong>
+                                <p style="margin: 5px 0 0 0; color: var(--dark);">Ensure your UPI ID is correct and active</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; margin-bottom: 12px; padding: 8px; background: white; border-radius: 8px;">
+                            <div style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 12px; flex-shrink: 0;">
+                                3
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Redeem Codes:</strong>
+                                <p style="margin: 5px 0 0 0; color: var(--dark);">Valid codes will be sent to your registered Gmail</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: flex-start; padding: 8px; background: white; border-radius: 8px;">
+                            <div style="background: var(--primary); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 12px; flex-shrink: 0;">
+                                4
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Minimum Balance:</strong>
+                                <p style="margin: 5px 0 0 0; color: var(--dark);">
+                                    <span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-right: 5px;">2000 coins</span> for ₹10
+                                    <span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-left: 10px;">5000 coins</span> for ₹30
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px; padding: 12px; background: linear-gradient(135deg, var(--primary), #3a5bef); color: white; border-radius: 10px; font-weight: 600;">
+                        <i class="fas fa-shield-alt"></i> Secure & Trusted Payments
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -788,11 +1093,25 @@
         // DOM Elements
         const authScreen = document.getElementById('auth-screen');
         const app = document.getElementById('app');
-        const authTitle = document.getElementById('auth-title');
-        const authBtn = document.getElementById('auth-btn');
-        const authSwitch = document.getElementById('auth-switch');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const forgotPasswordForm = document.getElementById('forgot-password-form');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
+        const registerEmail = document.getElementById('register-email');
+        const registerPassword = document.getElementById('register-password');
+        const registerConfirmPassword = document.getElementById('register-confirm-password');
+        const passwordError = document.getElementById('password-error');
+        const resetEmail = document.getElementById('reset-email');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const resetPasswordBtn = document.getElementById('reset-password-btn');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const showLoginFromForgot = document.getElementById('show-login-from-forgot');
+        const authLoading = document.getElementById('auth-loading');
+
         const coinBalance = document.getElementById('coin-balance');
         const profileBtn = document.getElementById('profile-btn');
         const pages = document.querySelectorAll('.page');
@@ -834,74 +1153,202 @@
                 authScreen.style.display = 'none';
                 app.style.display = 'block';
                 loadUserData();
+                showToast('Welcome back!');
             } else {
                 // User is signed out
                 currentUser = null;
                 authScreen.style.display = 'block';
                 app.style.display = 'none';
+                showLoginForm();
             }
         });
 
-        // Authentication functions
-        function toggleAuthMode() {
-            if (authTitle.textContent === 'Login to Profta') {
-                authTitle.textContent = 'Register for Profta';
-                authBtn.textContent = 'Register';
-                authSwitch.textContent = 'Login';
+        // Show login form
+        function showLoginForm() {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            forgotPasswordForm.style.display = 'none';
+        }
+
+        // Show register form
+        function showRegisterForm() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            forgotPasswordForm.style.display = 'none';
+            // Clear previous errors
+            passwordError.style.display = 'none';
+        }
+
+        // Show forgot password form
+        function showForgotPasswordForm() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            forgotPasswordForm.style.display = 'block';
+        }
+
+        // Show loading state
+        function showAuthLoading(show) {
+            authLoading.style.display = show ? 'block' : 'none';
+            loginBtn.disabled = show;
+            registerBtn.disabled = show;
+            resetPasswordBtn.disabled = show;
+        }
+
+        // Validate passwords match
+        function validatePasswords() {
+            const password = registerPassword.value;
+            const confirmPassword = registerConfirmPassword.value;
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                passwordError.style.display = 'block';
+                return false;
             } else {
-                authTitle.textContent = 'Login to Profta';
-                authBtn.textContent = 'Login';
-                authSwitch.textContent = 'Register';
+                passwordError.style.display = 'none';
+                return true;
             }
         }
 
-        function handleAuth() {
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            
+        // Handle login
+        function handleLogin() {
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value.trim();
+
             if (!email || !password) {
-                showToast('Please enter email and password');
+                showToast('Please enter email and password', true);
                 return;
             }
-            
-            if (authBtn.textContent === 'Login') {
-                // Login
-                auth.signInWithEmailAndPassword(email, password)
-                    .then((userCredential) => {
-                        showToast('Login successful!');
-                    })
-                    .catch((error) => {
-                        showToast('Login failed: ' + error.message, true);
-                    });
-            } else {
-                // Register
-                auth.createUserWithEmailAndPassword(email, password)
-                    .then((userCredential) => {
-                        // Initialize user data with 100 coins
-                        const user = userCredential.user;
-                        const userRef = database.ref('users/' + user.uid);
-                        
-                        return userRef.set({
-                            name: user.email.split('@')[0],
-                            email: user.email,
-                            coins: 100,
-                            joinDate: new Date().toISOString(),
-                            lastBonusClaim: null,
-                            adsWatchedToday: 0,
-                            scratchesToday: 0,
-                            withdrawalHistory: []
-                        });
-                    })
-                    .then(() => {
-                        showToast('Registration successful! You received 100 coins.');
-                    })
-                    .catch((error) => {
-                        showToast('Registration failed: ' + error.message, true);
-                    });
-            }
+
+            showAuthLoading(true);
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    showAuthLoading(false);
+                    showToast('Login successful!');
+                })
+                .catch((error) => {
+                    showAuthLoading(false);
+                    let errorMessage = 'Login failed. ';
+                    
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage += 'No account found with this email.';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage += 'Incorrect password.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage += 'Invalid email address.';
+                            break;
+                        default:
+                            errorMessage += error.message;
+                    }
+                    
+                    showToast(errorMessage, true);
+                });
         }
 
-        // Load user data from Firebase Realtime Database
+        // Handle registration
+        function handleRegister() {
+            const email = registerEmail.value.trim();
+            const password = registerPassword.value.trim();
+            const confirmPassword = registerConfirmPassword.value.trim();
+
+            if (!email || !password || !confirmPassword) {
+                showToast('Please fill all fields', true);
+                return;
+            }
+
+            if (!validatePasswords()) {
+                showToast('Passwords do not match', true);
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast('Password should be at least 6 characters', true);
+                return;
+            }
+
+            showAuthLoading(true);
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    const userRef = database.ref('users/' + user.uid);
+                    
+                    return userRef.set({
+                        name: user.email.split('@')[0],
+                        email: user.email,
+                        coins: 100,
+                        joinDate: new Date().toISOString(),
+                        lastBonusClaim: null,
+                        adsWatchedToday: 0,
+                        scratchesToday: 0,
+                        withdrawalHistory: []
+                    });
+                })
+                .then(() => {
+                    showAuthLoading(false);
+                    showToast('Registration successful! You received 100 coins.');
+                })
+                .catch((error) => {
+                    showAuthLoading(false);
+                    let errorMessage = 'Registration failed. ';
+                    
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage += 'Email already registered.';
+                            break;
+                        case 'auth/weak-password':
+                            errorMessage += 'Password is too weak.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage += 'Invalid email address.';
+                            break;
+                        default:
+                            errorMessage += error.message;
+                    }
+                    
+                    showToast(errorMessage, true);
+                });
+        }
+
+        // Handle password reset
+        function handlePasswordReset() {
+            const email = resetEmail.value.trim();
+
+            if (!email) {
+                showToast('Please enter your email', true);
+                return;
+            }
+
+            showAuthLoading(true);
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    showAuthLoading(false);
+                    showToast('Password reset email sent! Check your inbox.');
+                    showLoginForm();
+                })
+                .catch((error) => {
+                    showAuthLoading(false);
+                    let errorMessage = 'Failed to send reset email. ';
+                    
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage += 'No account found with this email.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage += 'Invalid email address.';
+                            break;
+                        default:
+                            errorMessage += error.message;
+                    }
+                    
+                    showToast(errorMessage, true);
+                });
+        }
+
+        // Load user data from Firebase
         function loadUserData() {
             if (!currentUser) return;
             
@@ -932,7 +1379,7 @@
             });
         }
 
-        // Check if daily limits need to be reset
+        // Check daily reset
         function checkDailyReset() {
             if (!userData.lastBonusClaim) return;
             
@@ -940,7 +1387,6 @@
             const lastClaimDate = new Date(userData.lastBonusClaim).toDateString();
             
             if (lastClaimDate !== today) {
-                // Reset daily limits
                 const userRef = database.ref('users/' + currentUser.uid);
                 userRef.update({
                     adsWatchedToday: 0,
@@ -951,14 +1397,12 @@
             }
         }
 
-        // Update UI with current user data
+        // Update UI
         function updateUI() {
-            // Update coin balance
             coinBalance.textContent = userData.coins;
             redeemBalance.textContent = userData.coins;
             profileCoins.textContent = userData.coins;
             
-            // Update profile info
             profileEmail.textContent = currentUser.email;
             if (userData.joinDate) {
                 const date = new Date(userData.joinDate);
@@ -1001,31 +1445,29 @@
                 dailyBonusStatus.textContent = 'Bonus available today!';
             }
             
-            // Update ads counter
+            // Update counters
             adsCounter.textContent = `Ads Watched Today: ${userData.adsWatchedToday}/20`;
+            scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday}/10`;
+            
+            watchAdBtn.disabled = userData.adsWatchedToday >= 20;
+            scratchCardBtn.disabled = userData.scratchesToday >= 10;
+            
             if (userData.adsWatchedToday >= 20) {
-                watchAdBtn.disabled = true;
                 watchAdBtn.textContent = 'Daily Limit Reached';
             } else {
-                watchAdBtn.disabled = false;
                 watchAdBtn.textContent = 'Watch Ad (+10¢)';
             }
             
-            // Update scratch counter
-            scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday}/10`;
             if (userData.scratchesToday >= 10) {
-                scratchCardBtn.disabled = true;
                 scratchCardBtn.textContent = 'Daily Limit Reached';
             } else {
-                scratchCardBtn.disabled = false;
                 scratchCardBtn.textContent = 'Scratch Card';
             }
             
-            // Update redeem options
             updateRedeemOptions();
         }
 
-        // Update redeem options based on current balance
+        // Update redeem options
         function updateRedeemOptions() {
             const redeemOptions = [
                 { id: 1, cost: 2000, amount: '₹10', type: 'UPI Withdrawal' },
@@ -1054,7 +1496,7 @@
             });
         }
 
-        // Show ad overlay with countdown
+        // Show ad overlay
         function showAdOverlay(rewardType) {
             adOverlay.style.display = 'flex';
             let countdown = 5;
@@ -1067,14 +1509,12 @@
                 if (countdown <= 0) {
                     clearInterval(timerInterval);
                     adCloseBtn.style.display = 'block';
-                    
-                    // Process reward based on type
                     processReward(rewardType);
                 }
             }, 1000);
         }
 
-        // Process reward after ad
+        // Process reward
         function processReward(rewardType) {
             const userRef = database.ref('users/' + currentUser.uid);
             let rewardAmount = 0;
@@ -1117,7 +1557,7 @@
                 });
         }
 
-        // Handle redeem option selection
+        // Handle redeem option
         function handleRedeem(optionId) {
             const redeemOptions = {
                 1: { cost: 2000, amount: '₹10', type: 'UPI Withdrawal' },
@@ -1131,7 +1571,6 @@
             if (userData.coins >= option.cost) {
                 currentRedeemOption = option;
                 
-                // Setup redeem form
                 redeemFormTitle.textContent = option.type;
                 formTitle.textContent = option.type;
                 inputLabel.textContent = option.type.includes('UPI') ? 
@@ -1147,7 +1586,7 @@
             }
         }
 
-        // Handle redeem form submission
+        // Handle redeem submission
         function handleRedeemSubmit() {
             const inputValue = redeemInput.value.trim();
             
@@ -1168,7 +1607,6 @@
             
             const userRef = database.ref('users/' + currentUser.uid);
             
-            // Add to withdrawal history
             const withdrawal = {
                 type: currentRedeemOption.type,
                 amount: currentRedeemOption.amount,
@@ -1197,7 +1635,7 @@
             });
         }
 
-        // Show toast notification
+        // Show toast
         function showToast(message, isError = false) {
             toast.textContent = message;
             toast.className = isError ? 'toast error' : 'toast';
@@ -1217,8 +1655,17 @@
         }
 
         // Event Listeners
-        authBtn.addEventListener('click', handleAuth);
-        authSwitch.addEventListener('click', toggleAuthMode);
+        loginBtn.addEventListener('click', handleLogin);
+        registerBtn.addEventListener('click', handleRegister);
+        resetPasswordBtn.addEventListener('click', handlePasswordReset);
+        
+        showRegister.addEventListener('click', showRegisterForm);
+        showLogin.addEventListener('click', showLoginForm);
+        forgotPasswordLink.addEventListener('click', showForgotPasswordForm);
+        showLoginFromForgot.addEventListener('click', showLoginForm);
+        
+        registerPassword.addEventListener('input', validatePasswords);
+        registerConfirmPassword.addEventListener('input', validatePasswords);
         
         profileBtn.addEventListener('click', () => {
             navigateToPage('profile-page');
@@ -1282,7 +1729,7 @@
                 });
         });
         
-        // Add event listeners for redeem options
+        // Redeem options
         for (let i = 1; i <= 4; i++) {
             document.getElementById(`redeem-option-${i}`).addEventListener('click', () => {
                 handleRedeem(i);
@@ -1291,7 +1738,7 @@
         
         submitRedeemBtn.addEventListener('click', handleRedeemSubmit);
 
-        // Initialize the app
+        // Initialize
         updateRedeemOptions();
     </script>
     <script type='text/javascript' src='//pl27759506.revenuecpmgate.com/1b/c1/f4/1bc1f4b64cca42588d13e1ec7b8f796b.js'></script>
