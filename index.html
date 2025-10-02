@@ -302,60 +302,6 @@
             box-shadow: none;
         }
 
-        /* Ad Overlay */
-        .ad-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            color: white;
-            display: none;
-        }
-
-        .ad-content {
-            text-align: center;
-            max-width: 300px;
-        }
-
-        .ad-timer {
-            font-size: 48px;
-            font-weight: 700;
-            margin: 20px 0;
-        }
-
-        .ad-close-btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        /* Banner Ad */
-        .banner-ad {
-            background-color: #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            margin: 20px 0;
-            color: var(--gray);
-            font-weight: 600;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         /* Auth Styles */
         .auth-container {
             max-width: 400px;
@@ -447,6 +393,67 @@
             text-align: left;
         }
 
+        .success-message {
+            color: var(--accent);
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Ad Overlay */
+        .ad-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            display: none;
+        }
+
+        .ad-content {
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .ad-timer {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .ad-close-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Banner Ad */
+        .banner-ad {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--gray);
+            font-weight: 600;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         /* Referral System */
         .referral-code-box {
             background: var(--gradient);
@@ -512,59 +519,89 @@
             color: var(--gray);
         }
 
-        /* Offerwall & Survey */
-        .iframe-container {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
+        /* Visit & Earn Styles */
+        .visit-timer {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
         }
 
-        .iframe-placeholder {
-            background: #f8f9fa;
-            padding: 60px 20px;
-            text-align: center;
-            color: var(--gray);
-            border: 2px dashed #dee2e6;
-        }
-
-        /* Redeem Options */
-        .redeem-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .redeem-card {
-            background-color: white;
-            border-radius: 12px;
+        .visit-link {
+            background: var(--gradient);
+            color: white;
             padding: 15px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            border: 2px solid #e9ecef;
-        }
-
-        .redeem-card.active {
-            border-color: var(--accent);
-        }
-
-        .redeem-title {
+            border-radius: 10px;
+            text-decoration: none;
+            display: block;
+            margin: 15px 0;
             font-weight: 600;
-            margin-bottom: 5px;
         }
 
-        .redeem-cost {
-            color: var(--gray);
-            font-size: 14px;
-            margin-bottom: 10px;
+        /* Spin & Earn Styles */
+        .wheel-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
         }
 
-        .redeem-info {
-            font-size: 12px;
-            color: var(--secondary);
-            margin-top: 5px;
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #ff6b6b 0deg 36deg,
+                #4cd964 36deg 72deg,
+                #ffd93d 72deg 108deg,
+                #6c5ce7 108deg 144deg,
+                #a29bfe 144deg 180deg,
+                #fd79a8 180deg 216deg,
+                #fdcb6e 216deg 252deg,
+                #e17055 252deg 288deg,
+                #00b894 288deg 324deg,
+                #74b9ff 324deg 360deg
+            );
+            transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1);
+            position: relative;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 40px;
+            background: var(--primary);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 10;
+        }
+
+        .spin-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+
+        .spin-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .spin-result {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 15px 0;
         }
 
         /* Toast Notification */
@@ -612,20 +649,42 @@
             color: var(--gray);
         }
 
-        /* Redeem Form */
-        .redeem-form {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            text-align: left;
+        /* Redeem Options */
+        .redeem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .form-title {
+        .redeem-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: var(--shadow);
             text-align: center;
-            margin-bottom: 20px;
-            color: var(--primary);
+            border: 2px solid #e9ecef;
+        }
+
+        .redeem-card.active {
+            border-color: var(--accent);
+        }
+
+        .redeem-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .redeem-cost {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .redeem-info {
+            font-size: 12px;
+            color: var(--secondary);
+            margin-top: 5px;
         }
 
         /* Responsive */
@@ -636,6 +695,11 @@
             
             .welcome-buttons {
                 flex-direction: column;
+            }
+            
+            .wheel-container {
+                width: 200px;
+                height: 200px;
             }
         }
     </style>
@@ -707,11 +771,16 @@
                     <label class="form-label">Password</label>
                     <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
                 </div>
-                <button id="login-btn" class="auth-btn">Sign In</button>
+                <button id="login-btn" class="auth-btn">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
                 <div class="forgot-password">
                     <a href="#" id="forgot-password-link" class="auth-link">Forgot Password?</a>
                 </div>
                 <p class="auth-switch">New to Profta? <span id="show-register" class="auth-link">Create Account</span></p>
+                
+                <div id="auth-loading" class="spinner" style="display: none;"></div>
+                <div id="login-error" class="error-message" style="display: none;"></div>
             </div>
 
             <!-- Register Form -->
@@ -734,8 +803,13 @@
                     <label class="form-label">Referral Code (Optional)</label>
                     <input type="text" id="referral-code" class="form-control" placeholder="Enter referral code if any">
                 </div>
-                <button id="register-btn" class="auth-btn">Create Account</button>
+                <button id="register-btn" class="auth-btn">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
                 <p class="auth-switch">Already have an account? <span id="show-login" class="auth-link">Sign In</span></p>
+                
+                <div id="register-loading" class="spinner" style="display: none;"></div>
+                <div id="register-error" class="error-message" style="display: none;"></div>
             </div>
 
             <!-- Forgot Password Form -->
@@ -745,11 +819,15 @@
                     <label class="form-label">Email Address</label>
                     <input type="email" id="reset-email" class="form-control" placeholder="Enter your email">
                 </div>
-                <button id="reset-password-btn" class="auth-btn">Send Reset Link</button>
+                <button id="reset-password-btn" class="auth-btn">
+                    <i class="fas fa-paper-plane"></i> Send Reset Link
+                </button>
                 <p class="auth-switch">Remember your password? <span id="show-login-from-forgot" class="auth-link">Sign In</span></p>
+                
+                <div id="reset-loading" class="spinner" style="display: none;"></div>
+                <div id="reset-message" class="success-message" style="display: none;"></div>
+                <div id="reset-error" class="error-message" style="display: none;"></div>
             </div>
-
-            <div id="auth-loading" class="spinner" style="display: none;"></div>
         </div>
     </div>
 
@@ -794,15 +872,15 @@
                         <div class="card-title">Refer & Earn</div>
                         <div class="card-subtitle">50 Coins/Friend</div>
                     </div>
-                    <div class="card" id="offerwall-card">
-                        <div class="card-icon">💼</div>
-                        <div class="card-title">Tasks & Offers</div>
-                        <div class="card-subtitle">Earn More</div>
+                    <div class="card" id="visit-earn-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-title">Visit & Earn</div>
+                        <div class="card-subtitle">30 Coins</div>
                     </div>
-                    <div class="card" id="survey-card">
-                        <div class="card-icon">📝</div>
-                        <div class="card-title">Surveys</div>
-                        <div class="card-subtitle">Share Opinion</div>
+                    <div class="card" id="spin-earn-card">
+                        <div class="card-icon">🎡</div>
+                        <div class="card-title">Spin & Earn</div>
+                        <div class="card-subtitle">0-10 Coins</div>
                     </div>
                     <div class="card" id="redeem-card">
                         <div class="card-icon">💰</div>
@@ -942,6 +1020,18 @@
                 </div>
 
                 <div class="content-card">
+                    <h3>Share Your Referral Link</h3>
+                    <div class="referral-link-box" style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                        <p id="referral-link" style="font-family: monospace; margin: 0; word-break: break-all;">
+                            https://profitaindia.github.io/profta/
+                        </p>
+                        <button class="copy-btn" id="copy-link-btn" style="margin-top: 10px;">
+                            <i class="fas fa-link"></i> Copy Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="content-card">
                     <h3>How Referral Works</h3>
                     <div style="text-align: left; margin-top: 15px;">
                         <div style="display: flex; align-items: flex-start; margin-bottom: 15px;">
@@ -977,65 +1067,86 @@
             </div>
         </div>
 
-        <!-- Offerwall Page -->
-        <div id="offerwall-page" class="page">
+        <!-- Visit & Earn Page -->
+        <div id="visit-earn-page" class="page">
             <div class="container">
                 <div class="page-header">
                     <button class="back-btn" data-target="home-page">
                         <i class="fas fa-arrow-left"></i>
                     </button>
-                    <h1 class="page-title">Tasks & Offers</h1>
+                    <h1 class="page-title">Visit & Earn</h1>
                 </div>
 
                 <div class="content-card">
-                    <h3>Complete Tasks & Earn More</h3>
-                    <p style="color: var(--gray); margin-bottom: 20px;">Complete these offers to earn extra coins</p>
+                    <div style="font-size: 48px; margin-bottom: 15px;">🌐</div>
+                    <h2 style="margin-bottom: 10px;">Visit Website & Earn 30 Coins</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">Click the link below and stay for 1 minute to earn coins</p>
                     
-                    <div class="iframe-container">
-                        <div class="iframe-placeholder">
-                            <!-- gotm iframe code hear -->
-                            <i class="fas fa-tasks" style="font-size: 48px; margin-bottom: 15px;"></i>
-                            <h4>Offerwall Tasks</h4>
-                            <p>Complete various tasks and offers to earn coins</p>
-                        </div>
+                    <a href="https://earnbygotm.netlify.app/" target="_blank" class="visit-link">
+                        <i class="fas fa-external-link-alt"></i> Visit: https://earnbygotm.netlify.app/
+                    </a>
+
+                    <div id="visit-timer-container" style="display: none;">
+                        <div class="visit-timer" id="visit-timer">60</div>
+                        <p style="color: var(--gray);">Stay on the website for 1 minute</p>
                     </div>
-                    
+
+                    <button class="action-btn" id="start-visit-btn">Start Visit</button>
+                    <button class="action-btn" id="claim-visit-btn" style="display: none; background: var(--accent);">Claim 30 Coins</button>
+
                     <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                        <p style="margin: 0; color: var(--primary); font-size: 14px;">
-                            <i class="fas fa-info-circle"></i> Complete any task and coins will be automatically added to your account
-                        </p>
+                        <h4 style="color: var(--primary); margin-bottom: 10px;">Rules:</h4>
+                        <ul style="text-align: left; color: var(--primary); padding-left: 20px;">
+                            <li>Click the "Start Visit" button to begin</li>
+                            <li>Stay on the website for exactly 1 minute</li>
+                            <li>Don't close or switch tabs during the visit</li>
+                            <li>Click any banner/ad on the website</li>
+                            <li>You can only complete this once per day</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Survey Page -->
-        <div id="survey-page" class="page">
+        <!-- Spin & Earn Page -->
+        <div id="spin-earn-page" class="page">
             <div class="container">
                 <div class="page-header">
                     <button class="back-btn" data-target="home-page">
                         <i class="fas fa-arrow-left"></i>
                     </button>
-                    <h1 class="page-title">Surveys</h1>
+                    <h1 class="page-title">Spin & Earn</h1>
                 </div>
 
                 <div class="content-card">
-                    <h3>Share Your Opinion & Earn</h3>
-                    <p style="color: var(--gray); margin-bottom: 20px;">Complete surveys and get rewarded</p>
+                    <div style="font-size: 48px; margin-bottom: 15px;">🎡</div>
+                    <h2 style="margin-bottom: 10px;">Spin the Wheel & Win Coins!</h2>
+                    <p style="color: var(--gray); margin-bottom: 20px;">Spin daily to win 0-10 coins</p>
                     
-                    <div class="iframe-container">
-                        <div class="iframe-placeholder">
-                            <!-- gotm iframe code hear -->
-                            <i class="fas fa-clipboard-list" style="font-size: 48px; margin-bottom: 15px;"></i>
-                            <h4>Survey Panel</h4>
-                            <p>Share your opinions through surveys and earn coins</p>
-                        </div>
+                    <div class="wheel-container">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel" id="wheel"></div>
                     </div>
-                    
-                    <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                        <p style="margin: 0; color: var(--primary); font-size: 14px;">
-                            <i class="fas fa-info-circle"></i> Survey rewards vary based on length and complexity
-                        </p>
+
+                    <div class="spin-result" id="spin-result"></div>
+
+                    <!-- Ad Code Before Spin -->
+                    <div class="ad-code-container">
+                        <!-- gotm ad code hear -->
+                        Ad will play here before spin
+                    </div>
+
+                    <button class="spin-btn" id="spin-btn">Spin Wheel</button>
+
+                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <h4 style="color: #856404; margin-bottom: 10px;">Important Notes:</h4>
+                        <ul style="text-align: left; color: #856404; padding-left: 20px;">
+                            <li>Watch an ad to spin the wheel</li>
+                            <li>Win between 0 to 10 coins per spin</li>
+                            <li>Only 1 spin allowed per day</li>
+                            <li>Coins are automatically added to your balance</li>
+                            <li>Try your luck daily!</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -1265,7 +1376,10 @@
             referralCode: '',
             totalReferrals: 0,
             referralEarnings: 0,
-            userId: ''
+            userId: '',
+            visitCompleted: false,
+            spinCompleted: false,
+            referralBy: null
         };
 
         // DOM Elements
@@ -1275,8 +1389,72 @@
         const getStartedBtn = document.getElementById('get-started-btn');
         const learnMoreBtn = document.getElementById('learn-more-btn');
         
-        // ... (All the previous JavaScript code for authentication, navigation, and functionality would go here)
-        // This includes all the login/register functionality, page navigation, coin system, etc.
+        // Auth elements
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const forgotPasswordForm = document.getElementById('forgot-password-form');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
+        const registerEmail = document.getElementById('register-email');
+        const registerPassword = document.getElementById('register-password');
+        const registerConfirmPassword = document.getElementById('register-confirm-password');
+        const passwordError = document.getElementById('password-error');
+        const resetEmail = document.getElementById('reset-email');
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const resetPasswordBtn = document.getElementById('reset-password-btn');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const showLoginFromForgot = document.getElementById('show-login-from-forgot');
+        const authLoading = document.getElementById('auth-loading');
+        const loginError = document.getElementById('login-error');
+        const registerError = document.getElementById('register-error');
+        const resetMessage = document.getElementById('reset-message');
+        const resetError = document.getElementById('reset-error');
+
+        // App elements
+        const coinBalance = document.getElementById('coin-balance');
+        const profileBtn = document.getElementById('profile-btn');
+        const pages = document.querySelectorAll('.page');
+        const backBtns = document.querySelectorAll('.back-btn');
+        const dailyBonusCard = document.getElementById('daily-bonus-card');
+        const watchAdsCard = document.getElementById('watch-ads-card');
+        const scratchCard = document.getElementById('scratch-card');
+        const referralCard = document.getElementById('referral-card');
+        const visitEarnCard = document.getElementById('visit-earn-card');
+        const spinEarnCard = document.getElementById('spin-earn-card');
+        const redeemCard = document.getElementById('redeem-card');
+        
+        // Page specific elements
+        const claimBonusBtn = document.getElementById('claim-bonus-btn');
+        const dailyBonusStatus = document.getElementById('daily-bonus-status');
+        const watchAdBtn = document.getElementById('watch-ad-btn');
+        const adsCounter = document.getElementById('ads-counter');
+        const scratchCardBtn = document.getElementById('scratch-card-btn');
+        const scratchCounter = document.getElementById('scratch-counter');
+        const userReferralCode = document.getElementById('user-referral-code');
+        const copyReferralBtn = document.getElementById('copy-referral-btn');
+        const copyLinkBtn = document.getElementById('copy-link-btn');
+        const totalReferrals = document.getElementById('total-referrals');
+        const referralEarnings = document.getElementById('referral-earnings');
+        const startVisitBtn = document.getElementById('start-visit-btn');
+        const claimVisitBtn = document.getElementById('claim-visit-btn');
+        const visitTimer = document.getElementById('visit-timer');
+        const visitTimerContainer = document.getElementById('visit-timer-container');
+        const spinBtn = document.getElementById('spin-btn');
+        const wheel = document.getElementById('wheel');
+        const spinResult = document.getElementById('spin-result');
+        const redeemBalance = document.getElementById('redeem-balance');
+        const profileEmail = document.getElementById('profile-email');
+        const profileUserid = document.getElementById('profile-userid');
+        const profileCoins = document.getElementById('profile-coins');
+        const memberSince = document.getElementById('member-since');
+        const logoutBtn = document.getElementById('logout-btn');
+        const adOverlay = document.getElementById('ad-overlay');
+        const adTimer = document.getElementById('ad-timer');
+        const adCloseBtn = document.getElementById('ad-close-btn');
+        const toast = document.getElementById('toast');
 
         // Show welcome screen initially
         welcomeScreen.style.display = 'flex';
@@ -1285,11 +1463,236 @@
         getStartedBtn.addEventListener('click', () => {
             welcomeScreen.style.display = 'none';
             authScreen.style.display = 'block';
+            showLoginForm();
         });
 
         learnMoreBtn.addEventListener('click', () => {
             showToast('Profta helps you earn money through various activities!', false);
         });
+
+        // Show login form
+        function showLoginForm() {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            forgotPasswordForm.style.display = 'none';
+            loginError.style.display = 'none';
+        }
+
+        // Show register form
+        function showRegisterForm() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            forgotPasswordForm.style.display = 'none';
+            registerError.style.display = 'none';
+            passwordError.style.display = 'none';
+        }
+
+        // Show forgot password form
+        function showForgotPasswordForm() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            forgotPasswordForm.style.display = 'block';
+            resetMessage.style.display = 'none';
+            resetError.style.display = 'none';
+        }
+
+        // Validate passwords match
+        function validatePasswords() {
+            const password = registerPassword.value;
+            const confirmPassword = registerConfirmPassword.value;
+            
+            if (password && confirmPassword && password !== confirmPassword) {
+                passwordError.style.display = 'block';
+                return false;
+            } else {
+                passwordError.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Show loading state
+        function showAuthLoading(show, type = 'auth') {
+            const loadingElement = document.getElementById(`${type}-loading`);
+            if (loadingElement) {
+                loadingElement.style.display = show ? 'block' : 'none';
+            }
+            
+            if (type === 'auth') {
+                loginBtn.disabled = show;
+            } else if (type === 'register') {
+                registerBtn.disabled = show;
+            } else if (type === 'reset') {
+                resetPasswordBtn.disabled = show;
+            }
+        }
+
+        // Handle login
+        function handleLogin() {
+            const email = loginEmail.value.trim();
+            const password = loginPassword.value.trim();
+
+            if (!email || !password) {
+                showError('Please enter email and password', 'login');
+                return;
+            }
+
+            showAuthLoading(true, 'auth');
+
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    showAuthLoading(false, 'auth');
+                    showToast('Login successful!');
+                })
+                .catch((error) => {
+                    showAuthLoading(false, 'auth');
+                    let errorMessage = 'Login failed. ';
+                    
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage = 'No account found with this email.';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage = 'Incorrect password.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Invalid email address.';
+                            break;
+                        case 'auth/too-many-requests':
+                            errorMessage = 'Too many attempts. Try again later.';
+                            break;
+                        default:
+                            errorMessage = 'Login failed. Please try again.';
+                    }
+                    
+                    showError(errorMessage, 'login');
+                });
+        }
+
+        // Handle registration
+        function handleRegister() {
+            const email = registerEmail.value.trim();
+            const password = registerPassword.value.trim();
+            const confirmPassword = registerConfirmPassword.value.trim();
+            const referralCode = document.getElementById('referral-code').value.trim();
+
+            if (!email || !password || !confirmPassword) {
+                showError('Please fill all fields', 'register');
+                return;
+            }
+
+            if (!validatePasswords()) {
+                showError('Passwords do not match', 'register');
+                return;
+            }
+
+            if (password.length < 6) {
+                showError('Password should be at least 6 characters', 'register');
+                return;
+            }
+
+            showAuthLoading(true, 'register');
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    const userId = generateUserId();
+                    const referralCode = generateReferralCode();
+                    
+                    // Create user data
+                    const userData = {
+                        name: user.email.split('@')[0],
+                        email: user.email,
+                        coins: 100,
+                        joinDate: new Date().toISOString(),
+                        lastBonusClaim: null,
+                        adsWatchedToday: 0,
+                        scratchesToday: 0,
+                        withdrawalHistory: [],
+                        referralCode: referralCode,
+                        totalReferrals: 0,
+                        referralEarnings: 0,
+                        userId: userId,
+                        visitCompleted: false,
+                        spinCompleted: false,
+                        referralBy: document.getElementById('referral-code').value.trim() || null
+                    };
+
+                    const userRef = database.ref('users/' + user.uid);
+                    return userRef.set(userData);
+                })
+                .then(() => {
+                    showAuthLoading(false, 'register');
+                    showToast('Registration successful! You received 100 coins.');
+                })
+                .catch((error) => {
+                    showAuthLoading(false, 'register');
+                    let errorMessage = 'Registration failed. ';
+                    
+                    switch (error.code) {
+                        case 'auth/email-already-in-use':
+                            errorMessage = 'Email already registered.';
+                            break;
+                        case 'auth/weak-password':
+                            errorMessage = 'Password is too weak.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Invalid email address.';
+                            break;
+                        default:
+                            errorMessage = 'Registration failed. Please try again.';
+                    }
+                    
+                    showError(errorMessage, 'register');
+                });
+        }
+
+        // Handle password reset
+        function handlePasswordReset() {
+            const email = resetEmail.value.trim();
+
+            if (!email) {
+                showError('Please enter your email', 'reset');
+                return;
+            }
+
+            showAuthLoading(true, 'reset');
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    showAuthLoading(false, 'reset');
+                    resetMessage.textContent = 'Password reset email sent! Check your inbox.';
+                    resetMessage.style.display = 'block';
+                    setTimeout(() => {
+                        showLoginForm();
+                    }, 3000);
+                })
+                .catch((error) => {
+                    showAuthLoading(false, 'reset');
+                    let errorMessage = 'Failed to send reset email. ';
+                    
+                    switch (error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage = 'No account found with this email.';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = 'Invalid email address.';
+                            break;
+                        default:
+                            errorMessage = 'Failed to send reset email. Please try again.';
+                    }
+                    
+                    showError(errorMessage, 'reset');
+                });
+        }
+
+        // Show error message
+        function showError(message, type) {
+            const errorElement = document.getElementById(`${type}-error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
 
         // Generate unique user ID
         function generateUserId() {
@@ -1303,7 +1706,6 @@
 
         // Show toast notification
         function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.className = isError ? 'toast error' : 'toast';
             toast.style.display = 'block';
@@ -1313,10 +1715,378 @@
             }, 3000);
         }
 
-        // Note: The complete JavaScript implementation would include all the previous functionality
-        // for authentication, coin management, ad system, referral system, etc.
-        // This is just a partial implementation to show the structure.
+        // Navigate to page
+        function navigateToPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
 
+        // Copy to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard!');
+            }).catch(() => {
+                showToast('Failed to copy', true);
+            });
+        }
+
+        // Authentication state observer
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                currentUser = user;
+                authScreen.style.display = 'none';
+                app.style.display = 'block';
+                loadUserData();
+                showToast('Welcome to Profta!');
+            } else {
+                currentUser = null;
+                authScreen.style.display = 'block';
+                app.style.display = 'none';
+                showLoginForm();
+            }
+        });
+
+        // Load user data from Firebase
+        function loadUserData() {
+            if (!currentUser) return;
+            
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            userRef.on('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    userData = snapshot.val();
+                    checkDailyReset();
+                    updateUI();
+                }
+            });
+        }
+
+        // Check daily reset
+        function checkDailyReset() {
+            if (!userData.lastBonusClaim) return;
+            
+            const today = new Date().toDateString();
+            const lastClaimDate = new Date(userData.lastBonusClaim).toDateString();
+            
+            if (lastClaimDate !== today) {
+                const userRef = database.ref('users/' + currentUser.uid);
+                userRef.update({
+                    adsWatchedToday: 0,
+                    scratchesToday: 0,
+                    visitCompleted: false,
+                    spinCompleted: false
+                });
+            }
+        }
+
+        // Update UI with user data
+        function updateUI() {
+            coinBalance.textContent = userData.coins;
+            redeemBalance.textContent = userData.coins;
+            profileCoins.textContent = userData.coins;
+            
+            profileEmail.textContent = currentUser.email;
+            profileUserid.textContent = userData.userId || 'PROFTA123';
+            
+            if (userData.joinDate) {
+                const date = new Date(userData.joinDate);
+                memberSince.textContent = date.toLocaleDateString();
+            }
+            
+            // Update referral data
+            if (userData.referralCode) {
+                userReferralCode.textContent = userData.referralCode;
+            }
+            totalReferrals.textContent = userData.totalReferrals || 0;
+            referralEarnings.textContent = userData.referralEarnings || 0;
+            
+            // Update daily bonus status
+            if (userData.lastBonusClaim) {
+                const today = new Date().toDateString();
+                const lastClaimDate = new Date(userData.lastBonusClaim).toDateString();
+                
+                if (lastClaimDate === today) {
+                    claimBonusBtn.disabled = true;
+                    claimBonusBtn.textContent = 'Already Claimed Today';
+                    dailyBonusStatus.textContent = 'Come back tomorrow for your next bonus!';
+                } else {
+                    claimBonusBtn.disabled = false;
+                    claimBonusBtn.textContent = 'Claim 20 Coins';
+                    dailyBonusStatus.textContent = 'Bonus available today!';
+                }
+            }
+            
+            // Update counters
+            adsCounter.textContent = `Ads Watched Today: ${userData.adsWatchedToday || 0}/20`;
+            scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday || 0}/10`;
+            
+            watchAdBtn.disabled = (userData.adsWatchedToday || 0) >= 20;
+            scratchCardBtn.disabled = (userData.scratchesToday || 0) >= 10;
+            
+            // Update visit & earn
+            if (userData.visitCompleted) {
+                startVisitBtn.style.display = 'none';
+                claimVisitBtn.style.display = 'none';
+                startVisitBtn.disabled = true;
+            }
+            
+            // Update spin & earn
+            if (userData.spinCompleted) {
+                spinBtn.disabled = true;
+                spinBtn.textContent = 'Already Spun Today';
+            }
+        }
+
+        // Show ad overlay
+        function showAdOverlay(rewardType, callback) {
+            adOverlay.style.display = 'flex';
+            let countdown = 5;
+            adTimer.textContent = countdown;
+            
+            const timerInterval = setInterval(() => {
+                countdown--;
+                adTimer.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(timerInterval);
+                    adCloseBtn.style.display = 'block';
+                    if (callback) callback();
+                }
+            }, 1000);
+        }
+
+        // Process reward
+        function processReward(rewardType, amount) {
+            const userRef = database.ref('users/' + currentUser.uid);
+            let updates = {};
+            let message = '';
+            
+            switch(rewardType) {
+                case 'dailyBonus':
+                    updates = {
+                        coins: (userData.coins || 0) + amount,
+                        lastBonusClaim: new Date().toISOString()
+                    };
+                    message = `Daily bonus claimed! +${amount} coins`;
+                    break;
+                case 'watchAd':
+                    updates = {
+                        coins: (userData.coins || 0) + amount,
+                        adsWatchedToday: (userData.adsWatchedToday || 0) + 1
+                    };
+                    message = `Ad watched! +${amount} coins`;
+                    break;
+                case 'scratchCard':
+                    updates = {
+                        coins: (userData.coins || 0) + amount,
+                        scratchesToday: (userData.scratchesToday || 0) + 1
+                    };
+                    message = `Scratch card won! +${amount} coins`;
+                    break;
+                case 'visit':
+                    updates = {
+                        coins: (userData.coins || 0) + amount,
+                        visitCompleted: true
+                    };
+                    message = `Visit completed! +${amount} coins`;
+                    break;
+                case 'spin':
+                    updates = {
+                        coins: (userData.coins || 0) + amount,
+                        spinCompleted: true
+                    };
+                    message = `Spin completed! +${amount} coins`;
+                    break;
+            }
+            
+            userRef.update(updates)
+                .then(() => {
+                    showToast(message);
+                })
+                .catch((error) => {
+                    showToast('Error processing reward: ' + error.message, true);
+                });
+        }
+
+        // Spin wheel function
+        function spinWheel() {
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            // Check if already spun today
+            if (userData.spinCompleted) {
+                showToast('You have already spun today!', true);
+                return;
+            }
+
+            showAdOverlay('spin', () => {
+                // Generate random coins between 0-10
+                const coinsWon = Math.floor(Math.random() * 11);
+                
+                // Calculate rotation (3600° + random position)
+                const segments = 10;
+                const segmentAngle = 360 / segments;
+                const winningSegment = Math.floor(Math.random() * segments);
+                const extraRotation = 3600; // 10 full rotations
+                const finalRotation = extraRotation + (winningSegment * segmentAngle);
+                
+                // Apply rotation
+                wheel.style.transform = `rotate(${finalRotation}deg)`;
+                spinBtn.disabled = true;
+                
+                // Show result after animation
+                setTimeout(() => {
+                    spinResult.textContent = `You won ${coinsWon} coins!`;
+                    processReward('spin', coinsWon);
+                }, 3000);
+            });
+        }
+
+        // Visit & earn function
+        function startVisit() {
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            // Check if already visited today
+            if (userData.visitCompleted) {
+                showToast('You have already completed visit today!', true);
+                return;
+            }
+
+            showAdOverlay('visit', () => {
+                startVisitBtn.style.display = 'none';
+                visitTimerContainer.style.display = 'block';
+                claimVisitBtn.style.display = 'block';
+                
+                let timeLeft = 60;
+                visitTimer.textContent = timeLeft;
+                
+                const timer = setInterval(() => {
+                    timeLeft--;
+                    visitTimer.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        claimVisitBtn.disabled = false;
+                        showToast('Visit completed! Click claim to get your coins.');
+                    }
+                }, 1000);
+            });
+        }
+
+        // Event listeners for authentication
+        loginBtn.addEventListener('click', handleLogin);
+        registerBtn.addEventListener('click', handleRegister);
+        resetPasswordBtn.addEventListener('click', handlePasswordReset);
+        
+        showRegister.addEventListener('click', showRegisterForm);
+        showLogin.addEventListener('click', showLoginForm);
+        forgotPasswordLink.addEventListener('click', showForgotPasswordForm);
+        showLoginFromForgot.addEventListener('click', showLoginForm);
+        
+        registerPassword.addEventListener('input', validatePasswords);
+        registerConfirmPassword.addEventListener('input', validatePasswords);
+
+        // Event listeners for navigation
+        profileBtn.addEventListener('click', () => {
+            navigateToPage('profile-page');
+        });
+        
+        backBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetPage = btn.getAttribute('data-target');
+                navigateToPage(targetPage);
+            });
+        });
+        
+        // Home page cards
+        dailyBonusCard.addEventListener('click', () => {
+            navigateToPage('daily-bonus-page');
+        });
+        
+        watchAdsCard.addEventListener('click', () => {
+            navigateToPage('watch-ads-page');
+        });
+        
+        scratchCard.addEventListener('click', () => {
+            navigateToPage('scratch-card-page');
+        });
+        
+        referralCard.addEventListener('click', () => {
+            navigateToPage('referral-page');
+        });
+        
+        visitEarnCard.addEventListener('click', () => {
+            navigateToPage('visit-earn-page');
+        });
+        
+        spinEarnCard.addEventListener('click', () => {
+            navigateToPage('spin-earn-page');
+        });
+        
+        redeemCard.addEventListener('click', () => {
+            navigateToPage('redeem-page');
+        });
+
+        // Earning features
+        claimBonusBtn.addEventListener('click', () => {
+            showAdOverlay('dailyBonus', () => {
+                processReward('dailyBonus', 20);
+            });
+        });
+        
+        watchAdBtn.addEventListener('click', () => {
+            showAdOverlay('watchAd', () => {
+                processReward('watchAd', 10);
+            });
+        });
+        
+        scratchCardBtn.addEventListener('click', () => {
+            showAdOverlay('scratchCard', () => {
+                processReward('scratchCard', 10);
+            });
+        });
+
+        // Referral system
+        copyReferralBtn.addEventListener('click', () => {
+            copyToClipboard(userReferralCode.textContent);
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            copyToClipboard('https://profitaindia.github.io/profta/');
+        });
+
+        // Visit & earn
+        startVisitBtn.addEventListener('click', startVisit);
+        
+        claimVisitBtn.addEventListener('click', () => {
+            processReward('visit', 30);
+            claimVisitBtn.style.display = 'none';
+            visitTimerContainer.style.display = 'none';
+        });
+
+        // Spin & earn
+        spinBtn.addEventListener('click', spinWheel);
+
+        // Ad overlay
+        adCloseBtn.addEventListener('click', () => {
+            adOverlay.style.display = 'none';
+            adCloseBtn.style.display = 'none';
+        });
+        
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut()
+                .then(() => {
+                    showToast('Logged out successfully');
+                })
+                .catch((error) => {
+                    showToast('Logout failed: ' + error.message, true);
+                });
+        });
+
+        // Initialize
+        updateUI();
     </script>
 </body>
 </html>
