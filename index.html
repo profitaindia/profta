@@ -58,29 +58,100 @@
             margin-bottom: 30px;
         }
 
-        .welcome-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 30px;
+        /* Auth Styles */
+        .auth-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
         }
 
-        .feature-item {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
+        .auth-title {
             text-align: center;
-            backdrop-filter: blur(10px);
+            margin-bottom: 25px;
+            color: var(--primary);
         }
 
-        .feature-icon {
-            font-size: 24px;
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
             margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
         }
 
-        .feature-text {
-            font-size: 12px;
-            opacity: 0.9;
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: #3a5bef;
+        }
+
+        .auth-switch {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .auth-link {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .error-message {
+            color: var(--secondary);
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        .success-message {
+            color: var(--accent);
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
         }
 
         /* Header Styles */
@@ -221,102 +292,6 @@
         .action-btn:disabled {
             background-color: var(--gray);
             cursor: not-allowed;
-        }
-
-        /* Auth Styles */
-        .auth-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-
-        .auth-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--primary);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: background-color 0.3s;
-        }
-
-        .auth-btn:hover {
-            background-color: #3a5bef;
-        }
-
-        .auth-switch {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 10px;
-        }
-
-        .auth-link {
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .auth-link:hover {
-            text-decoration: underline;
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .error-message {
-            color: var(--secondary);
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: left;
-        }
-
-        .success-message {
-            color: var(--accent);
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: center;
         }
 
         /* Loading Spinner */
@@ -596,10 +571,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .welcome-features {
-                grid-template-columns: 1fr;
-            }
-            
             .wheel-container {
                 width: 200px;
                 height: 200px;
@@ -614,25 +585,6 @@
         <div class="welcome-header">
             <h1 class="welcome-title">🎉 Welcome to Profta!</h1>
             <p class="welcome-subtitle">Earn Real Money by Completing Simple Tasks</p>
-            
-            <div class="welcome-features">
-                <div class="feature-item">
-                    <div class="feature-icon">💰</div>
-                    <div class="feature-text">Earn Coins</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🎁</div>
-                    <div class="feature-text">Daily Rewards</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📺</div>
-                    <div class="feature-text">Watch Ads</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">💸</div>
-                    <div class="feature-text">Cash Out</div>
-                </div>
-            </div>
         </div>
 
         <div class="auth-container">
@@ -1155,6 +1107,11 @@
             <h2>Advertisement</h2>
             <p>Please watch this ad to continue</p>
             
+            <!-- gotm ad code hear -->
+            <div style="background: #333; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <p>Ad will play here</p>
+            </div>
+            
             <div class="ad-timer" id="ad-timer">5</div>
             <p>Your reward will be added after the ad</p>
             <button class="ad-close-btn" id="ad-close-btn" style="display: none;">Close Ad</button>
@@ -1284,6 +1241,7 @@
         let currentUser = null;
         let userData = {};
         let isWheelSpinning = false;
+        let currentRewardType = '';
 
         // Show auth form
         function showAuthForm(formToShow) {
@@ -1602,10 +1560,33 @@
                 dailyBonusStatus.textContent = 'Bonus available today!';
             }
             
-            // Update counters
+            // Update counters - FIXED: Start from 0 and show current progress
             adsCounter.textContent = `Ads Watched Today: ${userData.adsWatchedToday || 0}/20`;
             scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday || 0}/10`;
             spinCounter.textContent = `Spins Today: ${userData.spinsToday || 0}/1`;
+            
+            // Update button states based on limits
+            watchAdBtn.disabled = (userData.adsWatchedToday || 0) >= 20;
+            scratchCardBtn.disabled = (userData.scratchesToday || 0) >= 10;
+            spinBtn.disabled = (userData.spinsToday || 0) >= 1;
+            
+            if (watchAdBtn.disabled) {
+                watchAdBtn.textContent = 'Daily Limit Reached';
+            } else {
+                watchAdBtn.textContent = 'Watch Ad (+10¢)';
+            }
+            
+            if (scratchCardBtn.disabled) {
+                scratchCardBtn.textContent = 'Daily Limit Reached';
+            } else {
+                scratchCardBtn.textContent = 'Scratch Card';
+            }
+            
+            if (spinBtn.disabled) {
+                spinBtn.textContent = 'Daily Limit Reached';
+            } else {
+                spinBtn.textContent = 'Spin Wheel';
+            }
             
             // Update visit status
             if (userData.hasVisited) {
@@ -1613,8 +1594,42 @@
                 visitTimerContainer.style.display = 'none';
             }
             
+            // Update redeem options
+            updateRedeemOptions();
+            
             // Create wheel sections
             createWheelSections();
+        }
+
+        // Update redeem options based on current balance
+        function updateRedeemOptions() {
+            const redeemOptions = [
+                { id: 1, cost: 2000, amount: '₹10', type: 'UPI Withdrawal' },
+                { id: 2, cost: 5000, amount: '₹30', type: 'UPI Withdrawal' },
+                { id: 3, cost: 2000, amount: '₹10', type: 'Redeem Code' },
+                { id: 4, cost: 5000, amount: '₹30', type: 'Redeem Code' }
+            ];
+            
+            const currentCoins = userData.coins || 100;
+            
+            redeemOptions.forEach(option => {
+                const infoElement = document.getElementById(`redeem-info-${option.id}`);
+                const cardElement = document.getElementById(`redeem-option-${option.id}`);
+                const buttonElement = cardElement.querySelector('.action-btn');
+                
+                if (currentCoins >= option.cost) {
+                    infoElement.textContent = 'Available';
+                    infoElement.style.color = 'var(--accent)';
+                    buttonElement.disabled = false;
+                    cardElement.classList.add('active');
+                } else {
+                    const needed = option.cost - currentCoins;
+                    infoElement.textContent = `Need ${needed} more`;
+                    infoElement.style.color = 'var(--secondary)';
+                    buttonElement.disabled = true;
+                    cardElement.classList.remove('active');
+                }
+            });
         }
 
         // Create wheel sections
@@ -1634,7 +1649,8 @@
         }
 
         // Show ad overlay
-        function showAdOverlay() {
+        function showAdOverlay(rewardType) {
+            currentRewardType = rewardType;
             adOverlay.style.display = 'flex';
             let countdown = 5;
             adTimer.textContent = countdown;
@@ -1646,9 +1662,85 @@
                 if (countdown <= 0) {
                     clearInterval(timerInterval);
                     adCloseBtn.style.display = 'block';
-                    showToast('Ad completed! Reward added.');
+                    processReward(rewardType);
                 }
             }, 1000);
+        }
+
+        // Process reward after ad
+        function processReward(rewardType) {
+            const userRef = database.ref('users/' + currentUser.uid);
+            let rewardAmount = 0;
+            let message = '';
+            let updates = {};
+            
+            switch(rewardType) {
+                case 'dailyBonus':
+                    rewardAmount = 20;
+                    message = 'Daily bonus claimed! +20 coins';
+                    updates = {
+                        coins: (userData.coins || 100) + rewardAmount,
+                        lastBonusClaim: new Date().toISOString()
+                    };
+                    break;
+                case 'watchAd':
+                    rewardAmount = 10;
+                    message = 'Ad watched! +10 coins';
+                    updates = {
+                        coins: (userData.coins || 100) + rewardAmount,
+                        adsWatchedToday: (userData.adsWatchedToday || 0) + 1
+                    };
+                    break;
+                case 'scratchCard':
+                    rewardAmount = 10;
+                    message = 'Scratch card won! +10 coins';
+                    updates = {
+                        coins: (userData.coins || 100) + rewardAmount,
+                        scratchesToday: (userData.scratchesToday || 0) + 1
+                    };
+                    break;
+                case 'spinWheel':
+                    // Spin wheel will handle its own reward
+                    spinWheel();
+                    return;
+            }
+            
+            userRef.update(updates)
+                .then(() => {
+                    showToast(message);
+                })
+                .catch((error) => {
+                    showToast('Error processing reward: ' + error.message, true);
+                });
+        }
+
+        // Spin wheel function
+        function spinWheel() {
+            if (isWheelSpinning || (userData.spinsToday || 0) >= 1) return;
+            
+            isWheelSpinning = true;
+            spinBtn.disabled = true;
+            
+            const prizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const randomPrize = prizes[Math.floor(Math.random() * prizes.length)];
+            const extraRotation = 360 * 5; // 5 full rotations
+            const prizeIndex = prizes.indexOf(randomPrize);
+            const sectionAngle = 360 / prizes.length;
+            const targetRotation = extraRotation + (360 - (prizeIndex * sectionAngle));
+            
+            wheel.style.transform = `rotate(${targetRotation}deg)`;
+            
+            setTimeout(() => {
+                isWheelSpinning = false;
+                const userRef = database.ref('users/' + currentUser.uid);
+                
+                userRef.update({
+                    coins: (userData.coins || 100) + randomPrize,
+                    spinsToday: (userData.spinsToday || 0) + 1
+                }).then(() => {
+                    showToast(`Congratulations! You won ${randomPrize} coins! 🎉`);
+                });
+            }, 3000);
         }
 
         // Logout function
@@ -1745,21 +1837,30 @@
             navigateToPage('refer-earn-page');
         });
 
-        // Action buttons
+        // Action buttons - FIXED: All buttons now show ads and work properly
         claimBonusBtn.addEventListener('click', () => {
-            showAdOverlay();
+            if (!userData.lastBonusClaim || 
+                new Date(userData.lastBonusClaim).toDateString() !== new Date().toDateString()) {
+                showAdOverlay('dailyBonus');
+            }
         });
 
         watchAdBtn.addEventListener('click', () => {
-            showAdOverlay();
+            if ((userData.adsWatchedToday || 0) < 20) {
+                showAdOverlay('watchAd');
+            }
         });
 
         scratchCardBtn.addEventListener('click', () => {
-            showAdOverlay();
+            if ((userData.scratchesToday || 0) < 10) {
+                showAdOverlay('scratchCard');
+            }
         });
 
         spinBtn.addEventListener('click', () => {
-            showAdOverlay();
+            if ((userData.spinsToday || 0) < 1) {
+                showAdOverlay('spinWheel');
+            }
         });
 
         adCloseBtn.addEventListener('click', () => {
@@ -1801,8 +1902,14 @@
         });
 
         claimVisitReward.addEventListener('click', () => {
-            showToast('30 coins added to your account! 🎉');
-            claimVisitReward.style.display = 'none';
+            const userRef = database.ref('users/' + currentUser.uid);
+            userRef.update({
+                coins: (userData.coins || 100) + 30,
+                hasVisited: true
+            }).then(() => {
+                showToast('30 coins added to your account! 🎉');
+                claimVisitReward.style.display = 'none';
+            });
         });
 
         // Logout
