@@ -382,17 +382,6 @@
             justify-content: center;
         }
 
-        /* Ad Code Container */
-        .ad-code-container {
-            background-color: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-            text-align: center;
-            color: var(--gray);
-        }
-
         /* Redeem Options */
         .redeem-grid {
             display: grid;
@@ -554,6 +543,22 @@
             color: var(--primary);
         }
 
+        /* Redeem Form */
+        .redeem-form {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
         /* Footer Styles */
         .footer {
             background: white;
@@ -574,22 +579,6 @@
             color: var(--primary);
             text-decoration: none;
             font-weight: 500;
-        }
-
-        /* Redeem Form */
-        .redeem-form {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--primary);
         }
 
         /* Responsive */
@@ -769,7 +758,7 @@
                     <p style="color: var(--gray); margin-bottom: 20px;">Get 20 coins by watching an ad</p>
                     
                     <!-- Ad Code Before Daily Bonus Reward -->
-                    <div class="ad-code-container">
+                    <div class="banner-ad" style="margin: 15px 0;">
                         <!-- gotm ad code hear -->
                         Ad will play here before reward
                     </div>
@@ -804,7 +793,7 @@
                     <p id="ads-counter" style="margin-bottom: 20px;">Ads Watched Today: 0/20</p>
                     
                     <!-- Ad Code Before Watch Ads Reward -->
-                    <div class="ad-code-container">
+                    <div class="banner-ad" style="margin: 15px 0;">
                         <!-- gotm ad code hear -->
                         Ad will play here before reward
                     </div>
@@ -836,7 +825,7 @@
                     <p id="scratch-counter" style="margin-bottom: 20px;">Scratches Today: 0/10</p>
                     
                     <!-- Ad Code Before Scratch Card Reward -->
-                    <div class="ad-code-container">
+                    <div class="banner-ad" style="margin: 15px 0;">
                         <!-- gotm ad code hear -->
                         Ad will play here before reward
                     </div>
@@ -876,22 +865,12 @@
                     <p id="spin-counter" style="margin-bottom: 20px;">Spins Today: 0/1</p>
                     
                     <!-- Ad Code Before Spin Reward -->
-                    <div class="ad-code-container">
+                    <div class="banner-ad" style="margin: 15px 0;">
                         <!-- gotm ad code hear -->
                         Ad will play here before spin
                     </div>
                     
                     <button class="spin-btn" id="spin-btn">Spin Wheel</button>
-                    
-                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                        <h4 style="color: #856404; margin-bottom: 10px;">📌 Important Notes:</h4>
-                        <ul style="text-align: left; color: #856404; padding-left: 20px;">
-                            <li>Only 5 spin allowed per day</li>
-                            <li>Watch ad to spin the wheel</li>
-                            <li>Win between 0 to 10 coins</li>
-                            <li>Daily reset at midnight</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -921,17 +900,6 @@
                     </div>
                     
                     <button class="action-btn" id="claim-visit-reward" style="display: none;">Claim 30 Coins</button>
-                    
-                    <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                        <h4 style="color: var(--primary); margin-bottom: 10px;">📋 Rules:</h4>
-                        <ul style="text-align: left; color: var(--dark); padding-left: 20px;">
-                            <li>Click "Visit Website" button</li>
-                            <li>Stay on the website for 60 seconds</li>
-                            <li>Click on any banner/ad on the website</li>
-                            <li>Return and claim your reward</li>
-                            <li><strong>Only one time per user</strong></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -973,35 +941,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="content-card">
-                    <h3 style="margin-bottom: 15px;">How it Works</h3>
-                    <div style="text-align: left;">
-                        <div style="display: flex; align-items: center; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 8px;">
-                            <div style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">1</div>
-                            <div>
-                                <strong>Share Your Code</strong>
-                                <div style="font-size: 14px; color: var(--gray);">Share your referral code with friends</div>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 8px;">
-                            <div style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">2</div>
-                            <div>
-                                <strong>Friends Sign Up</strong>
-                                <div style="font-size: 14px; color: var(--gray);">They use your code during registration</div>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; align-items: center; padding: 10px; background: #f8f9fa; border-radius: 8px;">
-                            <div style="background: var(--primary); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: bold;">3</div>
-                            <div>
-                                <strong>Earn 50 Coins</strong>
-                                <div style="font-size: 14px; color: var(--gray);">Get 50 coins when they complete registration</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -1027,13 +966,6 @@
                         <div class="redeem-card" id="redeem-option-1">
                             <div class="redeem-title">UPI Withdrawal ₹10</div>
                             <div class="redeem-cost">2000 coins</div>
-                            
-                            <!-- Ad Code Before Redeem Option 1 -->
-                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
-                                <!-- gotm ad code hear -->
-                                Ad before redemption
-                            </div>
-                            
                             <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
                             <div class="redeem-info" id="redeem-info-1">Need 1900 more</div>
                         </div>
@@ -1041,13 +973,6 @@
                         <div class="redeem-card" id="redeem-option-2">
                             <div class="redeem-title">UPI Withdrawal ₹30</div>
                             <div class="redeem-cost">5000 coins</div>
-                            
-                            <!-- Ad Code Before Redeem Option 2 -->
-                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
-                                <!-- gotm ad code hear -->
-                                Ad before redemption
-                            </div>
-                            
                             <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
                             <div class="redeem-info" id="redeem-info-2">Need 4900 more</div>
                         </div>
@@ -1055,13 +980,6 @@
                         <div class="redeem-card" id="redeem-option-3">
                             <div class="redeem-title">Redeem Code ₹10</div>
                             <div class="redeem-cost">2000 coins</div>
-                            
-                            <!-- Ad Code Before Redeem Option 3 -->
-                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
-                                <!-- gotm ad code hear -->
-                                Ad before redemption
-                            </div>
-                            
                             <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
                             <div class="redeem-info" id="redeem-info-3">Need 1900 more</div>
                         </div>
@@ -1069,13 +987,6 @@
                         <div class="redeem-card" id="redeem-option-4">
                             <div class="redeem-title">Redeem Code ₹30</div>
                             <div class="redeem-cost">5000 coins</div>
-                            
-                            <!-- Ad Code Before Redeem Option 4 -->
-                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
-                                <!-- gotm ad code hear -->
-                                Ad before redemption
-                            </div>
-                            
                             <button class="action-btn" style="padding: 8px 15px; font-size: 14px;">Redeem</button>
                             <div class="redeem-info" id="redeem-info-4">Need 4900 more</div>
                         </div>
@@ -1131,10 +1042,6 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
-
-                    <div style="text-align: center; margin-top: 15px; padding: 12px; background: linear-gradient(135deg, var(--primary), #3a5bef); color: white; border-radius: 10px; font-weight: 600;">
-                        <i class="fas fa-shield-alt"></i> Secure & Trusted Payments
                     </div>
                 </div>
             </div>
@@ -1226,7 +1133,7 @@
             <p>Please watch this ad to continue</p>
             
             <!-- Ad Code in Overlay -->
-            <div class="ad-code-container" style="background: rgba(255,255,255,0.1); margin: 15px 0;">
+            <div class="banner-ad" style="background: rgba(255,255,255,0.1); margin: 15px 0;">
                 <!-- gotm ad code hear -->
                 Fullscreen Ad Will Play Here
             </div>
@@ -1689,6 +1596,22 @@
             referralCount.textContent = userData.referrals || 0;
             referralEarned.textContent = userData.referralEarnings || 0;
             
+            // Update withdrawal history
+            if (userData.withdrawalHistory && userData.withdrawalHistory.length > 0) {
+                withdrawalHistory.innerHTML = userData.withdrawalHistory
+                    .map(withdrawal => `
+                        <div style="border-bottom: 1px solid #eee; padding: 8px 0;">
+                            <div><strong>${withdrawal.type}</strong> - ${withdrawal.amount}</div>
+                            <div style="font-size: 12px; color: ${withdrawal.status === 'Pending' ? '#ffa500' : '#4cd964'}">
+                                ${withdrawal.date} - ${withdrawal.status}
+                            </div>
+                        </div>
+                    `)
+                    .join('');
+            } else {
+                withdrawalHistory.textContent = 'No withdrawals yet.';
+            }
+            
             // Update daily bonus status
             if (userData.lastBonusClaim) {
                 const today = new Date().toDateString();
@@ -1709,7 +1632,7 @@
                 dailyBonusStatus.textContent = 'Bonus available today!';
             }
             
-            // Update counters - FIXED: Show actual counts from Firebase
+            // Update counters - FIXED: Show actual counts from 0 to limit
             adsCounter.textContent = `Ads Watched Today: ${userData.adsWatchedToday || 0}/20`;
             scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday || 0}/10`;
             spinCounter.textContent = `Spins Today: ${userData.spinsToday || 0}/1`;
@@ -1743,34 +1666,11 @@
                 visitTimerContainer.style.display = 'none';
             }
             
-            // Update withdrawal history
-            updateWithdrawalHistory();
-            
             // Update redeem options
             updateRedeemOptions();
             
             // Create wheel sections
             createWheelSections();
-        }
-
-        // Update withdrawal history
-        function updateWithdrawalHistory() {
-            if (userData.withdrawalHistory && userData.withdrawalHistory.length > 0) {
-                withdrawalHistory.innerHTML = userData.withdrawalHistory
-                    .map(withdrawal => `
-                        <div style="border-bottom: 1px solid #eee; padding: 8px 0;">
-                            <div><strong>${withdrawal.type}</strong> - ${withdrawal.amount}</div>
-                            <div style="font-size: 12px; color: ${withdrawal.status === 'Completed' ? '#4cd964' : withdrawal.status === 'Processing' ? '#ffa500' : '#ff6b6b'}">
-                                ${withdrawal.date} - ${withdrawal.status}
-                            </div>
-                            ${withdrawal.upi ? `<div style="font-size: 11px; color: #666;">UPI: ${withdrawal.upi}</div>` : ''}
-                            ${withdrawal.gmail ? `<div style="font-size: 11px; color: #666;">Gmail: ${withdrawal.gmail}</div>` : ''}
-                        </div>
-                    `)
-                    .join('');
-            } else {
-                withdrawalHistory.textContent = 'No withdrawals yet.';
-            }
         }
 
         // Update redeem options based on current balance
@@ -1782,20 +1682,18 @@
                 { id: 4, cost: 5000, amount: '₹30', type: 'Redeem Code' }
             ];
             
-            const currentCoins = userData.coins || 100;
-            
             redeemOptions.forEach(option => {
                 const infoElement = document.getElementById(`redeem-info-${option.id}`);
                 const cardElement = document.getElementById(`redeem-option-${option.id}`);
                 const buttonElement = cardElement.querySelector('.action-btn');
                 
-                if (currentCoins >= option.cost) {
+                if (userData.coins >= option.cost) {
                     infoElement.textContent = 'Available';
                     infoElement.style.color = 'var(--accent)';
                     buttonElement.disabled = false;
                     cardElement.classList.add('active');
                 } else {
-                    const needed = option.cost - currentCoins;
+                    const needed = option.cost - userData.coins;
                     infoElement.textContent = `Need ${needed} more`;
                     infoElement.style.color = 'var(--secondary)';
                     buttonElement.disabled = true;
@@ -1852,7 +1750,7 @@
                     rewardAmount = 20;
                     message = 'Daily bonus claimed! +20 coins';
                     updates = {
-                        coins: (userData.coins || 100) + rewardAmount,
+                        coins: (userData.coins || 0) + rewardAmount,
                         lastBonusClaim: new Date().toISOString()
                     };
                     break;
@@ -1860,7 +1758,7 @@
                     rewardAmount = 10;
                     message = 'Ad watched! +10 coins';
                     updates = {
-                        coins: (userData.coins || 100) + rewardAmount,
+                        coins: (userData.coins || 0) + rewardAmount,
                         adsWatchedToday: (userData.adsWatchedToday || 0) + 1
                     };
                     break;
@@ -1868,7 +1766,7 @@
                     rewardAmount = 10;
                     message = 'Scratch card won! +10 coins';
                     updates = {
-                        coins: (userData.coins || 100) + rewardAmount,
+                        coins: (userData.coins || 0) + rewardAmount,
                         scratchesToday: (userData.scratchesToday || 0) + 1
                     };
                     break;
@@ -1910,7 +1808,7 @@
                 const userRef = database.ref('users/' + currentUser.uid);
                 
                 userRef.update({
-                    coins: (userData.coins || 100) + randomPrize,
+                    coins: (userData.coins || 0) + randomPrize,
                     spinsToday: (userData.spinsToday || 0) + 1
                 }).then(() => {
                     showToast(`Congratulations! You won ${randomPrize} coins! 🎉`);
@@ -1928,9 +1826,8 @@
             };
             
             const option = redeemOptions[optionId];
-            const currentCoins = userData.coins || 100;
             
-            if (currentCoins >= option.cost) {
+            if (userData.coins >= option.cost) {
                 currentRedeemOption = option;
                 
                 // Setup redeem form
@@ -1969,8 +1866,9 @@
             }
             
             const userRef = database.ref('users/' + currentUser.uid);
+            const redeemRequestsRef = database.ref('redeemRequests');
             
-            // Add to withdrawal history
+            // Add to withdrawal history in user data
             const withdrawal = {
                 type: currentRedeemOption.type,
                 amount: currentRedeemOption.amount,
@@ -1986,78 +1884,37 @@
                 [...userData.withdrawalHistory, withdrawal] : 
                 [withdrawal];
             
-            // Also save to separate redeem requests database
-            const redeemRequestRef = database.ref('redeemRequests').push();
+            // Create redeem request in separate node
+            const redeemRequest = {
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                type: currentRedeemOption.type,
+                amount: currentRedeemOption.amount,
+                coins: currentRedeemOption.cost,
+                upi: currentRedeemOption.type.includes('UPI') ? inputValue : null,
+                gmail: currentRedeemOption.type.includes('Code') ? inputValue : null,
+                date: new Date().toLocaleDateString(),
+                timestamp: new Date().toISOString(),
+                status: 'Pending'
+            };
             
-            Promise.all([
-                // Update user data
-                userRef.update({
-                    coins: (userData.coins || 100) - currentRedeemOption.cost,
-                    withdrawalHistory: updatedWithdrawals
-                }),
-                // Save to redeem requests
-                redeemRequestRef.set({
-                    userId: currentUser.uid,
-                    userEmail: currentUser.email,
-                    ...withdrawal
-                })
-            ])
+            // Update user data and create redeem request
+            userRef.update({
+                coins: userData.coins - currentRedeemOption.cost,
+                withdrawalHistory: updatedWithdrawals
+            })
             .then(() => {
-                showToast('Redeem request submitted! Will be processed within 24 hours.');
+                return redeemRequestsRef.push(redeemRequest);
+            })
+            .then(() => {
+                showToast('Redeem request submitted successfully! Will be processed within 24 hours.');
                 navigateToPage('home-page');
                 redeemInput.value = '';
             })
             .catch((error) => {
+                console.error("Redeem error:", error);
                 showToast('Error processing redemption: ' + error.message, true);
             });
-        }
-
-        // Visit website function
-        function startVisitTimer() {
-            visitTimerContainer.style.display = 'block';
-            let timeLeft = 60;
-            
-            const timer = setInterval(() => {
-                timeLeft--;
-                visitTimer.textContent = timeLeft;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    claimVisitReward.style.display = 'block';
-                    showToast('Timer completed! Click claim to get your reward.');
-                }
-            }, 1000);
-        }
-
-        function claimVisitRewardFunc() {
-            if (userData.hasVisited) {
-                showToast('You have already claimed visit reward', true);
-                return;
-            }
-            
-            const userRef = database.ref('users/' + currentUser.uid);
-            
-            userRef.update({
-                coins: (userData.coins || 100) + 30,
-                hasVisited: true
-            }).then(() => {
-                showToast('30 coins added to your account! 🎉');
-                claimVisitReward.style.display = 'none';
-            });
-        }
-
-        // Copy referral code
-        function copyReferralCode() {
-            navigator.clipboard.writeText(userData.referralCode || 'PROFTA123')
-                .then(() => showToast('Referral code copied!'))
-                .catch(() => showToast('Failed to copy', true));
-        }
-
-        function copyReferralLink() {
-            const link = 'https://profitaindia.github.io/profta/?ref=' + (userData.referralCode || 'PROFTA123');
-            navigator.clipboard.writeText(link)
-                .then(() => showToast('Referral link copied!'))
-                .catch(() => showToast('Failed to copy', true));
         }
 
         // Logout function
@@ -2065,6 +1922,14 @@
             auth.signOut()
                 .then(() => {
                     showToast('Logged out successfully');
+                // Reset form values
+                    loginEmail.value = '';
+                    loginPassword.value = '';
+                    registerEmail.value = '';
+                    registerPassword.value = '';
+                    registerConfirmPassword.value = '';
+                    referralCodeInput.value = '';
+                    resetEmail.value = '';
                 })
                 .catch((error) => {
                     console.error("Logout error:", error);
@@ -2186,6 +2051,50 @@
             navigateToPage('home-page');
         });
 
+        // Referral buttons
+        copyReferralBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(userData.referralCode || 'PROFTA123')
+                .then(() => showToast('Referral code copied!'))
+                .catch(() => showToast('Failed to copy', true));
+        });
+
+        copyLinkBtn.addEventListener('click', () => {
+            const link = 'https://profitaindia.github.io/profta/?ref=' + (userData.referralCode || 'PROFTA123');
+            navigator.clipboard.writeText(link)
+                .then(() => showToast('Referral link copied!'))
+                .catch(() => showToast('Failed to copy', true));
+        });
+
+        // Visit website
+        const visitLink = document.querySelector('a[href="https://earnbygotm.netlify.app/"]');
+        visitLink.addEventListener('click', () => {
+            visitTimerContainer.style.display = 'block';
+            let timeLeft = 60;
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                visitTimer.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    claimVisitReward.style.display = 'block';
+                    showToast('Timer completed! Click claim to get your reward.');
+                }
+            }, 1000);
+        });
+
+        claimVisitReward.addEventListener('click', () => {
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            userRef.update({
+                coins: (userData.coins || 0) + 30,
+                hasVisited: true
+            }).then(() => {
+                showToast('30 coins added to your account! 🎉');
+                claimVisitReward.style.display = 'none';
+            });
+        });
+
         // Add event listeners for redeem options
         for (let i = 1; i <= 4; i++) {
             document.getElementById(`redeem-option-${i}`).addEventListener('click', () => {
@@ -2195,15 +2104,6 @@
         
         submitRedeemBtn.addEventListener('click', handleRedeemSubmit);
 
-        // Referral buttons
-        copyReferralBtn.addEventListener('click', copyReferralCode);
-        copyLinkBtn.addEventListener('click', copyReferralLink);
-
-        // Visit website
-        const visitLink = document.querySelector('a[href="https://earnbygotm.netlify.app/"]');
-        visitLink.addEventListener('click', startVisitTimer);
-        claimVisitReward.addEventListener('click', claimVisitRewardFunc);
-
         // Logout
         logoutBtn.addEventListener('click', handleLogout);
 
@@ -2212,7 +2112,5 @@
 
         console.log("Profta app initialized successfully");
     </script>
-    <script type='text/javascript' src='//pl27759506.revenuecpmgate.com/1b/c1/f4/1bc1f4b64cca42588d13e1ec7b8f796b.js'></script>
-
 </body>
 </html>
