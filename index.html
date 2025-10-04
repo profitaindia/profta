@@ -58,6 +58,102 @@
             margin-bottom: 30px;
         }
 
+        /* Auth Styles */
+        .auth-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: #3a5bef;
+        }
+
+        .auth-switch {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .auth-link {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .error-message {
+            color: var(--secondary);
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        .success-message {
+            color: var(--accent);
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
         /* Header Styles */
         header {
             background-color: white;
@@ -198,102 +294,6 @@
             cursor: not-allowed;
         }
 
-        /* Auth Styles */
-        .auth-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 30px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-        }
-
-        .auth-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--primary);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: background-color 0.3s;
-        }
-
-        .auth-btn:hover {
-            background-color: #3a5bef;
-        }
-
-        .auth-switch {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 10px;
-        }
-
-        .auth-link {
-            color: var(--primary);
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .auth-link:hover {
-            text-decoration: underline;
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .error-message {
-            color: var(--secondary);
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: left;
-        }
-
-        .success-message {
-            color: var(--accent);
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: center;
-        }
-
         /* Loading Spinner */
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
@@ -380,6 +380,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Ad Code Container */
+        .ad-code-container {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            color: var(--gray);
         }
 
         /* Redeem Options */
@@ -565,7 +576,7 @@
             font-weight: 500;
         }
 
-        /* Redeem Form Styles */
+        /* Redeem Form */
         .redeem-form {
             background-color: white;
             border-radius: 12px;
@@ -758,7 +769,7 @@
                     <p style="color: var(--gray); margin-bottom: 20px;">Get 20 coins by watching an ad</p>
                     
                     <!-- Ad Code Before Daily Bonus Reward -->
-                    <div class="banner-ad" style="margin: 15px 0;">
+                    <div class="ad-code-container">
                         <!-- gotm ad code hear -->
                         Ad will play here before reward
                     </div>
@@ -793,7 +804,7 @@
                     <p id="ads-counter" style="margin-bottom: 20px;">Ads Watched Today: 0/20</p>
                     
                     <!-- Ad Code Before Watch Ads Reward -->
-                    <div class="banner-ad" style="margin: 15px 0;">
+                    <div class="ad-code-container">
                         <!-- gotm ad code hear -->
                         Ad will play here before reward
                     </div>
@@ -825,7 +836,7 @@
                     <p id="scratch-counter" style="margin-bottom: 20px;">Scratches Today: 0/10</p>
                     
                     <!-- Ad Code Before Scratch Card Reward -->
-                    <div class="banner-ad" style="margin: 15px 0;">
+                    <div class="ad-code-container">
                         <!-- gotm ad code hear -->
                         Ad will play here before reward
                     </div>
@@ -865,7 +876,7 @@
                     <p id="spin-counter" style="margin-bottom: 20px;">Spins Today: 0/1</p>
                     
                     <!-- Ad Code Before Spin Reward -->
-                    <div class="banner-ad" style="margin: 15px 0;">
+                    <div class="ad-code-container">
                         <!-- gotm ad code hear -->
                         Ad will play here before spin
                     </div>
@@ -875,7 +886,7 @@
                     <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 20px;">
                         <h4 style="color: #856404; margin-bottom: 10px;">📌 Important Notes:</h4>
                         <ul style="text-align: left; color: #856404; padding-left: 20px;">
-                            <li>Only 1 spin allowed per day</li>
+                            <li>Only 5 spin allowed per day</li>
                             <li>Watch ad to spin the wheel</li>
                             <li>Win between 0 to 10 coins</li>
                             <li>Daily reset at midnight</li>
@@ -1018,7 +1029,7 @@
                             <div class="redeem-cost">2000 coins</div>
                             
                             <!-- Ad Code Before Redeem Option 1 -->
-                            <div class="banner-ad" style="margin: 10px 0; padding: 8px;">
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
                                 <!-- gotm ad code hear -->
                                 Ad before redemption
                             </div>
@@ -1032,7 +1043,7 @@
                             <div class="redeem-cost">5000 coins</div>
                             
                             <!-- Ad Code Before Redeem Option 2 -->
-                            <div class="banner-ad" style="margin: 10px 0; padding: 8px;">
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
                                 <!-- gotm ad code hear -->
                                 Ad before redemption
                             </div>
@@ -1046,7 +1057,7 @@
                             <div class="redeem-cost">2000 coins</div>
                             
                             <!-- Ad Code Before Redeem Option 3 -->
-                            <div class="banner-ad" style="margin: 10px 0; padding: 8px;">
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
                                 <!-- gotm ad code hear -->
                                 Ad before redemption
                             </div>
@@ -1060,7 +1071,7 @@
                             <div class="redeem-cost">5000 coins</div>
                             
                             <!-- Ad Code Before Redeem Option 4 -->
-                            <div class="banner-ad" style="margin: 10px 0; padding: 8px;">
+                            <div class="ad-code-container" style="margin: 10px 0; padding: 8px;">
                                 <!-- gotm ad code hear -->
                                 Ad before redemption
                             </div>
@@ -1197,6 +1208,11 @@
                         </div>
                     </div>
 
+                    <h3 style="text-align: left; margin-bottom: 15px;">Withdrawal History</h3>
+                    <div id="withdrawal-history" style="text-align: left; color: var(--gray);">
+                        No withdrawals yet.
+                    </div>
+
                     <button class="logout-btn" id="logout-btn">Logout</button>
                 </div>
             </div>
@@ -1210,7 +1226,7 @@
             <p>Please watch this ad to continue</p>
             
             <!-- Ad Code in Overlay -->
-            <div class="banner-ad" style="background: rgba(255,255,255,0.1); margin: 15px 0;">
+            <div class="ad-code-container" style="background: rgba(255,255,255,0.1); margin: 15px 0;">
                 <!-- gotm ad code hear -->
                 Fullscreen Ad Will Play Here
             </div>
@@ -1334,6 +1350,7 @@
         const memberSince = document.getElementById('member-since');
         const profileReferralCode = document.getElementById('profile-referral-code');
         const profileReferrals = document.getElementById('profile-referrals');
+        const withdrawalHistory = document.getElementById('withdrawal-history');
         const logoutBtn = document.getElementById('logout-btn');
         const adOverlay = document.getElementById('ad-overlay');
         const adTimer = document.getElementById('ad-timer');
@@ -1501,26 +1518,7 @@
                     const userRef = database.ref('users/' + user.uid);
                     const userReferralCode = generateReferralCode();
                     
-                    // Handle referral if provided
-                    if (referralCode) {
-                        // Find user with this referral code and give them 50 coins
-                        database.ref('users').orderByChild('referralCode').equalTo(referralCode).once('value')
-                            .then((snapshot) => {
-                                if (snapshot.exists()) {
-                                    const referrerData = Object.values(snapshot.val())[0];
-                                    const referrerId = Object.keys(snapshot.val())[0];
-                                    const referrerRef = database.ref('users/' + referrerId);
-                                    
-                                    referrerRef.update({
-                                        coins: (referrerData.coins || 0) + 50,
-                                        referrals: (referrerData.referrals || 0) + 1,
-                                        referralEarnings: (referrerData.referralEarnings || 0) + 50
-                                    });
-                                }
-                            });
-                    }
-                    
-                    return userRef.set({
+                    const userData = {
                         name: user.email.split('@')[0],
                         email: user.email,
                         coins: 100,
@@ -1534,7 +1532,28 @@
                         referralCode: userReferralCode,
                         referrals: 0,
                         referralEarnings: 0
-                    });
+                    };
+                    
+                    // Handle referral if provided
+                    if (referralCode) {
+                        // Find user with this referral code and give them 50 coins
+                        database.ref('users').orderByChild('referralCode').equalTo(referralCode).once('value')
+                            .then((snapshot) => {
+                                if (snapshot.exists()) {
+                                    const referrerData = Object.values(snapshot.val())[0];
+                                    const referrerId = Object.keys(snapshot.val())[0];
+                                    const referrerRef = database.ref('users/' + referrerId);
+                                    
+                                    referrerRef.update({
+                                        coins: referrerData.coins + 50,
+                                        referrals: (referrerData.referrals || 0) + 1,
+                                        referralEarnings: (referrerData.referralEarnings || 0) + 50
+                                    });
+                                }
+                            });
+                    }
+                    
+                    return userRef.set(userData);
                 })
                 .then(() => {
                     showAuthLoading(false);
@@ -1690,10 +1709,33 @@
                 dailyBonusStatus.textContent = 'Bonus available today!';
             }
             
-            // Update counters - FIXED: Show actual counts instead of 0
+            // Update counters - FIXED: Show actual counts from Firebase
             adsCounter.textContent = `Ads Watched Today: ${userData.adsWatchedToday || 0}/20`;
             scratchCounter.textContent = `Scratches Today: ${userData.scratchesToday || 0}/10`;
             spinCounter.textContent = `Spins Today: ${userData.spinsToday || 0}/1`;
+            
+            // Update button states based on limits
+            watchAdBtn.disabled = (userData.adsWatchedToday || 0) >= 20;
+            scratchCardBtn.disabled = (userData.scratchesToday || 0) >= 10;
+            spinBtn.disabled = (userData.spinsToday || 0) >= 1;
+            
+            if (watchAdBtn.disabled) {
+                watchAdBtn.textContent = 'Daily Limit Reached';
+            } else {
+                watchAdBtn.textContent = 'Watch Ad (+10¢)';
+            }
+            
+            if (scratchCardBtn.disabled) {
+                scratchCardBtn.textContent = 'Daily Limit Reached';
+            } else {
+                scratchCardBtn.textContent = 'Scratch Card';
+            }
+            
+            if (spinBtn.disabled) {
+                spinBtn.textContent = 'Daily Limit Reached';
+            } else {
+                spinBtn.textContent = 'Spin Wheel';
+            }
             
             // Update visit status
             if (userData.hasVisited) {
@@ -1701,11 +1743,34 @@
                 visitTimerContainer.style.display = 'none';
             }
             
+            // Update withdrawal history
+            updateWithdrawalHistory();
+            
             // Update redeem options
             updateRedeemOptions();
             
             // Create wheel sections
             createWheelSections();
+        }
+
+        // Update withdrawal history
+        function updateWithdrawalHistory() {
+            if (userData.withdrawalHistory && userData.withdrawalHistory.length > 0) {
+                withdrawalHistory.innerHTML = userData.withdrawalHistory
+                    .map(withdrawal => `
+                        <div style="border-bottom: 1px solid #eee; padding: 8px 0;">
+                            <div><strong>${withdrawal.type}</strong> - ${withdrawal.amount}</div>
+                            <div style="font-size: 12px; color: ${withdrawal.status === 'Completed' ? '#4cd964' : withdrawal.status === 'Processing' ? '#ffa500' : '#ff6b6b'}">
+                                ${withdrawal.date} - ${withdrawal.status}
+                            </div>
+                            ${withdrawal.upi ? `<div style="font-size: 11px; color: #666;">UPI: ${withdrawal.upi}</div>` : ''}
+                            ${withdrawal.gmail ? `<div style="font-size: 11px; color: #666;">Gmail: ${withdrawal.gmail}</div>` : ''}
+                        </div>
+                    `)
+                    .join('');
+            } else {
+                withdrawalHistory.textContent = 'No withdrawals yet.';
+            }
         }
 
         // Update redeem options based on current balance
@@ -1717,18 +1782,20 @@
                 { id: 4, cost: 5000, amount: '₹30', type: 'Redeem Code' }
             ];
             
+            const currentCoins = userData.coins || 100;
+            
             redeemOptions.forEach(option => {
                 const infoElement = document.getElementById(`redeem-info-${option.id}`);
                 const cardElement = document.getElementById(`redeem-option-${option.id}`);
                 const buttonElement = cardElement.querySelector('.action-btn');
                 
-                if (userData.coins >= option.cost) {
+                if (currentCoins >= option.cost) {
                     infoElement.textContent = 'Available';
                     infoElement.style.color = 'var(--accent)';
                     buttonElement.disabled = false;
                     cardElement.classList.add('active');
                 } else {
-                    const needed = option.cost - userData.coins;
+                    const needed = option.cost - currentCoins;
                     infoElement.textContent = `Need ${needed} more`;
                     infoElement.style.color = 'var(--secondary)';
                     buttonElement.disabled = true;
@@ -1785,7 +1852,7 @@
                     rewardAmount = 20;
                     message = 'Daily bonus claimed! +20 coins';
                     updates = {
-                        coins: (userData.coins || 0) + rewardAmount,
+                        coins: (userData.coins || 100) + rewardAmount,
                         lastBonusClaim: new Date().toISOString()
                     };
                     break;
@@ -1793,7 +1860,7 @@
                     rewardAmount = 10;
                     message = 'Ad watched! +10 coins';
                     updates = {
-                        coins: (userData.coins || 0) + rewardAmount,
+                        coins: (userData.coins || 100) + rewardAmount,
                         adsWatchedToday: (userData.adsWatchedToday || 0) + 1
                     };
                     break;
@@ -1801,7 +1868,7 @@
                     rewardAmount = 10;
                     message = 'Scratch card won! +10 coins';
                     updates = {
-                        coins: (userData.coins || 0) + rewardAmount,
+                        coins: (userData.coins || 100) + rewardAmount,
                         scratchesToday: (userData.scratchesToday || 0) + 1
                     };
                     break;
@@ -1843,7 +1910,7 @@
                 const userRef = database.ref('users/' + currentUser.uid);
                 
                 userRef.update({
-                    coins: (userData.coins || 0) + randomPrize,
+                    coins: (userData.coins || 100) + randomPrize,
                     spinsToday: (userData.spinsToday || 0) + 1
                 }).then(() => {
                     showToast(`Congratulations! You won ${randomPrize} coins! 🎉`);
@@ -1861,8 +1928,9 @@
             };
             
             const option = redeemOptions[optionId];
+            const currentCoins = userData.coins || 100;
             
-            if (userData.coins >= option.cost) {
+            if (currentCoins >= option.cost) {
                 currentRedeemOption = option;
                 
                 // Setup redeem form
@@ -1910,25 +1978,86 @@
                 date: new Date().toLocaleDateString(),
                 status: 'Pending',
                 upi: currentRedeemOption.type.includes('UPI') ? inputValue : null,
-                gmail: currentRedeemOption.type.includes('Code') ? inputValue : null
+                gmail: currentRedeemOption.type.includes('Code') ? inputValue : null,
+                timestamp: new Date().toISOString()
             };
             
             const updatedWithdrawals = userData.withdrawalHistory ? 
                 [...userData.withdrawalHistory, withdrawal] : 
                 [withdrawal];
             
-            userRef.update({
-                coins: (userData.coins || 0) - currentRedeemOption.cost,
-                withdrawalHistory: updatedWithdrawals
-            })
+            // Also save to separate redeem requests database
+            const redeemRequestRef = database.ref('redeemRequests').push();
+            
+            Promise.all([
+                // Update user data
+                userRef.update({
+                    coins: (userData.coins || 100) - currentRedeemOption.cost,
+                    withdrawalHistory: updatedWithdrawals
+                }),
+                // Save to redeem requests
+                redeemRequestRef.set({
+                    userId: currentUser.uid,
+                    userEmail: currentUser.email,
+                    ...withdrawal
+                })
+            ])
             .then(() => {
-                showToast('Reward will be sent within 24 hours!');
+                showToast('Redeem request submitted! Will be processed within 24 hours.');
                 navigateToPage('home-page');
                 redeemInput.value = '';
             })
             .catch((error) => {
                 showToast('Error processing redemption: ' + error.message, true);
             });
+        }
+
+        // Visit website function
+        function startVisitTimer() {
+            visitTimerContainer.style.display = 'block';
+            let timeLeft = 60;
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                visitTimer.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    claimVisitReward.style.display = 'block';
+                    showToast('Timer completed! Click claim to get your reward.');
+                }
+            }, 1000);
+        }
+
+        function claimVisitRewardFunc() {
+            if (userData.hasVisited) {
+                showToast('You have already claimed visit reward', true);
+                return;
+            }
+            
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            userRef.update({
+                coins: (userData.coins || 100) + 30,
+                hasVisited: true
+            }).then(() => {
+                showToast('30 coins added to your account! 🎉');
+                claimVisitReward.style.display = 'none';
+            });
+        }
+
+        // Copy referral code
+        function copyReferralCode() {
+            navigator.clipboard.writeText(userData.referralCode || 'PROFTA123')
+                .then(() => showToast('Referral code copied!'))
+                .catch(() => showToast('Failed to copy', true));
+        }
+
+        function copyReferralLink() {
+            const link = 'https://profitaindia.github.io/profta/?ref=' + (userData.referralCode || 'PROFTA123');
+            navigator.clipboard.writeText(link)
+                .then(() => showToast('Referral link copied!'))
+                .catch(() => showToast('Failed to copy', true));
         }
 
         // Logout function
@@ -2057,50 +2186,6 @@
             navigateToPage('home-page');
         });
 
-        // Referral buttons
-        copyReferralBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(userData.referralCode || 'PROFTA123')
-                .then(() => showToast('Referral code copied!'))
-                .catch(() => showToast('Failed to copy', true));
-        });
-
-        copyLinkBtn.addEventListener('click', () => {
-            const link = 'https://profitaindia.github.io/profta/?ref=' + (userData.referralCode || 'PROFTA123');
-            navigator.clipboard.writeText(link)
-                .then(() => showToast('Referral link copied!'))
-                .catch(() => showToast('Failed to copy', true));
-        });
-
-        // Visit website
-        const visitLink = document.querySelector('a[href="https://earnbygotm.netlify.app/"]');
-        visitLink.addEventListener('click', () => {
-            visitTimerContainer.style.display = 'block';
-            let timeLeft = 60;
-            
-            const timer = setInterval(() => {
-                timeLeft--;
-                visitTimer.textContent = timeLeft;
-                
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    claimVisitReward.style.display = 'block';
-                    showToast('Timer completed! Click claim to get your reward.');
-                }
-            }, 1000);
-        });
-
-        claimVisitReward.addEventListener('click', () => {
-            const userRef = database.ref('users/' + currentUser.uid);
-            
-            userRef.update({
-                coins: (userData.coins || 0) + 30,
-                hasVisited: true
-            }).then(() => {
-                showToast('30 coins added to your account! 🎉');
-                claimVisitReward.style.display = 'none';
-            });
-        });
-
         // Add event listeners for redeem options
         for (let i = 1; i <= 4; i++) {
             document.getElementById(`redeem-option-${i}`).addEventListener('click', () => {
@@ -2109,6 +2194,15 @@
         }
         
         submitRedeemBtn.addEventListener('click', handleRedeemSubmit);
+
+        // Referral buttons
+        copyReferralBtn.addEventListener('click', copyReferralCode);
+        copyLinkBtn.addEventListener('click', copyReferralLink);
+
+        // Visit website
+        const visitLink = document.querySelector('a[href="https://earnbygotm.netlify.app/"]');
+        visitLink.addEventListener('click', startVisitTimer);
+        claimVisitReward.addEventListener('click', claimVisitRewardFunc);
 
         // Logout
         logoutBtn.addEventListener('click', handleLogout);
@@ -2119,5 +2213,6 @@
         console.log("Profta app initialized successfully");
     </script>
     <script type='text/javascript' src='//pl27759506.revenuecpmgate.com/1b/c1/f4/1bc1f4b64cca42588d13e1ec7b8f796b.js'></script>
+
 </body>
 </html>
