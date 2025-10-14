@@ -719,6 +719,30 @@
         .feature-header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--card-bg);
+            border: none;
+            color: var(--light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--button-gradient);
         }
 
         .feature-title {
@@ -752,6 +776,9 @@
         .feature-rules h3 {
             margin-bottom: 10px;
             color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .feature-rules ul {
@@ -974,6 +1001,16 @@
             margin-bottom: 10px;
         }
 
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qr-code img {
+            border-radius: 10px;
+            border: 2px solid var(--accent);
+        }
+
         .payment-upload {
             border: 2px dashed rgba(255, 255, 255, 0.3);
             border-radius: 10px;
@@ -1093,6 +1130,7 @@
             cursor: pointer;
             font-weight: 600;
             margin-top: 20px;
+            display: none;
         }
 
         /* Footer */
@@ -1119,6 +1157,11 @@
 
         .footer-link:hover {
             text-decoration: underline;
+        }
+
+        .contact-email {
+            margin-top: 10px;
+            font-size: 1rem;
         }
 
         /* Animations */
@@ -1193,6 +1236,10 @@
                 width: 250px;
                 height: 250px;
             }
+            
+            .feature-header {
+                padding-left: 50px;
+            }
         }
     </style>
 </head>
@@ -1214,8 +1261,8 @@
         </div>
     </header>
 
-    <!-- Navigation -->
-    <nav>
+    <!-- Navigation (Hidden on Welcome Screen) -->
+    <nav id="mainNav" style="display: none;">
         <button class="nav-btn active" data-screen="home">
             <i class="fas fa-home"></i> Home
         </button>
@@ -1569,17 +1616,21 @@
         <!-- Daily Bonus Feature Screen -->
         <div class="screen feature-screen" id="dailyBonusScreen">
             <div class="feature-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <h2 class="feature-title">Daily Bonus</h2>
                 <p class="feature-subtitle">Claim your daily bonus of coins</p>
             </div>
             <div class="feature-content">
                 <div class="feature-rules">
-                    <h3><i class="fas fa-info-circle"></i> Rules & Information</h3>
+                    <h3><i class="fas fa-calendar-day"></i> Rules & Information</h3>
                     <ul>
                         <li>Claim your daily bonus every 24 hours</li>
                         <li>Base reward: 20 coins</li>
                         <li>Premium users get double coins (40 coins)</li>
                         <li>Bonus resets at midnight</li>
+                        <li>Watch an ad to claim your bonus</li>
                     </ul>
                 </div>
                 <div class="timer" id="dailyBonusTimer">00:00:00</div>
@@ -1590,12 +1641,15 @@
         <!-- Watch Ad Feature Screen -->
         <div class="screen feature-screen" id="watchAdScreen">
             <div class="feature-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <h2 class="feature-title">Watch Ads & Earn</h2>
                 <p class="feature-subtitle">Watch short ads to earn coins</p>
             </div>
             <div class="feature-content">
                 <div class="feature-rules">
-                    <h3><i class="fas fa-info-circle"></i> Rules & Information</h3>
+                    <h3><i class="fas fa-tv"></i> Rules & Information</h3>
                     <ul>
                         <li>Free users: 20 ads per day limit</li>
                         <li>Premium users: Unlimited ads</li>
@@ -1615,18 +1669,22 @@
         <!-- Scratch Card Feature Screen -->
         <div class="screen feature-screen" id="scratchCardScreen">
             <div class="feature-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <h2 class="feature-title">Scratch Cards</h2>
                 <p class="feature-subtitle">Scratch to reveal your prize</p>
             </div>
             <div class="feature-content">
                 <div class="feature-rules">
-                    <h3><i class="fas fa-info-circle"></i> Rules & Information</h3>
+                    <h3><i class="fas fa-ticket-alt"></i> Rules & Information</h3>
                     <ul>
                         <li>Free users: 10 scratch cards per day</li>
                         <li>Premium users: Unlimited scratch cards</li>
                         <li>Base reward: 0-10 coins per card</li>
                         <li>Premium users get double coins (0-20 coins)</li>
                         <li>Scratch completely to reveal prize</li>
+                        <li>Watch an ad to get a scratch card</li>
                     </ul>
                 </div>
                 <div class="ad-container">
@@ -1637,25 +1695,29 @@
                     <div class="scratch-cover">SCRATCH ME</div>
                     <div class="scratch-result" id="scratchResult"></div>
                 </div>
-                <button class="form-btn" id="newScratchCard">New Scratch Card</button>
+                <button class="form-btn" id="newScratchCard">Watch Ad for Scratch Card</button>
             </div>
         </div>
 
         <!-- Spin Wheel Feature Screen -->
         <div class="screen feature-screen" id="spinWheelScreen">
             <div class="feature-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <h2 class="feature-title">Spin Wheel</h2>
                 <p class="feature-subtitle">Spin the wheel to win coins</p>
             </div>
             <div class="feature-content">
                 <div class="feature-rules">
-                    <h3><i class="fas fa-info-circle"></i> Rules & Information</h3>
+                    <h3><i class="fas fa-sync-alt"></i> Rules & Information</h3>
                     <ul>
                         <li>Free users: 1 spin per day</li>
                         <li>Premium users: Unlimited spins</li>
                         <li>Base reward: 0-10 coins per spin</li>
                         <li>Premium users get double coins (0-20 coins)</li>
                         <li>Spin the wheel and win!</li>
+                        <li>Watch an ad to spin the wheel</li>
                     </ul>
                 </div>
                 <div class="ad-container">
@@ -1666,7 +1728,7 @@
                     <div class="wheel-pointer"></div>
                     <div class="wheel" id="wheel"></div>
                 </div>
-                <button class="spin-btn" id="spinWheel">SPIN</button>
+                <button class="spin-btn" id="spinWheel">Watch Ad to Spin</button>
                 <div id="spinResult" style="margin-top: 20px; font-size: 1.2rem; font-weight: 600;"></div>
             </div>
         </div>
@@ -1674,12 +1736,15 @@
         <!-- Visit & Earn Feature Screen -->
         <div class="screen feature-screen" id="visitEarnScreen">
             <div class="feature-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <h2 class="feature-title">Visit & Earn</h2>
                 <p class="feature-subtitle">Visit websites to earn coins</p>
             </div>
             <div class="feature-content">
                 <div class="feature-rules">
-                    <h3><i class="fas fa-info-circle"></i> Rules & Information</h3>
+                    <h3><i class="fas fa-globe"></i> Rules & Information</h3>
                     <ul>
                         <li>Visit for 60 seconds to earn coins</li>
                         <li>Base reward: 30 coins per visit</li>
@@ -1700,12 +1765,15 @@
         <!-- Refer & Earn Feature Screen -->
         <div class="screen feature-screen" id="referEarnScreen">
             <div class="feature-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <h2 class="feature-title">Refer & Earn</h2>
                 <p class="feature-subtitle">Refer friends and earn coins</p>
             </div>
             <div class="feature-content">
                 <div class="feature-rules">
-                    <h3><i class="fas fa-info-circle"></i> Rules & Information</h3>
+                    <h3><i class="fas fa-user-friends"></i> Rules & Information</h3>
                     <ul>
                         <li>Earn 100 coins for each successful referral</li>
                         <li>Premium users get double coins (200 coins)</li>
@@ -1737,6 +1805,12 @@
             <div class="payment-details" id="paymentDetails">
                 <!-- Payment details will be inserted here -->
             </div>
+            
+            <!-- QR Code -->
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=PROFTA_PAYMENT" alt="Scan QR Code">
+            </div>
+            
             <div class="payment-upload" id="paymentUpload">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Upload Payment Screenshot</p>
@@ -1768,9 +1842,11 @@
         <div class="footer-links">
             <a href="#" class="footer-link">Terms of Service</a>
             <a href="#" class="footer-link">Privacy Policy</a>
-            <a href="#" class="footer-link">Contact Support</a>
+            <a href="mailto:gotmprajapat00@gmail.com" class="footer-link">Contact Support</a>
             <a href="#" class="footer-link">FAQ</a>
         </div>
+        <p class="contact-email">Contact us at: <a href="mailto:gotmprajapat00@gmail.com" style="color: var(--accent);">gotmprajapat00@gmail.com</a></p>
+        <p>We reply within 24 hours</p>
         <p>© 2023 PROFTA - Complete Earning Platform. All rights reserved.</p>
     </footer>
 
@@ -1796,6 +1872,7 @@
         // DOM Elements
         const screens = document.querySelectorAll('.screen');
         const navBtns = document.querySelectorAll('.nav-btn');
+        const mainNav = document.getElementById('mainNav');
         const userInfo = document.getElementById('userInfo');
         const coinBalance = document.getElementById('coinBalance');
         const profileBtn = document.getElementById('profileBtn');
@@ -1835,6 +1912,7 @@
         
         // Feature screens
         const featureCards = document.querySelectorAll('.card[data-feature]');
+        const backButtons = document.querySelectorAll('.back-btn');
         
         // Payment modal elements
         const paymentModal = document.getElementById('paymentModal');
@@ -1860,6 +1938,7 @@
         let selectedPlan = null;
         let selectedPlanPrice = null;
         let paymentScreenshot = null;
+        let adTimerInterval = null;
 
         // Base earning amounts
         const baseEarnings = {
@@ -1886,6 +1965,18 @@
                 
                 navBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
+            });
+        });
+
+        // Back buttons
+        backButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const screenId = btn.getAttribute('data-screen');
+                showScreen(screenId);
+                
+                // Activate the home nav button
+                navBtns.forEach(b => b.classList.remove('active'));
+                document.querySelector('[data-screen="home"]').classList.add('active');
             });
         });
 
@@ -1916,6 +2007,13 @@
                 screen.classList.remove('active');
             });
             document.getElementById(screenId + 'Screen').classList.add('active');
+            
+            // Show navigation only if user is logged in and not on welcome screen
+            if (currentUser && screenId !== 'welcome') {
+                mainNav.style.display = 'flex';
+            } else {
+                mainNav.style.display = 'none';
+            }
         }
 
         // Register form
@@ -1992,6 +2090,7 @@
                     userData = null;
                     showScreen('welcome');
                     userInfo.style.display = 'none';
+                    mainNav.style.display = 'none';
                 })
                 .catch((error) => {
                     alert('Logout error: ' + error.message);
@@ -2045,6 +2144,7 @@
                     updateFeatureScreens();
                     
                     userInfo.style.display = 'flex';
+                    mainNav.style.display = 'flex';
                 }
             });
         }
@@ -2149,6 +2249,7 @@
             } else {
                 showScreen('welcome');
                 userInfo.style.display = 'none';
+                mainNav.style.display = 'none';
             }
         });
 
@@ -2323,7 +2424,12 @@ Time: ${new Date().toLocaleString()}`);
             }
             
             // Show ad before claiming bonus
-            showAdModal().then(() => {
+            showAdModal().then((completed) => {
+                if (!completed) {
+                    alert('You must watch the ad completely to claim your bonus');
+                    return;
+                }
+                
                 // Calculate reward (double if premium)
                 let bonus = baseEarnings.dailyBonus;
                 if (userData.doubleCoins) {
@@ -2361,7 +2467,12 @@ Time: ${new Date().toLocaleString()}`);
                 return;
             }
             
-            showAdModal().then(() => {
+            showAdModal().then((completed) => {
+                if (!completed) {
+                    alert('You must watch the ad completely to earn coins');
+                    return;
+                }
+                
                 // Calculate reward (double if premium)
                 let reward = baseEarnings.adReward;
                 if (userData.doubleCoins) {
@@ -2402,21 +2513,29 @@ Time: ${new Date().toLocaleString()}`);
                 return;
             }
             
-            // Reset scratch area
-            const scratchArea = document.getElementById('scratchArea');
-            const scratchCover = scratchArea.querySelector('.scratch-cover');
-            const scratchResultDiv = document.getElementById('scratchResult');
-            
-            scratchCover.style.display = 'flex';
-            scratchResultDiv.textContent = '';
-            scratchResultDiv.style.display = 'none';
-            
-            // Generate random reward
-            const maxReward = userData.doubleCoins ? baseEarnings.scratchMax * 2 : baseEarnings.scratchMax;
-            scratchResult = Math.floor(Math.random() * (maxReward + 1));
-            
-            // Enable scratching
-            isScratching = true;
+            // Show ad before getting scratch card
+            showAdModal().then((completed) => {
+                if (!completed) {
+                    alert('You must watch the ad completely to get a scratch card');
+                    return;
+                }
+                
+                // Reset scratch area
+                const scratchArea = document.getElementById('scratchArea');
+                const scratchCover = scratchArea.querySelector('.scratch-cover');
+                const scratchResultDiv = document.getElementById('scratchResult');
+                
+                scratchCover.style.display = 'flex';
+                scratchResultDiv.textContent = '';
+                scratchResultDiv.style.display = 'none';
+                
+                // Generate random reward
+                const maxReward = userData.doubleCoins ? baseEarnings.scratchMax * 2 : baseEarnings.scratchMax;
+                scratchResult = Math.floor(Math.random() * (maxReward + 1));
+                
+                // Enable scratching
+                isScratching = true;
+            });
         });
 
         // Scratch card interaction
@@ -2547,44 +2666,52 @@ Time: ${new Date().toLocaleString()}`);
                 return;
             }
             
-            const wheel = document.getElementById('wheel');
-            const spinBtn = document.getElementById('spinWheel');
-            const spinResult = document.getElementById('spinResult');
-            
-            spinBtn.disabled = true;
-            spinResult.textContent = '';
-            
-            // Calculate reward (double if premium)
-            const maxReward = userData.doubleCoins ? baseEarnings.spinMax * 2 : baseEarnings.spinMax;
-            const reward = Math.floor(Math.random() * (maxReward + 1));
-            
-            // Spin animation
-            const spins = 5 + Math.random() * 5; // 5-10 spins
-            const degrees = 360 * spins + (reward * (360 / (maxReward + 1)));
-            
-            wheel.style.transform = `rotate(${degrees}deg)`;
-            
-            setTimeout(() => {
-                // Award coins after spin completes
-                const userRef = database.ref('users/' + currentUser.uid);
-                const updatedCoins = userData.coins + reward;
-                const updatedSpins = (userData.spinsToday || 0) + 1;
-                const updatedTotal = (userData.totalEarned || 0) + reward;
+            // Show ad before spinning
+            showAdModal().then((completed) => {
+                if (!completed) {
+                    alert('You must watch the ad completely to spin the wheel');
+                    return;
+                }
                 
-                userRef.update({
-                    coins: updatedCoins,
-                    spinsToday: updatedSpins,
-                    totalEarned: updatedTotal
-                })
-                .then(() => {
-                    spinResult.textContent = `You won ${reward} coins!`;
-                    spinBtn.disabled = false;
-                })
-                .catch((error) => {
-                    alert('Error updating coins: ' + error.message);
-                    spinBtn.disabled = false;
-                });
-            }, 3000);
+                const wheel = document.getElementById('wheel');
+                const spinBtn = document.getElementById('spinWheel');
+                const spinResult = document.getElementById('spinResult');
+                
+                spinBtn.disabled = true;
+                spinResult.textContent = '';
+                
+                // Calculate reward (double if premium)
+                const maxReward = userData.doubleCoins ? baseEarnings.spinMax * 2 : baseEarnings.spinMax;
+                const reward = Math.floor(Math.random() * (maxReward + 1));
+                
+                // Spin animation
+                const spins = 5 + Math.random() * 5; // 5-10 spins
+                const degrees = 360 * spins + (reward * (360 / (maxReward + 1)));
+                
+                wheel.style.transform = `rotate(${degrees}deg)`;
+                
+                setTimeout(() => {
+                    // Award coins after spin completes
+                    const userRef = database.ref('users/' + currentUser.uid);
+                    const updatedCoins = userData.coins + reward;
+                    const updatedSpins = (userData.spinsToday || 0) + 1;
+                    const updatedTotal = (userData.totalEarned || 0) + reward;
+                    
+                    userRef.update({
+                        coins: updatedCoins,
+                        spinsToday: updatedSpins,
+                        totalEarned: updatedTotal
+                    })
+                    .then(() => {
+                        spinResult.textContent = `You won ${reward} coins!`;
+                        spinBtn.disabled = false;
+                    })
+                    .catch((error) => {
+                        alert('Error updating coins: ' + error.message);
+                        spinBtn.disabled = false;
+                    });
+                }, 3000);
+            });
         });
 
         // Visit & Earn Feature
@@ -2679,21 +2806,29 @@ Time: ${new Date().toLocaleString()}`);
                 adModal.classList.add('active');
                 let timeLeft = 10;
                 adTimer.textContent = timeLeft;
+                closeAd.style.display = 'none';
                 
-                const timerInterval = setInterval(() => {
+                adTimerInterval = setInterval(() => {
                     timeLeft--;
                     adTimer.textContent = timeLeft;
                     
                     if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        closeAd.disabled = false;
+                        clearInterval(adTimerInterval);
+                        closeAd.style.display = 'block';
+                        resolve(true); // Ad completed successfully
                     }
                 }, 1000);
                 
                 closeAd.addEventListener('click', () => {
                     adModal.classList.remove('active');
-                    clearInterval(timerInterval);
-                    resolve();
+                    clearInterval(adTimerInterval);
+                    
+                    // Only resolve as completed if timer reached 0
+                    if (timeLeft <= 0) {
+                        resolve(true);
+                    } else {
+                        resolve(false); // Ad not completed
+                    }
                 });
             });
         }
@@ -2733,7 +2868,7 @@ Time: ${new Date().toLocaleString()}`);
                 <p><strong>Price:</strong> ₹${price}</p>
                 <p><strong>User:</strong> ${userData.email}</p>
                 <p><strong>Name:</strong> ${userData.name}</p>
-                <p>Please upload your payment screenshot to complete the purchase.</p>
+                <p>Scan the QR code to make payment and upload screenshot</p>
             `;
             
             paymentModal.classList.add('active');
