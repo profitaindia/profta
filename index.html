@@ -451,6 +451,30 @@
             background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--card-bg);
+            border: none;
+            color: var(--light);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--button-gradient);
         }
 
         .profile-avatar {
@@ -722,7 +746,7 @@
             position: relative;
         }
 
-        .back-btn {
+        .feature-back-btn {
             position: absolute;
             left: 0;
             top: 50%;
@@ -741,7 +765,7 @@
             transition: all 0.3s ease;
         }
 
-        .back-btn:hover {
+        .feature-back-btn:hover {
             background: var(--button-gradient);
         }
 
@@ -1001,14 +1025,51 @@
             margin-bottom: 10px;
         }
 
-        .qr-code {
+        .qr-section {
             text-align: center;
+            background: #111;
+            padding: 25px;
+            border-radius: 12px;
             margin: 20px 0;
+            border-top: 2px solid #00ff88;
         }
 
-        .qr-code img {
-            border-radius: 10px;
-            border: 2px solid var(--accent);
+        .qr-section h3 {
+            color: #00ff88;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .qr-section p {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .qr-code {
+            width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: block;
+            margin: 0 auto 15px;
+        }
+
+        .pay-now-btn {
+            display: inline-block;
+            background: #00ff88;
+            color: #111;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .pay-now-btn:hover {
+            background: #00cc6a;
+            transform: translateY(-2px);
         }
 
         .payment-upload {
@@ -1222,6 +1283,7 @@
             .profile-header {
                 flex-direction: column;
                 text-align: center;
+                padding-left: 60px;
             }
             
             .plans {
@@ -1272,9 +1334,6 @@
         <button class="nav-btn" data-screen="subscription">
             <i class="fas fa-crown"></i> Premium
         </button>
-        <button class="nav-btn" data-screen="profile">
-            <i class="fas fa-user"></i> Profile
-        </button>
     </nav>
 
     <!-- Main Content -->
@@ -1321,6 +1380,15 @@
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="dailyBonusAmount">20</span> Coins
                     </div>
+                    <div class="feature-rules">
+                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
+                        <ul>
+                            <li>Claim every 24 hours</li>
+                            <li>Base reward: 20 coins</li>
+                            <li>Premium: 40 coins</li>
+                            <li>Watch ad to claim</li>
+                        </ul>
+                    </div>
                     <button class="card-btn" id="dailyBonusBtn">Claim Now</button>
                 </div>
                 
@@ -1332,6 +1400,15 @@
                     <p class="card-desc">Watch short ads and earn coins</p>
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="adRewardAmount">10</span> Coins per Ad
+                    </div>
+                    <div class="feature-rules">
+                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
+                        <ul>
+                            <li>Free: 20 ads/day</li>
+                            <li>Premium: Unlimited</li>
+                            <li>Base: 10 coins/ad</li>
+                            <li>Premium: 20 coins/ad</li>
+                        </ul>
                     </div>
                     <button class="card-btn" id="watchAdBtn">Watch Ad</button>
                 </div>
@@ -1345,6 +1422,15 @@
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="scratchRewardAmount">0-10</span> Coins
                     </div>
+                    <div class="feature-rules">
+                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
+                        <ul>
+                            <li>Free: 10 cards/day</li>
+                            <li>Premium: Unlimited</li>
+                            <li>Base: 0-10 coins</li>
+                            <li>Premium: 0-20 coins</li>
+                        </ul>
+                    </div>
                     <button class="card-btn" id="scratchCardBtn">Scratch Now</button>
                 </div>
                 
@@ -1356,6 +1442,15 @@
                     <p class="card-desc">Spin the wheel and win coins</p>
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="spinRewardAmount">0-10</span> Coins
+                    </div>
+                    <div class="feature-rules">
+                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
+                        <ul>
+                            <li>Free: 1 spin/day</li>
+                            <li>Premium: Unlimited</li>
+                            <li>Base: 0-10 coins</li>
+                            <li>Premium: 0-20 coins</li>
+                        </ul>
                     </div>
                     <button class="card-btn" id="spinWheelBtn">Spin Now</button>
                 </div>
@@ -1369,6 +1464,15 @@
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="visitRewardAmount">30</span> Coins
                     </div>
+                    <div class="feature-rules">
+                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
+                        <ul>
+                            <li>60-second timer</li>
+                            <li>Once per day</li>
+                            <li>Base: 30 coins</li>
+                            <li>Premium: 60 coins</li>
+                        </ul>
+                    </div>
                     <button class="card-btn" id="visitEarnBtn">Visit Now</button>
                 </div>
                 
@@ -1380,6 +1484,15 @@
                     <p class="card-desc">Refer friends and earn 100 coins each</p>
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="referRewardAmount">100</span> Coins
+                    </div>
+                    <div class="feature-rules">
+                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
+                        <ul>
+                            <li>100 coins per referral</li>
+                            <li>Premium: 200 coins</li>
+                            <li>Friend gets 50 coins</li>
+                            <li>No limit on referrals</li>
+                        </ul>
                     </div>
                     <button class="card-btn" id="referEarnBtn">Refer Now</button>
                 </div>
@@ -1435,6 +1548,9 @@
         <!-- Profile Screen -->
         <div class="screen profile-screen" id="profileScreen">
             <div class="profile-header">
+                <button class="back-btn" data-screen="home">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
                 <div class="profile-avatar">
                     <i class="fas fa-user"></i>
                 </div>
@@ -1616,7 +1732,7 @@
         <!-- Daily Bonus Feature Screen -->
         <div class="screen feature-screen" id="dailyBonusScreen">
             <div class="feature-header">
-                <button class="back-btn" data-screen="home">
+                <button class="feature-back-btn" data-screen="home">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h2 class="feature-title">Daily Bonus</h2>
@@ -1641,7 +1757,7 @@
         <!-- Watch Ad Feature Screen -->
         <div class="screen feature-screen" id="watchAdScreen">
             <div class="feature-header">
-                <button class="back-btn" data-screen="home">
+                <button class="feature-back-btn" data-screen="home">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h2 class="feature-title">Watch Ads & Earn</h2>
@@ -1669,7 +1785,7 @@
         <!-- Scratch Card Feature Screen -->
         <div class="screen feature-screen" id="scratchCardScreen">
             <div class="feature-header">
-                <button class="back-btn" data-screen="home">
+                <button class="feature-back-btn" data-screen="home">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h2 class="feature-title">Scratch Cards</h2>
@@ -1702,7 +1818,7 @@
         <!-- Spin Wheel Feature Screen -->
         <div class="screen feature-screen" id="spinWheelScreen">
             <div class="feature-header">
-                <button class="back-btn" data-screen="home">
+                <button class="feature-back-btn" data-screen="home">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h2 class="feature-title">Spin Wheel</h2>
@@ -1736,7 +1852,7 @@
         <!-- Visit & Earn Feature Screen -->
         <div class="screen feature-screen" id="visitEarnScreen">
             <div class="feature-header">
-                <button class="back-btn" data-screen="home">
+                <button class="feature-back-btn" data-screen="home">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h2 class="feature-title">Visit & Earn</h2>
@@ -1765,7 +1881,7 @@
         <!-- Refer & Earn Feature Screen -->
         <div class="screen feature-screen" id="referEarnScreen">
             <div class="feature-header">
-                <button class="back-btn" data-screen="home">
+                <button class="feature-back-btn" data-screen="home">
                     <i class="fas fa-arrow-left"></i>
                 </button>
                 <h2 class="feature-title">Refer & Earn</h2>
@@ -1806,9 +1922,18 @@
                 <!-- Payment details will be inserted here -->
             </div>
             
-            <!-- QR Code -->
-            <div class="qr-code">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=PROFTA_PAYMENT" alt="Scan QR Code">
+            <!-- QR Code Section -->
+            <div class="qr-section">
+                <h3>Scan & Pay via UPI</h3>
+                <p>Use any UPI app to scan this QR and send payment securely</p>
+                
+                <img src="https://raw.githubusercontent.com/profitainindia/profta/main/qr-code.png"
+                     alt="UPI QR Code"
+                     class="qr-code">
+                
+                <button class="pay-now-btn" onclick="window.open('upi://pay?pa=9929778349@fam&pn=PROFTA&cu=INR', '_blank')">
+                    Pay Now
+                </button>
             </div>
             
             <div class="payment-upload" id="paymentUpload">
@@ -1869,6 +1994,10 @@
         const database = firebase.database();
         const storage = firebase.storage();
 
+        // Telegram Bot Configuration
+        const TELEGRAM_BOT_TOKEN = "8253928607:AAGrVlxJftNEdnDot-f5Do0QJDKoAaTm1d0";
+        const TELEGRAM_CHAT_ID = "6225430212";
+
         // DOM Elements
         const screens = document.querySelectorAll('.screen');
         const navBtns = document.querySelectorAll('.nav-btn');
@@ -1912,7 +2041,7 @@
         
         // Feature screens
         const featureCards = document.querySelectorAll('.card[data-feature]');
-        const backButtons = document.querySelectorAll('.back-btn');
+        const backButtons = document.querySelectorAll('.back-btn, .feature-back-btn');
         
         // Payment modal elements
         const paymentModal = document.getElementById('paymentModal');
@@ -1983,7 +2112,6 @@
         profileBtn.addEventListener('click', () => {
             showScreen('profile');
             navBtns.forEach(b => b.classList.remove('active'));
-            document.querySelector('[data-screen="profile"]').classList.add('active');
         });
 
         // Feature card clicks
@@ -2815,7 +2943,11 @@ Time: ${new Date().toLocaleString()}`);
                     if (timeLeft <= 0) {
                         clearInterval(adTimerInterval);
                         closeAd.style.display = 'block';
-                        resolve(true); // Ad completed successfully
+                        // Auto close after 2 seconds
+                        setTimeout(() => {
+                            adModal.classList.remove('active');
+                            resolve(true);
+                        }, 2000);
                     }
                 }, 1000);
                 
@@ -2985,11 +3117,28 @@ Time: ${now.toLocaleString()}`);
             );
         });
 
-        // Send Telegram notification (in a real app, this would send to a Telegram bot)
+        // Send Telegram notification
         function sendTelegramNotification(message) {
-            console.log('Telegram Notification:', message);
-            // In a real implementation, you would use the Telegram Bot API here
-            // Example: fetch(`https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage?chat_id=YOUR_CHAT_ID&text=${encodeURIComponent(message)}`);
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Telegram notification sent:', data);
+            })
+            .catch(error => {
+                console.error('Error sending Telegram notification:', error);
+            });
         }
 
         // Initialize the app
