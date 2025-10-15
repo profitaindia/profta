@@ -4,7 +4,7 @@
     <meta name="monetag" content="01277e1b5416dea00bfb24d94574daea">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROFTA - Complete Earning Platform</title>
+    <title>PROFTA - Earn Money Online</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -1029,48 +1029,46 @@
         .qr-section {
             text-align: center;
             background: #111;
-            padding: 25px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 10px;
             margin: 20px 0;
-            border-top: 2px solid #00ff88;
+            border-top: 2px solid var(--accent);
         }
 
-        .qr-section h3 {
-            color: #00ff88;
-            font-size: 22px;
+        .qr-section h2 {
+            color: var(--accent);
+            font-size: 1.5rem;
             margin-bottom: 8px;
         }
 
         .qr-section p {
             color: #ccc;
-            font-size: 14px;
+            font-size: 1rem;
             margin-bottom: 20px;
         }
 
-        .qr-code {
-            width: 220px;
+        .qr-section img {
+            width: 250px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
             display: block;
             margin: 0 auto 15px;
         }
 
-        .pay-now-btn {
+        .qr-section a {
             display: inline-block;
-            background: #00ff88;
+            background: var(--accent);
             color: #111;
             text-decoration: none;
             padding: 12px 28px;
             border-radius: 8px;
             font-weight: 700;
             transition: 0.3s;
-            border: none;
-            cursor: pointer;
         }
 
-        .pay-now-btn:hover {
-            background: #00cc6a;
+        .qr-section a:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
         }
 
         .payment-upload {
@@ -1303,6 +1301,10 @@
             .feature-header {
                 padding-left: 50px;
             }
+            
+            .qr-section img {
+                width: 200px;
+            }
         }
     </style>
 </head>
@@ -1334,6 +1336,9 @@
         </button>
         <button class="nav-btn" data-screen="subscription">
             <i class="fas fa-crown"></i> Premium
+        </button>
+        <button class="nav-btn" data-screen="profile">
+            <i class="fas fa-user"></i> Profile
         </button>
     </nav>
 
@@ -1381,15 +1386,6 @@
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="dailyBonusAmount">20</span> Coins
                     </div>
-                    <div class="feature-rules">
-                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
-                        <ul>
-                            <li>Claim every 24 hours</li>
-                            <li>Base reward: 20 coins</li>
-                            <li>Premium: 40 coins</li>
-                            <li>Watch ad to claim</li>
-                        </ul>
-                    </div>
                     <button class="card-btn" id="dailyBonusBtn">Claim Now</button>
                 </div>
                 
@@ -1401,15 +1397,6 @@
                     <p class="card-desc">Watch short ads and earn coins</p>
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="adRewardAmount">10</span> Coins per Ad
-                    </div>
-                    <div class="feature-rules">
-                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
-                        <ul>
-                            <li>Free: 20 ads/day</li>
-                            <li>Premium: Unlimited</li>
-                            <li>Base: 10 coins/ad</li>
-                            <li>Premium: 20 coins/ad</li>
-                        </ul>
                     </div>
                     <button class="card-btn" id="watchAdBtn">Watch Ad</button>
                 </div>
@@ -1423,15 +1410,6 @@
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="scratchRewardAmount">0-10</span> Coins
                     </div>
-                    <div class="feature-rules">
-                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
-                        <ul>
-                            <li>Free: 10 cards/day</li>
-                            <li>Premium: Unlimited</li>
-                            <li>Base: 0-10 coins</li>
-                            <li>Premium: 0-20 coins</li>
-                        </ul>
-                    </div>
                     <button class="card-btn" id="scratchCardBtn">Scratch Now</button>
                 </div>
                 
@@ -1443,15 +1421,6 @@
                     <p class="card-desc">Spin the wheel and win coins</p>
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="spinRewardAmount">0-10</span> Coins
-                    </div>
-                    <div class="feature-rules">
-                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
-                        <ul>
-                            <li>Free: 1 spin/day</li>
-                            <li>Premium: Unlimited</li>
-                            <li>Base: 0-10 coins</li>
-                            <li>Premium: 0-20 coins</li>
-                        </ul>
                     </div>
                     <button class="card-btn" id="spinWheelBtn">Spin Now</button>
                 </div>
@@ -1465,15 +1434,6 @@
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="visitRewardAmount">30</span> Coins
                     </div>
-                    <div class="feature-rules">
-                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
-                        <ul>
-                            <li>60-second timer</li>
-                            <li>Once per day</li>
-                            <li>Base: 30 coins</li>
-                            <li>Premium: 60 coins</li>
-                        </ul>
-                    </div>
                     <button class="card-btn" id="visitEarnBtn">Visit Now</button>
                 </div>
                 
@@ -1485,15 +1445,6 @@
                     <p class="card-desc">Refer friends and earn 100 coins each</p>
                     <div class="card-coins">
                         <i class="fas fa-coins"></i> <span id="referRewardAmount">100</span> Coins
-                    </div>
-                    <div class="feature-rules">
-                        <h3><i class="fas fa-info-circle"></i> Rules</h3>
-                        <ul>
-                            <li>100 coins per referral</li>
-                            <li>Premium: 200 coins</li>
-                            <li>Friend gets 50 coins</li>
-                            <li>No limit on referrals</li>
-                        </ul>
                     </div>
                     <button class="card-btn" id="referEarnBtn">Refer Now</button>
                 </div>
@@ -1925,16 +1876,10 @@
             
             <!-- QR Code Section -->
             <div class="qr-section">
-                <h3>Scan & Pay via UPI</h3>
+                <h2>Scan & Pay via UPI</h2>
                 <p>Use any UPI app to scan this QR and send payment securely</p>
-                
-                <img src="https://raw.githubusercontent.com/profitainindia/profta/main/qr-code.png"
-                     alt="UPI QR Code"
-                     class="qr-code">
-                
-                <button class="pay-now-btn" onclick="window.open('upi://pay?pa=9929778349@fam&pn=PROFTA&cu=INR', '_blank')">
-                    Pay Now
-                </button>
+                <img src="https://raw.githubusercontent.com/profitainindia/profta/main/qr-code.png" alt="UPI QR Code">
+                <a href="upi://pay?pa=9929778349@fam&pn=PROFTA&cu=INR">Pay Now</a>
             </div>
             
             <div class="payment-upload" id="paymentUpload">
@@ -2113,6 +2058,7 @@
         profileBtn.addEventListener('click', () => {
             showScreen('profile');
             navBtns.forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-screen="profile"]').classList.add('active');
         });
 
         // Feature card clicks
@@ -2254,10 +2200,11 @@
                     // Withdrawal count
                     withdrawalsCount.textContent = userData.withdrawalHistory ? userData.withdrawalHistory.length : 0;
                     
-                    // Populate withdrawal history
+                    // Populate withdrawal history (newest first)
                     if (userData.withdrawalHistory) {
                         withdrawalHistoryBody.innerHTML = '';
-                        userData.withdrawalHistory.forEach(withdrawal => {
+                        const sortedHistory = [...userData.withdrawalHistory].reverse();
+                        sortedHistory.forEach(withdrawal => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
                                 <td>${new Date(withdrawal.date).toLocaleDateString()}</td>
@@ -2860,6 +2807,9 @@ Time: ${new Date().toLocaleString()}`);
                 return;
             }
             
+            // Open visit website in new tab
+            window.open('https://profitaindia.github.io/earnbygotm/', '_blank');
+            
             const visitTimer = document.getElementById('visitTimer');
             const startVisitBtn = document.getElementById('startVisit');
             let timeLeft = 60;
@@ -3121,23 +3071,24 @@ Time: ${now.toLocaleString()}`);
         // Send Telegram notification
         function sendTelegramNotification(message) {
             const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            const data = {
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            };
             
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then(data => {
                 console.log('Telegram notification sent:', data);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error sending Telegram notification:', error);
             });
         }
@@ -3159,4 +3110,4 @@ Time: ${now.toLocaleString()}`);
         initApp();
     </script>
 </body>
-</html>
+</html>     
