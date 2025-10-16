@@ -486,7 +486,6 @@
             align-items: center;
             justify-content: center;
             font-size: 32px;
-            margin-left: 50px;
         }
 
         .profile-info h2 {
@@ -1016,9 +1015,9 @@
             border-top: 2px solid var(--accent);
         }
 
-        .qr-section h2 {
+        .qr-section h3 {
             color: var(--accent);
-            font-size: 1.5rem;
+            font-size: 20px;
             margin-bottom: 8px;
         }
 
@@ -1029,29 +1028,30 @@
         }
 
         .qr-code {
+            margin: 15px 0;
+        }
+
+        .qr-code img {
             width: 200px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            display: block;
-            margin: 0 auto 15px;
         }
 
         .pay-now-btn {
             display: inline-block;
             background: var(--accent);
-            color: var(--primary);
+            color: #111;
             text-decoration: none;
             padding: 10px 20px;
             border-radius: 8px;
             font-weight: 700;
             transition: 0.3s;
-            border: none;
-            cursor: pointer;
+            margin-top: 10px;
         }
 
         .pay-now-btn:hover {
+            background: #00cc66;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
         }
 
         .payment-upload {
@@ -1101,7 +1101,6 @@
         .modal-btn.confirm {
             background: var(--accent);
             color: var(--primary);
-            display: none;
         }
 
         .modal-btn.cancel {
@@ -1229,6 +1228,12 @@
             font-size: 1rem;
         }
 
+        /* Banner Ads */
+        .banner-ad {
+            margin: 20px 0;
+            text-align: center;
+        }
+
         /* Animations */
         @keyframes pulse {
             0% { transform: scale(1); }
@@ -1287,10 +1292,7 @@
             .profile-header {
                 flex-direction: column;
                 text-align: center;
-            }
-            
-            .profile-avatar {
-                margin-left: 0;
+                padding-left: 60px;
             }
             
             .plans {
@@ -1304,6 +1306,10 @@
             
             .feature-header {
                 padding-left: 50px;
+            }
+            
+            .qr-code img {
+                width: 180px;
             }
         }
     </style>
@@ -1362,6 +1368,20 @@
                     </div>
                 </div>
                 
+                <!-- Banner Ad -->
+                <div class="banner-ad">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                            'format' : 'iframe',
+                            'height' : 50,
+                            'width' : 320,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+                </div>
+                
                 <div class="auth-buttons">
                     <button class="auth-btn register-btn" id="showRegister">Register Now</button>
                     <button class="auth-btn login-btn" id="showLogin">Login</button>
@@ -1372,6 +1392,20 @@
         <!-- Home Screen -->
         <div class="screen home-screen" id="homeScreen">
             <h2 class="section-title"><i class="fas fa-money-bill-wave"></i> Earning Methods</h2>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
             
             <div class="earning-cards">
                 <div class="card" data-feature="dailyBonus">
@@ -1385,20 +1419,7 @@
                     </div>
                     <button class="card-btn" id="dailyBonusBtn">Claim Now</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+                
                 <div class="card" data-feature="watchAd">
                     <div class="card-icon">
                         <i class="fas fa-tv"></i>
@@ -1422,20 +1443,7 @@
                     </div>
                     <button class="card-btn" id="scratchCardBtn">Scratch Now</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+                
                 <div class="card" data-feature="spinWheel">
                     <div class="card-icon">
                         <i class="fas fa-sync-alt"></i>
@@ -1459,20 +1467,7 @@
                     </div>
                     <button class="card-btn" id="visitEarnBtn">Visit Now</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+                
                 <div class="card" data-feature="referEarn">
                     <div class="card-icon">
                         <i class="fas fa-user-friends"></i>
@@ -1485,12 +1480,41 @@
                     <button class="card-btn" id="referEarnBtn">Refer Now</button>
                 </div>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Register Screen -->
         <div class="screen" id="registerScreen">
             <div class="auth-form">
                 <h2 class="form-title">Create Account</h2>
+                
+                <!-- Banner Ad -->
+                <div class="banner-ad">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                            'format' : 'iframe',
+                            'height' : 50,
+                            'width' : 320,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+                </div>
+                
                 <form id="registerForm">
                     <div class="form-group">
                         <label class="form-label" for="regName">Full Name</label>
@@ -1515,25 +1539,26 @@
                 </div>
             </div>
         </div>
-        <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
 
         <!-- Login Screen -->
         <div class="screen" id="loginScreen">
             <div class="auth-form">
                 <h2 class="form-title">Login to PROFTA</h2>
+                
+                <!-- Banner Ad -->
+                <div class="banner-ad">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                            'format' : 'iframe',
+                            'height' : 50,
+                            'width' : 320,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+                </div>
+                
                 <form id="loginForm">
                     <div class="form-group">
                         <label class="form-label" for="loginEmail">Email Address</label>
@@ -1549,21 +1574,8 @@
                     Don't have an account? <a href="#" class="form-link" id="showRegisterFromLogin">Register here</a>
                 </div>
             </div>
-        </div
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
         </div>
+
         <!-- Profile Screen -->
         <div class="screen profile-screen" id="profileScreen">
             <div class="profile-header">
@@ -1579,20 +1591,21 @@
                     <div id="premiumStatus"></div>
                 </div>
             </div>
+            
             <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>/h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script> </div>
-        </div>
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <button class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
@@ -1638,6 +1651,20 @@
         <div class="screen redeem-screen" id="redeemScreen">
             <h2 class="section-title"><i class="fas fa-gift"></i> Redeem Your Coins</h2>
             
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="redeem-options">
                 <div class="redeem-option">
                     <h3 class="option-title"><i class="fas fa-money-bill-wave"></i> UPI Redemption</h3>
@@ -1665,20 +1692,7 @@
                     
                     <button class="form-btn" id="redeemUpiBtn">Redeem via UPI</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+                
                 <div class="redeem-option">
                     <h3 class="option-title"><i class="fas fa-code"></i> Code Redemption</h3>
                     <p>Get a redemption code sent to your email</p>
@@ -1706,20 +1720,20 @@
                     <button class="form-btn" id="redeemCodeBtn">Get Redemption Code</button>
                 </div>
             </div>
-        </div>
-        <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Subscription Screen -->
@@ -1728,6 +1742,20 @@
             <p style="text-align: center; margin-bottom: 30px; color: rgba(255, 255, 255, 0.7);">
                 Upgrade your account to unlock unlimited earning potential
             </p>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
             
             <div class="plans">
                 <div class="plan">
@@ -1740,20 +1768,6 @@
                     </ul>
                     <button class="plan-btn" data-plan="starter" data-price="9">Buy Now</button>
                 </div>
-            <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script> </div>
-        </div>
                 
                 <div class="plan">
                     <h3 class="plan-name">Pro</h3>
@@ -1765,20 +1779,7 @@
                     </ul>
                     <button class="plan-btn" data-plan="pro" data-price="19">Buy Now</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+                
                 <div class="plan">
                     <h3 class="plan-name">Premium</h3>
                     <div class="plan-price">₹49</div>
@@ -1789,20 +1790,7 @@
                     </ul>
                     <button class="plan-btn" data-plan="premium" data-price="49">Buy Now</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+                
                 <div class="plan">
                     <h3 class="plan-name">Ultimate</h3>
                     <div class="plan-price">₹99</div>
@@ -1813,20 +1801,7 @@
                     </ul>
                     <button class="plan-btn" data-plan="ultimate" data-price="99">Buy Now</button>
                 </div>
-                <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script> </div>
-        </div>
+                
                 <div class="plan">
                     <h3 class="plan-name">VIP</h3>
                     <div class="plan-price">₹199</div>
@@ -1839,20 +1814,20 @@
                     <button class="plan-btn" data-plan="vip" data-price="199">Buy Now</button>
                 </div>
             </div>
-        </div>
-        <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
         </div>
 
         <!-- Daily Bonus Feature Screen -->
@@ -1864,6 +1839,21 @@
                 <h2 class="feature-title">Daily Bonus</h2>
                 <p class="feature-subtitle">Claim your daily bonus of coins</p>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="feature-content">
                 <div class="feature-rules">
                     <h3><i class="fas fa-calendar-day"></i> Rules & Information</h3>
@@ -1879,20 +1869,7 @@
                 <button class="form-btn" id="claimDailyBonus">Claim Your Bonus</button>
             </div>
         </div>
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+
         <!-- Watch Ad Feature Screen -->
         <div class="screen feature-screen" id="watchAdScreen">
             <div class="feature-header">
@@ -1902,6 +1879,21 @@
                 <h2 class="feature-title">Watch Ads & Earn</h2>
                 <p class="feature-subtitle">Watch short ads to earn coins</p>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="feature-content">
                 <div class="feature-rules">
                     <h3><i class="fas fa-tv"></i> Rules & Information</h3>
@@ -1919,21 +1911,22 @@
                 </div>
                 <button class="form-btn" id="startAd">Watch Ad & Earn</button>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
         </div>
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script> </div>
-        </div>
+
         <!-- Scratch Card Feature Screen -->
         <div class="screen feature-screen" id="scratchCardScreen">
             <div class="feature-header">
@@ -1943,6 +1936,21 @@
                 <h2 class="feature-title">Scratch Cards</h2>
                 <p class="feature-subtitle">Scratch to reveal your prize</p>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="feature-content">
                 <div class="feature-rules">
                     <h3><i class="fas fa-ticket-alt"></i> Rules & Information</h3>
@@ -1966,20 +1974,7 @@
                 <button class="form-btn" id="newScratchCard">Watch Ad for Scratch Card</button>
             </div>
         </div>
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+
         <!-- Spin Wheel Feature Screen -->
         <div class="screen feature-screen" id="spinWheelScreen">
             <div class="feature-header">
@@ -1989,6 +1984,21 @@
                 <h2 class="feature-title">Spin Wheel</h2>
                 <p class="feature-subtitle">Spin the wheel to win coins</p>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="feature-content">
                 <div class="feature-rules">
                     <h3><i class="fas fa-sync-alt"></i> Rules & Information</h3>
@@ -2013,20 +2023,7 @@
                 <div id="spinResult" style="margin-top: 20px; font-size: 1.2rem; font-weight: 600;"></div>
             </div>
         </div>
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script> </div>
-        </div>
+
         <!-- Visit & Earn Feature Screen -->
         <div class="screen feature-screen" id="visitEarnScreen">
             <div class="feature-header">
@@ -2036,6 +2033,21 @@
                 <h2 class="feature-title">Visit & Earn</h2>
                 <p class="feature-subtitle">Visit websites to earn coins</p>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="feature-content">
                 <div class="feature-rules">
                     <h3><i class="fas fa-globe"></i> Rules & Information</h3>
@@ -2055,20 +2067,7 @@
                 <button class="form-btn" id="startVisit">Start Visit</button>
             </div>
         </div>
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script> </div>
-        </div>
+
         <!-- Refer & Earn Feature Screen -->
         <div class="screen feature-screen" id="referEarnScreen">
             <div class="feature-header">
@@ -2078,6 +2077,21 @@
                 <h2 class="feature-title">Refer & Earn</h2>
                 <p class="feature-subtitle">Refer friends and earn coins</p>
             </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+            </div>
+            
             <div class="feature-content">
                 <div class="feature-rules">
                     <h3><i class="fas fa-user-friends"></i> Rules & Information</h3>
@@ -2104,20 +2118,7 @@
             </div>
         </div>
     </div>
-<!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
+
     <!-- Payment Modal -->
     <div class="modal" id="paymentModal">
         <div class="modal-content">
@@ -2128,11 +2129,30 @@
             
             <!-- QR Code Section -->
             <div class="qr-section">
-                <h2>Scan & Pay via UPI</h2>
+                <h3>Scan & Pay via UPI</h3>
                 <p>Use any UPI app to scan this QR and send payment securely</p>
-                <img src="https://raw.githubusercontent.com/profitaindia/profta/main/qr-code.png" 
-                     alt="UPI QR Code" class="qr-code">
-                <button class="pay-now-btn" id="payNowBtn">Pay Now</button>
+                
+                <div class="qr-code">
+                    <img src="https://raw.githubusercontent.com/profitainindia/profta/main/qr-code.png" alt="UPI QR Code">
+                </div>
+                
+                <a href="upi://pay?pa=9929778349@fam&pn=PROFTA&cu=INR" class="pay-now-btn" id="payNowBtn">
+                    Pay Now
+                </a>
+            </div>
+            
+            <!-- Banner Ad -->
+            <div class="banner-ad">
+                <script type="text/javascript">
+                    atOptions = {
+                        'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
             </div>
             
             <div class="payment-upload" id="paymentUpload">
@@ -2149,24 +2169,10 @@
             
             <div class="modal-buttons">
                 <button class="modal-btn cancel" id="cancelPayment">Cancel</button>
-                <button class="modal-btn confirm" id="confirmPayment">Confirm Payment</button>
+                <button class="modal-btn confirm" id="confirmPayment" style="display: none;">Confirm Payment</button>
             </div>
         </div>
     </div>
-            <!-- Banner Ad -->
-        <div class="ad-container">
-            <h4></h4>
-            <div class="ad-code"><script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script></div>
-        </div>
 
     <!-- Ad Modal -->
     <div class="ad-modal" id="adModal">
@@ -2174,16 +2180,7 @@
             <h3 class="ad-title">Watch Ad to Earn Coins</h3>
             <p>Please watch this ad for 10 seconds to earn your reward</p>
             <div class="ad-code-box">
-                <script type="text/javascript">
-	atOptions = {
-		'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+                gotm ad code hear
             </div>
             <div class="ad-timer" id="adTimer">10</div>
             <button class="ad-close" id="closeAd">Close Ad</button>
@@ -2275,12 +2272,12 @@
         const paymentModal = document.getElementById('paymentModal');
         const modalTitle = document.getElementById('modalTitle');
         const paymentDetails = document.getElementById('paymentDetails');
+        const payNowBtn = document.getElementById('payNowBtn');
         const paymentUpload = document.getElementById('paymentUpload');
         const paymentFile = document.getElementById('paymentFile');
         const fileName = document.getElementById('fileName');
         const cancelPayment = document.getElementById('cancelPayment');
         const confirmPayment = document.getElementById('confirmPayment');
-        const payNowBtn = document.getElementById('payNowBtn');
         const paymentLoading = document.getElementById('paymentLoading');
         
         // Ad modal elements
@@ -2410,18 +2407,16 @@
                         totalEarned: 100
                     };
                     
-                    // Add referral bonus if referral code is provided
-                    if (referralCode) {
-                        // In a real app, you would validate the referral code and award bonus
-                        userData.coins += 50;
-                        userData.totalEarned += 50;
-                    }
-                    
                     userRef.set(userData)
                         .then(() => {
-                            alert('Registration successful! You received 100 bonus coins.' + (referralCode ? ' + 50 referral bonus coins.' : ''));
+                            alert('Registration successful! You received 100 bonus coins.');
                             loadUserData(user);
                             showScreen('home');
+                            
+                            // Handle referral if code provided
+                            if (referralCode) {
+                                processReferral(referralCode, user.uid);
+                            }
                         })
                         .catch((error) => {
                             alert('Error saving user data: ' + error.message);
@@ -2431,6 +2426,46 @@
                     alert('Registration error: ' + error.message);
                 });
         });
+
+        // Process referral
+        function processReferral(referralCode, newUserId) {
+            // Find user with this referral code
+            const usersRef = database.ref('users');
+            usersRef.orderByChild('referralCode').equalTo(referralCode).once('value')
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        const referrerId = Object.keys(data)[0];
+                        const referrerData = data[referrerId];
+                        
+                        // Update referrer's data
+                        const referrerRef = database.ref('users/' + referrerId);
+                        const updatedReferrals = (referrerData.referrals || 0) + 1;
+                        const referralReward = referrerData.doubleCoins ? baseEarnings.referReward * 2 : baseEarnings.referReward;
+                        const updatedReferralEarnings = (referrerData.referralEarnings || 0) + referralReward;
+                        const updatedCoins = (referrerData.coins || 0) + referralReward;
+                        const updatedTotal = (referrerData.totalEarned || 0) + referralReward;
+                        
+                        referrerRef.update({
+                            referrals: updatedReferrals,
+                            referralEarnings: updatedReferralEarnings,
+                            coins: updatedCoins,
+                            totalEarned: updatedTotal
+                        });
+                        
+                        // Send Telegram notification
+                        sendTelegramNotification(`👥 NEW REFERRAL 👥
+Referrer: ${referrerData.email}
+New User: ${newUserId}
+Referral Code: ${referralCode}
+Reward: ${referralReward} coins
+Time: ${new Date().toLocaleString()}`);
+                    }
+                })
+                .catch((error) => {
+                    console.log('Error processing referral:', error);
+                });
+        }
 
         // Login form
         loginForm.addEventListener('submit', (e) => {
@@ -2556,7 +2591,7 @@
             const lastBonusClaim = userData.lastBonusClaim ? new Date(userData.lastBonusClaim) : null;
             const now = new Date();
             
-            if (lastBonusClaim && (now - lastClaim) < 24 * 60 * 60 * 1000) {
+            if (lastBonusClaim && (now - lastBonusClaim) < 24 * 60 * 60 * 1000) {
                 const nextClaim = new Date(lastBonusClaim.getTime() + 24 * 60 * 60 * 1000);
                 const timeLeft = nextClaim - now;
                 updateTimer('dailyBonusTimer', timeLeft);
@@ -3099,7 +3134,7 @@ Time: ${new Date().toLocaleString()}`);
                 return;
             }
             
-            // Open the visit website in a new tab
+            // Open visit website in new tab
             window.open('https://profitaindia.github.io/earnbygotm/', '_blank');
             
             const visitTimer = document.getElementById('visitTimer');
@@ -3186,7 +3221,7 @@ Time: ${new Date().toLocaleString()}`);
                     if (timeLeft <= 0) {
                         clearInterval(adTimerInterval);
                         closeAd.style.display = 'block';
-                        // Auto-close after 2 seconds
+                        // Auto close after 2 seconds
                         setTimeout(() => {
                             adModal.classList.remove('active');
                             resolve(true);
@@ -3243,39 +3278,40 @@ Time: ${new Date().toLocaleString()}`);
                 <p><strong>Price:</strong> ₹${price}</p>
                 <p><strong>User:</strong> ${userData.email}</p>
                 <p><strong>Name:</strong> ${userData.name}</p>
-                <p>Scan the QR code to make payment and upload screenshot</p>
+                <p>Scan the QR code or click Pay Now to make payment</p>
             `;
             
-            // Reset modal state
+            // Reset UI state
             confirmPayment.style.display = 'none';
-            payNowBtn.style.display = 'inline-block';
             paymentLoading.style.display = 'none';
+            payNowBtn.style.display = 'inline-block';
             paymentFile.value = '';
             fileName.textContent = 'No file selected';
             paymentScreenshot = null;
             
             paymentModal.classList.add('active');
-        }
-
-        // Pay Now button functionality
-        payNowBtn.addEventListener('click', () => {
-            payNowBtn.style.display = 'none';
-            let timeLeft = 10;
-            payNowBtn.textContent = `Pay Now (${timeLeft})`;
+            
+            // Start timer for Pay Now button
+            let payNowTimeLeft = 10;
+            payNowBtn.textContent = `Pay Now (${payNowTimeLeft})`;
             payNowBtn.disabled = true;
             
             payNowTimer = setInterval(() => {
-                timeLeft--;
-                payNowBtn.textContent = `Pay Now (${timeLeft})`;
+                payNowTimeLeft--;
+                payNowBtn.textContent = `Pay Now (${payNowTimeLeft})`;
                 
-                if (timeLeft <= 0) {
+                if (payNowTimeLeft <= 0) {
                     clearInterval(payNowTimer);
                     payNowBtn.textContent = 'Pay Now';
                     payNowBtn.disabled = false;
-                    confirmPayment.style.display = 'block';
+                    
+                    // Show confirm button after Pay Now is enabled
+                    setTimeout(() => {
+                        confirmPayment.style.display = 'block';
+                    }, 10000); // 10 seconds
                 }
             }, 1000);
-        });
+        }
 
         // File upload handling
         paymentUpload.addEventListener('click', () => {
@@ -3295,7 +3331,7 @@ Time: ${new Date().toLocaleString()}`);
             paymentFile.value = '';
             fileName.textContent = 'No file selected';
             paymentScreenshot = null;
-            clearInterval(payNowTimer);
+            if (payNowTimer) clearInterval(payNowTimer);
         });
 
         // Confirm payment
@@ -3306,8 +3342,8 @@ Time: ${new Date().toLocaleString()}`);
             }
             
             // Show loading
-            confirmPayment.style.display = 'none';
             paymentLoading.style.display = 'block';
+            confirmPayment.disabled = true;
             
             // Upload screenshot to Firebase Storage
             const storageRef = storage.ref(`payment_screenshots/${currentUser.uid}/${Date.now()}_${paymentScreenshot.name}`);
@@ -3320,7 +3356,7 @@ Time: ${new Date().toLocaleString()}`);
                 (error) => {
                     alert('Error uploading screenshot: ' + error.message);
                     paymentLoading.style.display = 'none';
-                    confirmPayment.style.display = 'block';
+                    confirmPayment.disabled = false;
                 },
                 () => {
                     // Get download URL
@@ -3371,13 +3407,14 @@ Time: ${new Date().toLocaleString()}`);
                             totalEarned: updatedTotal
                         })
                         .then(() => {
-                            // Show success message after 5 seconds
+                            // Show loading for 5 seconds
                             setTimeout(() => {
                                 paymentModal.classList.remove('active');
                                 paymentFile.value = '';
                                 fileName.textContent = 'No file selected';
                                 paymentScreenshot = null;
                                 paymentLoading.style.display = 'none';
+                                confirmPayment.disabled = false;
                                 
                                 alert(`Plan purchased successfully! ${bonusCoins > 0 ? `You received ${bonusCoins} bonus coins. ` : ''}Enjoy your premium benefits.`);
                                 
@@ -3393,7 +3430,7 @@ Time: ${now.toLocaleString()}`);
                         .catch((error) => {
                             alert('Error saving plan data: ' + error.message);
                             paymentLoading.style.display = 'none';
-                            confirmPayment.style.display = 'block';
+                            confirmPayment.disabled = false;
                         });
                     });
                 }
@@ -3441,6 +3478,5 @@ Time: ${now.toLocaleString()}`);
         // Start the app
         initApp();
     </script>
-	<script type='text/javascript' src='//pl27759506.effectivegatecpm.com/1b/c1/f4/1bc1f4b64cca42588d13e1ec7b8f796b.js'></script>
 </body>
 </html>
