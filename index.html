@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="monetag" content="01277e1b5416dea00bfb24d94574daea">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROFTA - Earn Money Online</title>
+    <title>PROFTA - Complete Earning Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -1035,19 +1034,19 @@
             border-top: 2px solid var(--accent);
         }
 
-        .qr-section h2 {
+        .qr-section h3 {
             color: var(--accent);
-            font-size: 1.5rem;
+            font-size: 22px;
             margin-bottom: 8px;
         }
 
         .qr-section p {
             color: #ccc;
-            font-size: 1rem;
-            margin-bottom: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
 
-        .qr-section img {
+        .qr-code {
             width: 250px;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -1055,10 +1054,10 @@
             margin: 0 auto 15px;
         }
 
-        .qr-section a {
+        .pay-now-btn {
             display: inline-block;
             background: var(--accent);
-            color: #111;
+            color: var(--primary);
             text-decoration: none;
             padding: 12px 28px;
             border-radius: 8px;
@@ -1066,7 +1065,7 @@
             transition: 0.3s;
         }
 
-        .qr-section a:hover {
+        .pay-now-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
         }
@@ -1181,18 +1180,6 @@
             margin: 20px 0;
         }
 
-        .ad-close {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 20px;
-            display: none;
-        }
-
         /* Footer */
         footer {
             text-align: center;
@@ -1301,10 +1288,6 @@
             .feature-header {
                 padding-left: 50px;
             }
-            
-            .qr-section img {
-                width: 200px;
-            }
         }
     </style>
 </head>
@@ -1337,9 +1320,6 @@
         <button class="nav-btn" data-screen="subscription">
             <i class="fas fa-crown"></i> Premium
         </button>
-        <button class="nav-btn" data-screen="profile">
-            <i class="fas fa-user"></i> Profile
-        </button>
     </nav>
 
     <!-- Main Content -->
@@ -1349,6 +1329,7 @@
             <div class="welcome-content">
                 <h1 class="welcome-title">Earn Money Online with PROFTA</h1>
                 <p class="welcome-subtitle">Join thousands of users who are earning daily with our platform</p>
+                
                 <div class="stats">
                     <div class="stat-card">
                         <div class="stat-number">10,000+</div>
@@ -1875,10 +1856,13 @@
             
             <!-- QR Code Section -->
             <div class="qr-section">
-                <h2>Scan & Pay via UPI</h2>
+                <h3>Scan & Pay via UPI</h3>
                 <p>Use any UPI app to scan this QR and send payment securely</p>
-                <img src="https://raw.githubusercontent.com/profitainindia/profta/main/qr-code.png" alt="UPI QR Code">
-                <a href="upi://pay?pa=9929778349@fam&pn=PROFTA&cu=INR">Pay Now</a>
+                <img src="https://raw.githubusercontent.com/profitainindia/profta/main/qr-code.png" 
+                     alt="UPI QR Code" class="qr-code">
+                <a href="upi://pay?pa=9929778349@fam&pn=PROFTA&cu=INR" class="pay-now-btn">
+                    Pay Now
+                </a>
             </div>
             
             <div class="payment-upload" id="paymentUpload">
@@ -1903,7 +1887,6 @@
                 gotm ad code hear
             </div>
             <div class="ad-timer" id="adTimer">10</div>
-            <button class="ad-close" id="closeAd">Close Ad</button>
         </div>
     </div>
 
@@ -1940,8 +1923,8 @@
         const storage = firebase.storage();
 
         // Telegram Bot Configuration
-        const TELEGRAM_BOT_TOKEN = "8253928607:AAGrVlxJftNEdnDot-f5Do0QJDKoAaTm1d0";
-        const TELEGRAM_CHAT_ID = "6225430212";
+        const TELEGRAM_BOT_TOKEN = '8253928607:AAGrVlxJftNEdnDot-f5Do0QJDKoAaTm1d0';
+        const TELEGRAM_CHAT_ID = '6225430212';
 
         // DOM Elements
         const screens = document.querySelectorAll('.screen');
@@ -2001,7 +1984,6 @@
         // Ad modal elements
         const adModal = document.getElementById('adModal');
         const adTimer = document.getElementById('adTimer');
-        const closeAd = document.getElementById('closeAd');
         
         // Plan buttons
         const planButtons = document.querySelectorAll('.plan-btn');
@@ -2056,8 +2038,6 @@
 
         profileBtn.addEventListener('click', () => {
             showScreen('profile');
-            navBtns.forEach(b => b.classList.remove('active'));
-            document.querySelector('[data-screen="profile"]').classList.add('active');
         });
 
         // Feature card clicks
@@ -2806,7 +2786,7 @@ Time: ${new Date().toLocaleString()}`);
                 return;
             }
             
-            // Open visit website in new tab
+            // Open the visit website in new tab
             window.open('https://profitaindia.github.io/earnbygotm/', '_blank');
             
             const visitTimer = document.getElementById('visitTimer');
@@ -2884,7 +2864,6 @@ Time: ${new Date().toLocaleString()}`);
                 adModal.classList.add('active');
                 let timeLeft = 10;
                 adTimer.textContent = timeLeft;
-                closeAd.style.display = 'none';
                 
                 adTimerInterval = setInterval(() => {
                     timeLeft--;
@@ -2892,26 +2871,12 @@ Time: ${new Date().toLocaleString()}`);
                     
                     if (timeLeft <= 0) {
                         clearInterval(adTimerInterval);
-                        closeAd.style.display = 'block';
-                        // Auto close after 2 seconds
                         setTimeout(() => {
                             adModal.classList.remove('active');
-                            resolve(true);
-                        }, 2000);
+                            resolve(true); // Ad completed successfully
+                        }, 500);
                     }
                 }, 1000);
-                
-                closeAd.addEventListener('click', () => {
-                    adModal.classList.remove('active');
-                    clearInterval(adTimerInterval);
-                    
-                    // Only resolve as completed if timer reached 0
-                    if (timeLeft <= 0) {
-                        resolve(true);
-                    } else {
-                        resolve(false); // Ad not completed
-                    }
-                });
             });
         }
 
@@ -3050,13 +3015,12 @@ Time: ${new Date().toLocaleString()}`);
                             
                             alert(`Plan purchased successfully! ${bonusCoins > 0 ? `You received ${bonusCoins} bonus coins. ` : ''}Enjoy your premium benefits.`);
                             
-                            // Send Telegram notification with screenshot URL
+                            // Send Telegram notification with user info only (no screenshot)
                             sendTelegramNotification(`💰 NEW PLAN PURCHASE 💰
 Plan: ${selectedPlan.toUpperCase()}
 Amount: ₹${selectedPlanPrice}
 User: ${userData.email}
 Name: ${userData.name}
-Payment Proof: ${downloadURL}
 Time: ${now.toLocaleString()}`);
                         })
                         .catch((error) => {
@@ -3070,26 +3034,49 @@ Time: ${now.toLocaleString()}`);
         // Send Telegram notification
         function sendTelegramNotification(message) {
             const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-            const data = {
-                chat_id: TELEGRAM_CHAT_ID,
-                text: message,
-                parse_mode: 'HTML'
-            };
             
             fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'HTML'
+                })
             })
             .then(response => response.json())
             .then(data => {
                 console.log('Telegram notification sent:', data);
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('Error sending Telegram notification:', error);
             });
+        }
+
+        // Reset daily counts at midnight
+        function resetDailyCounts() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            
+            const timeUntilMidnight = tomorrow - now;
+            
+            setTimeout(() => {
+                if (currentUser && userData) {
+                    const userRef = database.ref('users/' + currentUser.uid);
+                    userRef.update({
+                        adsWatchedToday: 0,
+                        scratchesToday: 0,
+                        spinsToday: 0
+                    });
+                }
+                
+                // Schedule next reset
+                resetDailyCounts();
+            }, timeUntilMidnight);
         }
 
         // Initialize the app
@@ -3103,10 +3090,13 @@ Time: ${now.toLocaleString()}`);
                     showScreen('welcome');
                 }
             });
+            
+            // Start daily reset timer
+            resetDailyCounts();
         }
 
         // Start the app
         initApp();
     </script>
 </body>
-</html>     
+</html>
