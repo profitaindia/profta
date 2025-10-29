@@ -3256,4 +3256,45 @@ Time: ${now.toLocaleString()}`);
         initApp();
     </script>
   </body>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDno0YmNMKaWHexZtaOIbs5FWvPUFsMcu0",
+    authDomain: "profta-a85a6.firebaseapp.com",
+    databaseURL: "https://profta-a85a6-default-rtdb.firebaseio.com",
+    projectId: "profta-a85a6",
+    storageBucket: "profta-a85a6.firebasestorage.app",
+    messagingSenderId: "124370996303",
+    appId: "1:124370996303:web:9ece8aaed23b92f7b66e3a",
+    measurementId: "G-Q3018BMKK3"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  // yahan apne current version likh
+  const currentVersion = "1.2";
+
+  firebase.database().ref("update").on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (data && data.version !== currentVersion) {
+      const popup = document.createElement("div");
+      popup.innerHTML = `
+        <div style="
+          position:fixed; top:0; left:0; right:0; bottom:0;
+          background:rgba(0,0,0,0.8); display:flex; flex-direction:column;
+          align-items:center; justify-content:center; color:white; z-index:9999;">
+          <h2>New Update Available 🚀</h2>
+          <p>Please update your app to continue using it.</p>
+          <button id="updateBtn" style="padding:10px 20px; font-size:16px; border:none; background:#00c853; color:white; border-radius:8px;">
+            Update Now
+          </button>
+        </div>`;
+      document.body.appendChild(popup);
+
+      document.getElementById("updateBtn").onclick = () => {
+        window.location.href = data.link;
+      };
+    }
+  });
+</script>
 </html>
