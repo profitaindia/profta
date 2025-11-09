@@ -1431,6 +1431,18 @@
                     </div>
                     <button class="card-btn" id="visitEarnBtn">Visit Now</button>
                 </div>
+
+                <div class="card" data-feature="voiceEarn">
+    <div class="card-icon">
+        <i class="fas fa-microphone-alt"></i>
+    </div>
+    <h3 class="card-title">Voice Recognition</h3>
+    <p class="card-desc">Chant "Radhe Radhe" and earn coins</p>
+    <div class="card-coins">
+        <i class="fas fa-coins"></i> <span id="voiceRewardAmount">1</span> Coin per Chant
+    </div>
+    <button class="card-btn" id="voiceEarnBtn">Start Chanting</button>
+</div>
                 
                 <div class="card" data-feature="referEarn">
                     <div class="card-icon">
@@ -1942,6 +1954,597 @@
                 <button class="form-btn" id="startVisit">Start Visit</button>
             </div>
         </div>
+
+                        <-- voiceEarn feature screen -->
+                            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Recognition - PROFTA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0f2d, #1e3a8a);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .voice-earning-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .voice-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        .voice-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .permission-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .permission-text {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .agree-btn {
+            background: linear-gradient(135deg, #1e3a8a, #00ff88);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .agree-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .voice-interface {
+            display: none;
+        }
+
+        .instruction {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #00ff88;
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 20px 0;
+            color: gold;
+        }
+
+        .voice-status {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            min-height: 24px;
+        }
+
+        .mic-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #1e3a8a, #00ff88);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .mic-icon.listening {
+            animation: pulse 1.5s infinite;
+            background: linear-gradient(135deg, #ff0000, #ff8800);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #1e3a8a, #00ff88);
+            color: white;
+        }
+
+        .stop-btn {
+            background: linear-gradient(135deg, #8a1e1e, #ff0000);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .close-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .ad-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .ad-modal.active {
+            display: flex;
+        }
+
+        .ad-content {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .ad-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #0a0f2d;
+        }
+
+        .ad-code-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .ad-timer {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00ff88;
+            margin: 20px 0;
+        }
+
+        .ad-close {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .banner-ad {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .rewarded-ad {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .voice-earning-container {
+                padding: 20px;
+            }
+            
+            .voice-title {
+                font-size: 1.7rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="voice-earning-container">
+        <h1 class="voice-title">Voice Recognition</h1>
+        <p class="voice-subtitle">Chant and earn coins</p>
+        
+        <!-- Banner Ad -->
+        <div class="banner-ad">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : 'c94097f69bdd589f5fe0f6601e4ff967',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/c94097f69bdd589f5fe0f6601e4ff967/invoke.js"></script>
+        </div>
+        
+        <!-- Permission Screen -->
+        <div class="permission-box" id="permissionScreen">
+            <p class="permission-text">
+                This feature requires microphone access to recognize your voice. 
+                We need your permission to listen for the chant "Radhe Radhe" and count repetitions.
+                Your voice data is processed locally and not stored on our servers.
+            </p>
+            <button class="agree-btn" id="agreeBtn">I Agree</button>
+        </div>
+        
+        <!-- Voice Interface -->
+        <div class="voice-interface" id="voiceInterface">
+            <p class="instruction">
+                Chant "Radhe Radhe" to earn coins!<br>
+                Each chant = 1 coin
+            </p>
+            
+            <div class="counter" id="counter">0</div>
+            
+            <p class="voice-status" id="voiceStatus">Ready to listen...</p>
+            
+            <div class="mic-icon" id="micIcon">
+                <i class="fas fa-microphone"></i>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn start-btn" id="startBtn">Start Listening</button>
+                <button class="control-btn stop-btn" id="stopBtn" disabled>Stop</button>
+            </div>
+            
+            <!-- Rewarded Ad Placeholder -->
+            <div class="rewarded-ad">
+                <div id="rewardedAdUnit">
+                    <!-- Rewarded ad will be loaded here -->
+                </div>
+            </div>
+            
+            <button class="close-btn" id="closeBtn">Close</button>
+        </div>
+    </div>
+
+    <!-- Ad Modal -->
+    <div class="ad-modal" id="adModal">
+        <div class="ad-content">
+            <h3 class="ad-title">Watch Ad to Collect Coins</h3>
+            <p>Please watch this ad to collect your earned coins</p>
+            <div class="ad-code-box">
+                gotm ad code hear
+            </div>
+            <div class="ad-timer" id="adTimer">10</div>
+            <button class="ad-close" id="closeAd">Collect Coins</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDno0YmNMKaWHexZtaOIbs5FWvPUFsMcu0",
+            authDomain: "profta-a85a6.firebaseapp.com",
+            databaseURL: "https://profta-a85a6-default-rtdb.firebaseio.com",
+            projectId: "profta-a85a6",
+            storageBucket: "profta-a85a6.firebasestorage.app",
+            messagingSenderId: "124370996303",
+            appId: "1:124370996303:web:9ece8aaed23b92f7b66e3a",
+            measurementId: "G-Q3018BMKK3"
+        };
+
+        // Initialize Firebase (if not already initialized)
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        // DOM Elements
+        const permissionScreen = document.getElementById('permissionScreen');
+        const voiceInterface = document.getElementById('voiceInterface');
+        const agreeBtn = document.getElementById('agreeBtn');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const micIcon = document.getElementById('micIcon');
+        const counter = document.getElementById('counter');
+        const voiceStatus = document.getElementById('voiceStatus');
+        const adModal = document.getElementById('adModal');
+        const adTimer = document.getElementById('adTimer');
+        const closeAd = document.getElementById('closeAd');
+
+        // Voice Recognition Variables
+        let recognition;
+        let isListening = false;
+        let chantCount = 0;
+        let currentUser = null;
+        let userData = null;
+        let adTimerInterval = null;
+
+        // Check for browser support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            voiceStatus.textContent = "Speech recognition not supported in this browser";
+            startBtn.disabled = true;
+        } else {
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isListening = true;
+                micIcon.classList.add('listening');
+                voiceStatus.textContent = "Listening... Say 'Radhe Radhe'";
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            };
+
+            recognition.onend = function() {
+                isListening = false;
+                micIcon.classList.remove('listening');
+                voiceStatus.textContent = "Stopped listening";
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            };
+
+            recognition.onresult = function(event) {
+                let interimTranscript = '';
+                let finalTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript;
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+
+                // Check for the chant "radhe radhe" (case insensitive)
+                if (finalTranscript.toLowerCase().includes('radhe radhe')) {
+                    chantCount++;
+                    counter.textContent = chantCount;
+                    voiceStatus.innerHTML = `Chant detected! <i class="fas fa-check" style="color: #00ff88;"></i>`;
+                    
+                    // Reset status after 1 second
+                    setTimeout(() => {
+                        if (isListening) {
+                            voiceStatus.textContent = "Listening... Say 'Radhe Radhe'";
+                        }
+                    }, 1000);
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error', event.error);
+                voiceStatus.textContent = `Error: ${event.error}`;
+                isListening = false;
+                micIcon.classList.remove('listening');
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            };
+        }
+
+        // Event Listeners
+        agreeBtn.addEventListener('click', () => {
+            permissionScreen.style.display = 'none';
+            voiceInterface.style.display = 'block';
+            
+            // Check if user is logged in
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    currentUser = user;
+                    loadUserData(user);
+                } else {
+                    voiceStatus.textContent = "Please login to earn coins";
+                    startBtn.disabled = true;
+                }
+            });
+        });
+
+        startBtn.addEventListener('click', () => {
+            if (recognition) {
+                recognition.start();
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (recognition && isListening) {
+                recognition.stop();
+                
+                // If user has earned coins, show ad to collect them
+                if (chantCount > 0) {
+                    showAdModal();
+                }
+            }
+        });
+
+        closeBtn.addEventListener('click', () => {
+            if (isListening) {
+                recognition.stop();
+            }
+            
+            // Reset the component
+            chantCount = 0;
+            counter.textContent = '0';
+            voiceInterface.style.display = 'none';
+            permissionScreen.style.display = 'block';
+        });
+
+        micIcon.addEventListener('click', () => {
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+
+        // Ad Modal Functionality
+        function showAdModal() {
+            adModal.classList.add('active');
+            let timeLeft = 10;
+            adTimer.textContent = timeLeft;
+            closeAd.style.display = 'none';
+            
+            adTimerInterval = setInterval(() => {
+                timeLeft--;
+                adTimer.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(adTimerInterval);
+                    closeAd.style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        closeAd.addEventListener('click', () => {
+            adModal.classList.remove('active');
+            clearInterval(adTimerInterval);
+            
+            // Award coins to user
+            if (currentUser && chantCount > 0) {
+                awardCoins(chantCount);
+                chantCount = 0;
+                counter.textContent = '0';
+            }
+        });
+
+        // Load user data from Firebase
+        function loadUserData(user) {
+            const userRef = database.ref('users/' + user.uid);
+            
+            userRef.on('value', (snapshot) => {
+                userData = snapshot.val();
+                if (userData) {
+                    startBtn.disabled = false;
+                    voiceStatus.textContent = "Ready to listen. Click Start or the microphone icon.";
+                }
+            });
+        }
+
+        // Award coins to user
+        function awardCoins(coins) {
+            if (!currentUser) return;
+            
+            const userRef = database.ref('users/' + currentUser.uid);
+            const updatedCoins = (userData.coins || 0) + coins;
+            const updatedTotal = (userData.totalEarned || 0) + coins;
+            
+            userRef.update({
+                coins: updatedCoins,
+                totalEarned: updatedTotal
+            })
+            .then(() => {
+                alert(`Congratulations! You earned ${coins} coins from chanting!`);
+            })
+            .catch((error) => {
+                console.error('Error updating coins:', error);
+                alert('Error awarding coins. Please try again.');
+            });
+        }
+
+        // Initialize the component
+        function initVoiceEarning() {
+            // Check if user is already logged in
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    currentUser = user;
+                    loadUserData(user);
+                }
+            });
+        }
+
+        // Start the component
+        initVoiceEarning();
+
+        // Function to open this component from another page
+        window.openVoiceEarning = function() {
+            permissionScreen.style.display = 'block';
+            voiceInterface.style.display = 'none';
+            chantCount = 0;
+            counter.textContent = '0';
+        };
+    </script>
+</body>
+</html>
 
         <!-- Refer & Earn Feature Screen -->
         <div class="screen feature-screen" id="referEarnScreen">
